@@ -5,12 +5,19 @@ import ResetPass from "../Auth/ResetPass";
 import SignIn from "../Auth/SignIn";
 import Signup from "../Auth/Signup";
 import Homescreen from "../HomeScreen";
+import Header from "../Header/Header";
 
 const HomeRoutes = () => {
 	let element = useRoutes([
 		{
 			path: "/",
-			element: <Homescreen />,
+			element: (
+			<>
+			<Header />
+			<Homescreen />
+			</>
+		
+			),
 		},
 		{
 			path: "/signup",

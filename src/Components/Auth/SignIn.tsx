@@ -2,12 +2,43 @@ import React from 'react'
 import styled from 'styled-components'
 import pix from "./img/google.png"
 import { AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+import {useNavigate} from "react-router-dom"
+import * as yup from "yup"
+import {yupResolver} from "@hookform/resolvers/yup"
+import {useForm, SubmitHandler} from 'react-hook-form'
+
+interface iData{
+  email:string,
+  password:string,
+  
+}
+
 
 const SignIn = () => {
 
   const [shown, setShown] = React.useState<boolean>(false);
   const [shown2, setShown2] = React.useState<boolean>(false);
+  const Navigate = useNavigate()
 
+  const schema = yup.object().shape({
+    
+    email: yup.string().email().required("please enter a valid email address"),
+    password:yup.string().required("please enter a valid password"),
+
+  })
+
+  const {
+    handleSubmit,
+    formState:{errors},
+    reset,
+    register
+  } = useForm<iData>({
+    resolver : yupResolver(schema)
+  })
+
+  const onSubmit: SubmitHandler<iData>= async(value) =>{
+          console.log(value)
+  }
   return (
     <Container>
         <Wrapper>
@@ -40,16 +71,21 @@ const SignIn = () => {
             </Line>
           </LinHold>
 
-          <Myform>
+          <Myform onSubmit={handleSubmit(onSubmit)}>
            
             <HoldInput>
               <Lable>Email</Lable>
-              <Input placeholder='eg : peterparker223@gmail.com'/>
+              <Input placeholder='eg : peterparker223@gmail.com'
+                {...register("email")}
+              />
+               <Error>{errors.email && "Email is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Password</Lable>
               <Passshow>
-              <Input2   type={shown ? "text" : "password"} placeholder='password'/>
+              <Input2   type={shown ? "text" : "password"} placeholder='password'
+                    {...register("password")}
+              />
               <Hide
                onClick={()=>{
                 setShown(!shown);
@@ -60,6 +96,7 @@ const SignIn = () => {
                
                 </Hide>
               </Passshow>
+              <Error>{errors.password && "Password is required"}</Error>
             </HoldInput>
     
             <Button>
@@ -69,7 +106,11 @@ const SignIn = () => {
           </Myform>
           <Already>
             <OPP>
-              <Acc>Already have an Accont?</Acc> &nbsp; <Sig>Sign in Here</Sig>
+              <Acc>Don't have an account?</Acc> &nbsp; <Sig
+               onClick={()=>{
+                Navigate("/signup")
+              }}
+              >Sign up Here</Sig>
             </OPP>
           </Already>
           
@@ -84,6 +125,12 @@ const SignIn = () => {
 }
 
 export default SignIn
+
+const Error = styled.div`
+	font-size: 10px;
+	color: red;
+`;
+
 
 const OPP = styled.div`
 display:flex;
@@ -101,14 +148,14 @@ const Sig =styled.div`
 color:red;
 font-size: 14px;
 font-weight:800;
-
+cursor:pointer;
 @media screen and (max-width:600px){
   font-size: 11px;
 }
 `
 
 const Already = styled.div`
- width:60%;
+ width:66%;
  height:20px;
  display:flex;
  justify-content:center;
@@ -233,7 +280,7 @@ object-fit:contain;
 `
 
 const MainHold = styled('div')`
-  width:190px;
+  width:175px;
   
   height:100%;
   display:flex;
@@ -242,7 +289,7 @@ const MainHold = styled('div')`
 
 
   span{
-    font-size:18px;
+    font-size:15px;
     font-weight:600;
   }
 `
@@ -289,7 +336,7 @@ align-items: center;
 span{
   font-width:900;
   color:#AE67FA;
-  font-size:35px;
+  font-size:30px;
   font-family:Imported;
 }
 `
