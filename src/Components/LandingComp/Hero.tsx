@@ -10,7 +10,7 @@ import Typewriter from "typewriter-effect";
 
 const Hero = () => {
 	return (
-		<Container>
+		<Container id='Home'>
 			<Wrapper>
 				<First>
 					<Title>
@@ -178,9 +178,11 @@ const Title = styled.h1`
 	font-weight: bolder;
 	min-height: 70px;
 	margin-bottom: 7px;
+	max-width: 500px;
 
 	@media screen and (max-width: 790px) {
 		font-size: 35px;
+		max-width: 95%;
 	}
 `;
 

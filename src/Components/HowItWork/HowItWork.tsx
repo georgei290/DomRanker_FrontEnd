@@ -102,7 +102,7 @@ const CardMain = styled.div<{ bg: string }>`
 	overflow: hidden;
 
 	@media screen and (max-width: 600px) {
-		width: 100%;
+		/* width: 100%; */
 	}
 
 	::before {
@@ -137,6 +137,10 @@ const Tit = styled.div`
 `;
 const Desc = styled.div`
 	color: #3e4581;
+
+	@media screen and (min-width: 700px) and (max-width: 790px) {
+		width: 250px;
+	}
 `;
 
 const First = styled.div`
@@ -154,7 +158,11 @@ const Second = styled.div`
 const Container = styled.div`
 	display: flex;
 	margin-top: 50px;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	justify-content: center;
 	background-color: #f8f8ff;
+
+	@media screen and (max-width: 600px) {
+		flex-wrap: wrap;
+	}
 `;

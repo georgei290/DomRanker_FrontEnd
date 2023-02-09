@@ -10,7 +10,7 @@ import pic6 from "../Images/ic6.png";
 
 const OfferComp = () => {
 	return (
-		<Container>
+		<Container id='About'>
 			<Wrapper>
 				<Card>
 					<IconHold>

@@ -1,29 +1,54 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-scroll";
 
-const SideBarComp = () => {
+interface Iprops {
+	toggleSideBar: () => void;
+}
+
+const SideBarComp: React.FC<Iprops> = ({ toggleSideBar }) => {
 	return (
 		<SideDiv>
 			<NavHold2>
 				<Head>Menu</Head>
 			</NavHold2>
-			<NavHold to='/createOrganisation'>
+			<NavHold
+				onClick={toggleSideBar}
+				offset={-100}
+				smooth={true}
+				duration={500}
+				to='Home'>
 				<Nav>Home</Nav>
 			</NavHold>
-			<NavHold to='/register'>
+			<NavHold
+				onClick={toggleSideBar}
+				offset={-100}
+				smooth={true}
+				duration={500}
+				to='About'>
 				<Nav>About Us</Nav>
 			</NavHold>
 
-			<NavHold to='/'>
+			<NavHold
+				onClick={toggleSideBar}
+				offset={-100}
+				smooth={true}
+				duration={500}
+				to='Services'>
 				<Nav>Services</Nav>
 			</NavHold>
 
-			<NavHold to='/signin'>
+			<NavHold
+				onClick={toggleSideBar}
+				offset={-100}
+				smooth={true}
+				duration={500}
+				to='Contact'>
 				<Nav>Contact Us</Nav>
 			</NavHold>
 
-			<NavHold to='/createOrganisation'>
+			<NavHold onClick={toggleSideBar} to='/'>
 				<Nav>Login</Nav>
 			</NavHold>
 		</SideDiv>
@@ -32,9 +57,10 @@ const SideBarComp = () => {
 
 export default SideBarComp;
 
-const NavHold = styled(NavLink)`
+const NavHold = styled(Link)`
 	text-decoration: none;
 	color: black;
+	cursor: pointer;
 `;
 const NavHold2 = styled.div``;
 const Head = styled.div`

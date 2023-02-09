@@ -4,7 +4,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const Plans = () => {
 	return (
-		<Container>
+		<Container id='Services'>
 			<Hold>
 				<h1>
 					<a
@@ -166,6 +166,10 @@ const Card = styled.div<{ bg: string }>`
 	color: #3e4581;
 	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 	margin: 10px;
+
+	@media screen and (max-width: 600px) {
+		width: 100%;
+	}
 `;
 const Money = styled.div`
 	font-size: 30px;

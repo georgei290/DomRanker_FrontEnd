@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import SideBarComp from "../SideBar/SideBar";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-scroll";
 const Header = () => {
 	const [sideShow, setSideShow] = React.useState(false);
 
@@ -21,10 +22,18 @@ const Header = () => {
 		<Container>
 			<Logo />
 			<NavHolder>
-				<Nav>Home</Nav>
-				<Nav>About Us</Nav>
-				<Nav>Services</Nav>
-				<Nav>Contact Us</Nav>
+				<Nav offset={-100} smooth={true} duration={500} to='Home'>
+					Home
+				</Nav>
+				<Nav offset={-100} smooth={true} duration={500} to='About'>
+					About Us
+				</Nav>
+				<Nav offset={-100} smooth={true} duration={500} to='Services'>
+					Services
+				</Nav>
+				<Nav offset={-100} smooth={true} duration={500} to='Contact'>
+					Contact Us
+				</Nav>
 			</NavHolder>
 			<ButtonHold>
 				<MyButton>Login</MyButton>
@@ -34,7 +43,7 @@ const Header = () => {
 				<GiHamburgerMenu />
 			</Menu>
 
-			{sideShow ? <SideBarComp /> : null}
+			{sideShow ? <SideBarComp toggleSideBar={toggleSideBar} /> : null}
 		</Container>
 	);
 };
@@ -95,7 +104,7 @@ const NavHolder = styled.div`
 		display: none;
 	}
 `;
-const Nav = styled.div`
+const Nav = styled(Link)`
 	margin-right: 25px;
 	margin-left: 25px;
 	color: #3e4581;
