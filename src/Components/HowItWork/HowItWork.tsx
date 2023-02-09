@@ -101,21 +101,21 @@ const CardMain = styled.div<{ bg: string }>`
 	margin-bottom: 30px;
 	overflow: hidden;
 
-	@media screen and (max-width: 600px) {
-		/* width: 100%; */
-	}
-
 	::before {
 		content: "";
 		background-image: url(${(props) => props.bg});
 		/* background-color: red; */
 		height: 300px;
 		position: absolute;
-		width: 250px;
+		width: 300px;
 		background-position: center;
 		background-size: fill;
 		/* background-repeat: no-repeat; */
 		overflow: hidden;
+	}
+
+	@media screen and (max-width: 600px) {
+		width: 90%;
 	}
 `;
 
@@ -140,6 +140,9 @@ const Desc = styled.div`
 
 	@media screen and (min-width: 700px) and (max-width: 790px) {
 		width: 250px;
+	}
+	@media screen and (min-width: 300px) and (max-width: 500px) {
+		width: 97%;
 	}
 `;
 

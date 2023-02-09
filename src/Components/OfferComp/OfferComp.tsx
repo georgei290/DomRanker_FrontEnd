@@ -128,7 +128,7 @@ const Card = styled.div`
 	}
 
 	@media screen and (max-width: 600px) {
-		width: 90%;
+		width: 99%;
 	}
 `;
 

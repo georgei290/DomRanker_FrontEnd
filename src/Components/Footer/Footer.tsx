@@ -4,6 +4,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { Link } from "react-scroll";
+import log from "../Images/logo.png";
 const Footer = () => {
 	return (
 		<Container id='Contact'>
@@ -23,7 +24,7 @@ const Footer = () => {
 			</InputHold>
 			<FootHold>
 				{" "}
-				<Logo />
+				<Logo src={log} />
 				<NavHolder>
 					<Nav offset={-100} smooth={true} duration={500} to='Home'>
 						Home
@@ -110,14 +111,17 @@ const ButtonHold = styled.div`
 	}
 `;
 
-const Logo = styled.div`
+const Logo = styled.img`
 	width: 130px;
-	background-color: #ae67fa;
+	/* background-color: #ae67fa; */
 	height: 40px;
+	object-fit: contain;
+
 	/* margin-left: 70px; */
 
 	@media screen and (max-width: 790px) {
 		/* margin-left: 30px; */
+		margin-bottom: 10px;
 	}
 `;
 const NavHolder = styled.div`

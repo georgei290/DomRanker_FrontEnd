@@ -1,165 +1,136 @@
-import React from 'react'
-import styled from 'styled-components'
-import pix from "./img/google.png"
-import { AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+import React from "react";
+import styled from "styled-components";
+import pix from "./img/google.png";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import * as yup from "yup"
-import {yupResolver} from "@hookform/resolvers/yup"
-import {useForm, SubmitHandler} from 'react-hook-form'
-import { assert } from 'console';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { assert } from "console";
 
-
-interface iData{
-  name:string,
-  email:string,
-  password:string,
-  confirmPassword:string
+interface iData {
+	name: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
 }
-
 
 const Signup = () => {
+	const [shown, setShown] = React.useState<boolean>(false);
+	const [shown2, setShown2] = React.useState<boolean>(false);
+	const Navigate = useNavigate();
 
-  const [shown, setShown] = React.useState<boolean>(false);
-  const [shown2, setShown2] = React.useState<boolean>(false);
-  const Navigate = useNavigate();
+	const schema = yup.object().shape({
+		name: yup.string().required("this filed must be empty"),
+		email: yup.string().email().required("please enter a valid email addresss"),
+		password: yup.string().required("please enter a valid password"),
+		confirmPassword: yup.string().oneOf([yup.ref("password")], null!),
+	});
 
+	const {
+		handleSubmit,
+		formState: { errors },
+		reset,
+		register,
+	} = useForm<iData>({
+		resolver: yupResolver(schema),
+	});
 
-  const schema = yup.object().shape({
-    name: yup.string().required("this filed must be empty"),
-    email: yup.string().email().required("please enter a valid email addresss"),
-    password:yup.string().required("please enter a valid password"),
-    confirmPassword: yup.string().oneOf([yup.ref("password")], null!)
+	const onSubmit: SubmitHandler<iData> = async (value: any) => {
+		console.log(value);
+	};
 
-  })
+	return (
+		<Container>
+			<Wrapper>
+				<Text>
+					<span>Create An Account</span>
+				</Text>
+				<TextDecs>
+					<span>Lets's Help You Get Started</span>
+				</TextDecs>
 
-  const {
-    handleSubmit,
-    formState:{errors},
-    reset,
-    register
-  } = useForm<iData>({
-    resolver : yupResolver(schema)
-  })
+				<SocialCon>
+					<MainHold>
+						<GoogleImg src={pix} />
+						<span>Sign in with google</span>
+					</MainHold>
+				</SocialCon>
 
-  const onSubmit: SubmitHandler<iData>= async(value) =>{
-          console.log(value)
-  }
+				<LinHold>
+					<Line></Line>
+					<div>or</div>
+					<Line></Line>
+				</LinHold>
 
-  return (
-    <Container>
-        <Wrapper>
-          <Text>
-              <span>
-                Create An Account
-              </span>
-          </Text>
-          <TextDecs>
-              <span>
-                Lets's Help You Get Started
-              </span>
-          </TextDecs>
+				<Myform onSubmit={handleSubmit(onSubmit)}>
+					<HoldInput>
+						<Lable>Name</Lable>
+						<Input placeholder='eg : peter parker' {...register("name")} />
+						<Error>{errors.name && "Name is required"}</Error>
+					</HoldInput>
+					<HoldInput>
+						<Lable>Email</Lable>
+						<Input
+							placeholder='eg : peterparker223@gmail.com'
+							{...register("email")}
+						/>
+						<Error>{errors.email && "Email is required"}</Error>
+					</HoldInput>
+					<HoldInput>
+						<Lable>Password</Lable>
+						<Passshow>
+							<Input2
+								type={shown ? "text" : "password"}
+								placeholder='password'
+								{...register("password")}
+							/>
+							<Hide
+								onClick={() => {
+									setShown(!shown);
+								}}>
+								{shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+							</Hide>
+						</Passshow>
+						<Error>{errors.password && "Password is required"}</Error>
+					</HoldInput>
+					<HoldInput>
+						<Lable>Confirm-Password</Lable>
+						<Passshow>
+							<Input2
+								type={shown2 ? "text" : "password"}
+								placeholder='password'
+								{...register("confirmPassword")}
+							/>
+							<Hide
+								onClick={() => {
+									setShown2(!shown2);
+								}}>
+								{shown2 ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+							</Hide>
+						</Passshow>
+						<Error>{errors.confirmPassword && "Passwod did not match"}</Error>
+					</HoldInput>
 
-          <SocialCon>
-             <MainHold>
+					<Button>Sign Up</Button>
+				</Myform>
+				<Already>
+					<OPP>
+						<Acc>Already have an account</Acc> &nbsp;{" "}
+						<Sig
+							onClick={() => {
+								Navigate("/signin");
+							}}>
+							Log In
+						</Sig>
+					</OPP>
+				</Already>
+			</Wrapper>
+		</Container>
+	);
+};
 
-              <GoogleImg src={pix}/>
-              <span>Sign in with google</span>
-
-             </MainHold>
-        
-          </SocialCon>
-
-          <LinHold>
-            <Line>
-            </Line>
-            <div>or</div>
-            <Line>
-            </Line>
-          </LinHold>
-
-          <Myform  onSubmit={handleSubmit(onSubmit)}>
-            <HoldInput>
-              <Lable>Name</Lable>
-              <Input 
-              placeholder='eg : peter parker'
-              {...register("name")}
-              
-              />
-              <Error>{errors.name && "Name is required"}</Error>
-            </HoldInput>
-            <HoldInput>
-              <Lable>Email</Lable>
-              <Input
-              placeholder='eg : peterparker223@gmail.com'
-              {...register("email")}
-              />
-               <Error>{errors.email && "Email is required"}</Error>
-            </HoldInput>
-            <HoldInput>
-              <Lable>Password</Lable>
-              <Passshow>
-              <Input2   type={shown ? "text" : "password"} 
-              placeholder='password'
-              {...register("password")}
-              />
-              <Hide
-               onClick={()=>{
-                setShown(!shown);
-               }}>
-                {
-                  shown ? (<AiOutlineEyeInvisible/>)  : ( <AiOutlineEye/>)
-                }
-               
-                </Hide>
-              </Passshow>
-              <Error>{errors.password && "Password is required"}</Error>
-            </HoldInput>
-            <HoldInput>
-              <Lable>Confirm-Password</Lable>
-              <Passshow>
-              <Input2   type={shown2 ? "text" : "password"}
-               placeholder='password'
-               {...register("confirmPassword")}
-               />
-               <Hide 
-               onClick={()=>{
-                setShown2(!shown2);
-               }}>
-                 {
-                  shown2 ? (<AiOutlineEyeInvisible/>)  : ( <AiOutlineEye/>)
-                }
-                </Hide>
-              </Passshow>
-              <Error>{errors.confirmPassword && "Passwod did not match"}</Error>
-
-            </HoldInput>
-
-            <Button>
-              Sign Up
-            </Button>
-
-          </Myform>
-          <Already>
-            <OPP>
-              <Acc>Already have an account</Acc> &nbsp; <Sig
-              onClick={()=>{
-                Navigate("/signin")
-              }}
-              >Log In</Sig>
-            </OPP>
-          </Already>
-          
-         
-
-          
-
-        </Wrapper>
-        
-    </Container>
-  )
-}
-
-export default Signup
+export default Signup;
 
 const Error = styled.div`
 	font-size: 10px;
@@ -167,237 +138,217 @@ const Error = styled.div`
 `;
 
 const OPP = styled.div`
-display:flex;
-`
+	display: flex;
+`;
 
-const Acc =styled.div`
-font-size: 14px;
-font-weight:800;
+const Acc = styled.div`
+	font-size: 14px;
+	font-weight: 800;
 
-@media screen and (max-width:600px){
-  font-size: 11px;
-}
-`
-const Sig =styled.div`
-color:red;
-font-size: 14px;
-font-weight:800;
-cursor: pointer;
-@media screen and (max-width:600px){
-  font-size: 11px;
-}
-`
+	@media screen and (max-width: 600px) {
+		font-size: 11px;
+	}
+`;
+const Sig = styled.div`
+	color: red;
+	font-size: 14px;
+	font-weight: 800;
+	cursor: pointer;
+	@media screen and (max-width: 600px) {
+		font-size: 11px;
+	}
+`;
 
 const Already = styled.div`
- width:60%;
- height:20px;
- display:flex;
- justify-content:center;
- align-items:center;
+	width: 60%;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
- 
-@media screen and (max-width:600px){
-  width:80%;
-
-}
-
-
-`
+	@media screen and (max-width: 600px) {
+		width: 80%;
+	}
+`;
 
 const Button = styled.button`
-width:100%;
-height:40px;
-background-color:#AE67FA;
-color:#FFFFFF;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:15px;
-font-weight:800;
-border:none;
-border-radius:6px;
-margin-top:7px;
-cursor:pointer;
-transition:all 350ms;
+	width: 100%;
+	height: 40px;
+	background-color: #ae67fa;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+	font-weight: 800;
+	border: none;
+	border-radius: 6px;
+	margin-top: 7px;
+	cursor: pointer;
+	transition: all 350ms;
 
-:hover{
-  tranform:scale(0.9);
-}
+	:hover {
+		tranform: scale(0.9);
+	}
+`;
 
-`
+const Input2 = styled("input")`
+	width: 100%;
+	height: 40px;
+	outline: none;
+	background-color: #ae67fa40;
+	border: none;
+	padding-left: 10px;
+	margin-top: 5px;
+	border-radius: 4px;
 
-const Input2 = styled('input')`
-width:100%;
-height:40px;
- outline:none;
- background-color:#AE67FA40;
- border:none;
- padding-left:10px;
- margin-top:5px;
- border-radius:4px;
- 
-
- :hover{
-  outline:none;
- }
-`
+	:hover {
+		outline: none;
+	}
+`;
 const Hide = styled.div`
-position:absolute;
-cursor:pointer;
-right:20px;
-top:20px;
-`
+	position: absolute;
+	cursor: pointer;
+	right: 20px;
+	top: 20px;
+`;
 const Passshow = styled.div`
-width:100%;
-display:flex;
-position:relative;
-
-`
+	width: 100%;
+	display: flex;
+	position: relative;
+`;
 
 const Lable = styled.label`
-font-width:900;
-`
+	font-width: 900;
+`;
 
 const Input = styled.input`
- height:40px;
- outline:none;
- background-color:#AE67FA40;
- border:none;
- padding-left:10px;
- margin-top:5px;
- border-radius:4px;
- 
+	height: 40px;
+	outline: none;
+	background-color: #ae67fa40;
+	border: none;
+	padding-left: 10px;
+	margin-top: 5px;
+	border-radius: 4px;
 
- :hover{
-  outline:none;
- }
+	:hover {
+		outline: none;
+	}
+`;
+const HoldInput = styled.div`
+	width: 100%;
+	display: flex;
+	height: 73px;
+	flex-direction: column;
+`;
 
-`
-const HoldInput = styled.div `
-width:100%;
-display:flex;
-height:73px;
-flex-direction:column;
+const Myform = styled("form")`
+	width: 90%;
+	height: auto;
+	padding-bottom: 5px;
+`;
 
-`
+const Line = styled("div")`
+	width: 160px;
+	height: 1px;
+	background-color: black;
+`;
 
-const Myform = styled('form')`
-width:90%;
-height:auto;
-padding-bottom:5px;
-`
+const LinHold = styled("div")`
+	width: 90%;
+	height: 45px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-const Line = styled('div')`
-width:160px;
-height:1px;
-background-color:black;
-`
+	div {
+		font-weight: 800;
+		font-size: 15px;
+	}
+`;
 
-const LinHold = styled('div')`
-width:90%;
-height:45px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+const GoogleImg = styled("img")`
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+`;
 
-div{
-  font-weight:800;
-  font-size:15px;
-}
-`
+const MainHold = styled("div")`
+	width: 175px;
 
-const GoogleImg = styled('img')`
-width:40px;
-height:40px;
-object-fit:contain;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-`
+	span {
+		font-size: 15px;
+		font-weight: 600;
+	}
+`;
 
-const MainHold = styled('div')`
-  width:175px;
-  
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
+const SocialCon = styled("div")`
+	width: 90%;
+	height: 40px;
+	background-color: #e8eaff;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
 
+	div {
+	}
+`;
 
-  span{
-    font-size:15px;
-    font-weight:600;
-  }
-`
+const TextDecs = styled("div")`
+	width: 100%;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-const SocialCon = styled('div')`
-width:90%;
-height:40px;
-background-color:#E8EAFF;
-border-radius:5px;
-cursor:pointer;
-display:flex;
-justify-content: center;
-align-items: center;
-margin-top:20px;
-
-div{
-  
-}
-
-
-`
-
-const TextDecs = styled('div')`
-width:100%;
-height:30px;
-display:flex;
-justify-content:center;
-align-items:center;
-
-span{
-   font-size:15px;
-   font-weight:700;
-   color:#000000;
-}
-`
+	span {
+		font-size: 15px;
+		font-weight: 700;
+		color: #000000;
+	}
+`;
 
 const Text = styled.div`
-width: 100%;
-height: 40px;
-display:flex;
-justify-content: center;
-align-items: center;
+	width: 100%;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-span{
-  font-width:900;
-  color:#AE67FA;
-  font-size:30px;
-  font-family:Imported;
-}
-`
+	span {
+		font-width: 900;
+		color: #ae67fa;
+		font-size: 30px;
+		font-family: Imported;
+	}
+`;
 
-const Container = styled('div')`
-width: 100%;
-min-height:100vh;
-height: 100%;
-display:flex;
-justify-content:center;
-align-items: center;
-
-`
+const Container = styled("div")`
+	width: 100%;
+	min-height: 100vh;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
 
 const Wrapper = styled.div`
-width: 400px;
-height: 550px;
+	width: 400px;
+	height: 550px;
 
-display:flex;
-flex-direction: column;
-align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-
-
-
-@media screen and (max-width:600px){
-  width: 100%;
-  
-}
-`
+	@media screen and (max-width: 600px) {
+		width: 100%;
+	}
+`;
