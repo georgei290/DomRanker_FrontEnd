@@ -2,11 +2,48 @@ import React from 'react'
 import styled from 'styled-components'
 import pix from "./img/google.png"
 import { AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup"
+import {yupResolver} from "@hookform/resolvers/yup"
+import {useForm, SubmitHandler} from 'react-hook-form'
+import { assert } from 'console';
+
+
+interface iData{
+  name:string,
+  email:string,
+  password:string,
+  confirmPassword:string
+}
+
 
 const Signup = () => {
 
   const [shown, setShown] = React.useState<boolean>(false);
   const [shown2, setShown2] = React.useState<boolean>(false);
+  const Navigate = useNavigate();
+
+
+  const schema = yup.object().shape({
+    name: yup.string().required("this filed must be empty"),
+    email: yup.string().email().required("please enter a valid email addresss"),
+    password:yup.string().required("please enter a valid password"),
+    confirmPassword: yup.string().oneOf([yup.ref("password")], null!)
+
+  })
+
+  const {
+    handleSubmit,
+    formState:{errors},
+    reset,
+    register
+  } = useForm<iData>({
+    resolver : yupResolver(schema)
+  })
+
+  const onSubmit: SubmitHandler<iData>= async(value) =>{
+          console.log(value)
+  }
 
   return (
     <Container>
@@ -40,19 +77,31 @@ const Signup = () => {
             </Line>
           </LinHold>
 
-          <Myform>
+          <Myform  onSubmit={handleSubmit(onSubmit)}>
             <HoldInput>
               <Lable>Name</Lable>
-              <Input placeholder='eg : peter parker'/>
+              <Input 
+              placeholder='eg : peter parker'
+              {...register("name")}
+              
+              />
+              <Error>{errors.name && "Name is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Email</Lable>
-              <Input placeholder='eg : peterparker223@gmail.com'/>
+              <Input
+              placeholder='eg : peterparker223@gmail.com'
+              {...register("email")}
+              />
+               <Error>{errors.email && "Email is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Password</Lable>
               <Passshow>
-              <Input2   type={shown ? "text" : "password"} placeholder='password'/>
+              <Input2   type={shown ? "text" : "password"} 
+              placeholder='password'
+              {...register("password")}
+              />
               <Hide
                onClick={()=>{
                 setShown(!shown);
@@ -63,11 +112,15 @@ const Signup = () => {
                
                 </Hide>
               </Passshow>
+              <Error>{errors.password && "Password is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Confirm-Password</Lable>
               <Passshow>
-              <Input2   type={shown2 ? "text" : "password"} placeholder='password'/>
+              <Input2   type={shown2 ? "text" : "password"}
+               placeholder='password'
+               {...register("confirmPassword")}
+               />
                <Hide 
                onClick={()=>{
                 setShown2(!shown2);
@@ -77,6 +130,7 @@ const Signup = () => {
                 }
                 </Hide>
               </Passshow>
+              <Error>{errors.confirmPassword && "Passwod did not match"}</Error>
 
             </HoldInput>
 
@@ -87,7 +141,11 @@ const Signup = () => {
           </Myform>
           <Already>
             <OPP>
-              <Acc>Don't have an account</Acc> &nbsp; <Sig>Sign Up Here</Sig>
+              <Acc>Already have an account</Acc> &nbsp; <Sig
+              onClick={()=>{
+                Navigate("/signin")
+              }}
+              >Log In</Sig>
             </OPP>
           </Already>
           
@@ -102,6 +160,11 @@ const Signup = () => {
 }
 
 export default Signup
+
+const Error = styled.div`
+	font-size: 10px;
+	color: red;
+`;
 
 const OPP = styled.div`
 display:flex;
@@ -119,7 +182,7 @@ const Sig =styled.div`
 color:red;
 font-size: 14px;
 font-weight:800;
-
+cursor: pointer;
 @media screen and (max-width:600px){
   font-size: 11px;
 }
@@ -251,7 +314,7 @@ object-fit:contain;
 `
 
 const MainHold = styled('div')`
-  width:190px;
+  width:175px;
   
   height:100%;
   display:flex;
@@ -260,7 +323,7 @@ const MainHold = styled('div')`
 
 
   span{
-    font-size:18px;
+    font-size:15px;
     font-weight:600;
   }
 `
@@ -307,7 +370,7 @@ align-items: center;
 span{
   font-width:900;
   color:#AE67FA;
-  font-size:35px;
+  font-size:30px;
   font-family:Imported;
 }
 `
