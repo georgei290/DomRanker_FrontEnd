@@ -1,0 +1,14 @@
+[debug] [2023-02-09T15:53:15.977Z] ----------------------------------------------------------------------
+[debug] [2023-02-09T15:53:15.980Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Gbemi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-02-09T15:53:15.980Z] CLI Version:   11.22.0
+[debug] [2023-02-09T15:53:15.981Z] Platform:      win32
+[debug] [2023-02-09T15:53:15.981Z] Node Version:  v16.14.2
+[debug] [2023-02-09T15:53:15.989Z] Time:          Thu Feb 09 2023 16:53:15 GMT+0100 (West Africa Standard Time)
+[debug] [2023-02-09T15:53:15.990Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-09T15:53:16.091Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-09T15:53:16.091Z] > authorizing via signed-in user (georgeseo06@gmail.com)
+[debug] [2023-02-09T15:53:16.092Z] [iam] checking project dom-ranker for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-09T15:53:16.095Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dom-ranker:testIamPermissions [none]
+[debug] [2023-02-09T15:53:16.095Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dom-ranker:testIamPermissions x-goog-quota-user=projects/dom-ranker
+[debug] [2023-02-09T15:53:16.095Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dom-ranker:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

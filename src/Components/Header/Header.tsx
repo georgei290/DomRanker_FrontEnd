@@ -4,6 +4,7 @@ import SideBarComp from "../SideBar/SideBar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
+import log from "../Images/logo.png";
 const Header = () => {
 	const [sideShow, setSideShow] = React.useState(false);
 
@@ -21,7 +22,7 @@ const Header = () => {
 
 	return (
 		<Container>
-			<Logo />
+			<Logo src={log} />
 			<NavHolder>
 				<Nav offset={-100} smooth={true} duration={500} to='Home'>
 					Home
@@ -87,11 +88,13 @@ const ButtonHold = styled(NavLink)`
 	}
 `;
 
-const Logo = styled.div`
+const Logo = styled.img`
 	width: 130px;
-	background-color: #ae67fa;
+
 	height: 40px;
 	margin-left: 70px;
+	object-fit: contain;
+	/* background-color: red; */
 
 	@media screen and (max-width: 790px) {
 		margin-left: 30px;

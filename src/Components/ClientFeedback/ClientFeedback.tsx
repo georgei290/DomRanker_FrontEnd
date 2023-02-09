@@ -176,4 +176,8 @@ const Tit = styled.div`
 `;
 const Desc = styled.div`
 	color: #3e4581;
+
+	@media screen and (min-width: 300px) and (max-width: 500px) {
+		width: 97%;
+	}
 `;
