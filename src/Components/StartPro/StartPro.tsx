@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const StartPro = () => {
@@ -24,7 +25,9 @@ const StartPro = () => {
 					Warrant present garrets limited cordial in inquiry to. Supported me
 					sweetness behaviour shameless excellent so arranging.
 				</Desc>
-				<MyButton3>Get Started</MyButton3>
+				<NavLink to='/signup'>
+					<MyButton3>Get Started</MyButton3>
+				</NavLink>
 			</Wrap>
 		</Container>
 	);

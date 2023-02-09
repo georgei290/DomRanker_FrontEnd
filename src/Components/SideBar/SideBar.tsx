@@ -48,14 +48,20 @@ const SideBarComp: React.FC<Iprops> = ({ toggleSideBar }) => {
 				<Nav>Contact Us</Nav>
 			</NavHold>
 
-			<NavHold onClick={toggleSideBar} to='/'>
+			<NavHold3 onClick={toggleSideBar} to='/signup'>
 				<Nav>Login</Nav>
-			</NavHold>
+			</NavHold3>
 		</SideDiv>
 	);
 };
 
 export default SideBarComp;
+
+const NavHold3 = styled(NavLink)`
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+`;
 
 const NavHold = styled(Link)`
 	text-decoration: none;

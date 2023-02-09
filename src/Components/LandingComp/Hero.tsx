@@ -7,6 +7,7 @@ import pic3 from "../Images/Group 544.png";
 import pic4 from "../Images/Group 545.png";
 import pic5 from "../Images/Group 546.png";
 import Typewriter from "typewriter-effect";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
 	return (
@@ -44,7 +45,9 @@ const Hero = () => {
 						in search engine optimization!
 					</Cont>
 					<ButtonHold>
-						<MyButton>Get Started</MyButton>
+						<NavLink to='/signup'>
+							<MyButton>Get Started</MyButton>
+						</NavLink>
 						<MyButton2>Contact Us</MyButton2>
 					</ButtonHold>
 				</First>
