@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SideBarComp from "../SideBar/SideBar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-scroll";
+import { NavLink } from "react-router-dom";
 const Header = () => {
 	const [sideShow, setSideShow] = React.useState(false);
 
@@ -35,7 +36,7 @@ const Header = () => {
 					Contact Us
 				</Nav>
 			</NavHolder>
-			<ButtonHold>
+			<ButtonHold to='/signup'>
 				<MyButton>Login</MyButton>
 			</ButtonHold>
 
@@ -77,8 +78,9 @@ const MyButton = styled.button`
 		transform: scale(0.98);
 	}
 `;
-const ButtonHold = styled.div`
+const ButtonHold = styled(NavLink)`
 	margin-right: 70px;
+	text-decoration: none;
 
 	@media screen and (max-width: 790px) {
 		display: none;
