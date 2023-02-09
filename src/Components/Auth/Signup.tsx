@@ -25,8 +25,8 @@ const Signup = () => {
 
 
   const schema = yup.object().shape({
-    name: yup.string().required("this file can be empty"),
-    email: yup.string().email().required("please enter a valid email address"),
+    name: yup.string().required("this filed must be empty"),
+    email: yup.string().email().required("please enter a valid email addresss"),
     password:yup.string().required("please enter a valid password"),
     confirmPassword: yup.string().oneOf([yup.ref("password")], null!)
 
