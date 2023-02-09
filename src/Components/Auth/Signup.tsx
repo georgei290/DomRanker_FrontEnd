@@ -85,7 +85,7 @@ const Signup = () => {
               {...register("name")}
               
               />
-              <Error>{errors.name && "Email is required"}</Error>
+              <Error>{errors.name && "Name is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Email</Lable>
