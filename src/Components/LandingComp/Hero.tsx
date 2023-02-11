@@ -16,6 +16,9 @@ const Hero = () => {
 				<First>
 					<Title>
 						<Typewriter
+							options={{
+								loop: true,
+							}}
 							onInit={(typewriter: any) => {
 								typewriter
 
@@ -29,12 +32,12 @@ const Hero = () => {
 									.deleteAll()
 
 									.start()
-									.typeString("ADD BACKLINK TO YOUR WEBSITE...")
+									.typeString("GET YOUR KEYWORD NOTICED...")
 									.pauseFor(1000)
 									.deleteAll()
 
 									.start()
-									.typeString("GET YOUR KEYWORD NOTICED...");
+									.typeString("ADD BACKLINK TO YOUR WEBSITE...");
 							}}
 						/>
 					</Title>
@@ -94,6 +97,10 @@ const Tit = styled.div`
 	font-weight: bold;
 	color: #ae67fa;
 	margin-bottom: 10px;
+
+	@media screen and (max-width: 600px) {
+		font-size: 25px;
+	}
 `;
 const Desc = styled.div`
 	color: #3e4581;
@@ -180,7 +187,7 @@ const Cont = styled.div`
 	}
 `;
 const Title = styled.h1`
-	font-size: 50px;
+	font-size: 45px;
 	color: #ae67fa;
 	font-weight: bolder;
 	min-height: 70px;
@@ -202,8 +209,8 @@ const MyButton2 = styled.button`
 	border: 1px solid #f1966e;
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
 	cursor: pointer;
 	margin-right: 20px;
 	background-color: transparent;
@@ -225,8 +232,8 @@ const MyButton = styled.button`
 	background-color: #ae67fa;
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
 	cursor: pointer;
 	margin-right: 20px;
 

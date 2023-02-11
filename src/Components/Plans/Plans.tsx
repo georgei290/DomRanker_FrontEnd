@@ -117,8 +117,8 @@ const MyButton3 = styled.button`
 	/* border: 1px solid #f1966e; */
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
 	cursor: pointer;
 	margin-right: 20px;
 	background-color: #ae67fa;
@@ -139,8 +139,8 @@ const MyButton2 = styled.button`
 	border: 1px solid #f1966e;
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
 	cursor: pointer;
 	margin-right: 20px;
 	background-color: transparent;
@@ -202,6 +202,14 @@ const Tit = styled.div`
 	font-weight: bold;
 	color: #ae67fa;
 	margin-bottom: 10px;
+
+	@media screen and (max-width: 600px) {
+		font-size: 25px;
+
+		br {
+			display: none;
+		}
+	}
 `;
 const Desc = styled.div`
 	color: #3e4581;

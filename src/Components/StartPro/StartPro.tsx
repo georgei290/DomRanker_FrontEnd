@@ -64,6 +64,8 @@ const Wan = styled.div`
 	color: #ae67fa;
 	margin-top: 30px;
 	margin-bottom: 20px;
+
+	font-weight: 500;
 `;
 const CountHold = styled.div`
 	display: flex;
@@ -100,8 +102,8 @@ const MyButton3 = styled.button`
 	/* border: 1px solid #f1966e; */
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
 	cursor: pointer;
 	margin-right: 20px;
 	background-color: #ae67fa;

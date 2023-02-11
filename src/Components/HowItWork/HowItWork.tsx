@@ -73,6 +73,7 @@ const MainTitle = styled.div`
 	width: 250px;
 	font-size: 13px;
 	object-fit: fill;
+	font-weight: 500;
 `;
 
 const MainImage = styled.img`
@@ -87,6 +88,7 @@ const Holded = styled.div`
 
 const Text = styled.div`
 	margin-bottom: 5px;
+	font-weight: 700;
 `;
 const CardMain = styled.div<{ bg: string }>`
 	height: 300px;
@@ -134,6 +136,10 @@ const Tit = styled.div`
 	color: #ae67fa;
 	margin-bottom: 10px;
 	text-align: left;
+
+	@media screen and (max-width: 600px) {
+		font-size: 25px;
+	}
 `;
 const Desc = styled.div`
 	color: #3e4581;
@@ -142,7 +148,7 @@ const Desc = styled.div`
 		width: 250px;
 	}
 	@media screen and (min-width: 300px) and (max-width: 500px) {
-		width: 97%;
+		width: 95%;
 	}
 `;
 

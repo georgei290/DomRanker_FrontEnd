@@ -212,6 +212,7 @@ const Title = styled.div`
 	color: #ae67fa;
 	margin-top: 100px;
 	font-size: 35px;
+	font-weight: bold;
 `;
 
 const Container = styled.div`
