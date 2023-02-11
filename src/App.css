@@ -37,7 +37,14 @@
 	}
 }
 
-@font-face {
+button {
+	font-family: "Montserrat", sans-serif;
+}
+input {
+	font-family: "Montserrat", sans-serif;
+}
+
+/* @font-face {
 	font-family: Imported;
 	src: url("./Components/fonts/Gilroy-Black.ttf");
 }
@@ -74,4 +81,4 @@
 
 #root {
 	font-family: Imported;
-}
+} */

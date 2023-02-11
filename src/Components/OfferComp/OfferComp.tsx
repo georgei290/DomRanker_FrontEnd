@@ -89,7 +89,8 @@ const Icon = styled.img`
 	width: 100px;
 	object-fit: cover;
 	position: absolute;
-	margin-top: 70px;
+	top: 0;
+	/* margin-top: 70px; */
 `;
 
 const IconHold = styled.div`

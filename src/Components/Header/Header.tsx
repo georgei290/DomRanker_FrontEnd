@@ -71,8 +71,8 @@ const MyButton = styled.button`
 	background-color: #ae67fa;
 	border-radius: 5px;
 	transition: all 350ms;
-	font-weight: 900;
-	font-family: Imported;
+	font-weight: 600;
+	font-family: "Montserrat", sans-serif;
 	cursor: pointer;
 
 	:hover {

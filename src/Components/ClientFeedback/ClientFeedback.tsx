@@ -68,7 +68,12 @@ const ClientFeedback = () => {
 
 						<UserName>
 							<span style={{ color: "gray" }}>Andrew Chris</span>
-							<span>Client from Uganda</span>
+							<span
+								style={{
+									fontWeight: "bold",
+								}}>
+								Client from Uganda
+							</span>
 						</UserName>
 					</Card>
 				</div>
@@ -83,7 +88,12 @@ const ClientFeedback = () => {
 
 						<UserName>
 							<span style={{ color: "gray" }}>Andrew Chris</span>
-							<span>Client from Uganda</span>
+							<span
+								style={{
+									fontWeight: "bold",
+								}}>
+								Client from Uganda
+							</span>
 						</UserName>
 					</Card>
 				</div>
@@ -98,7 +108,12 @@ const ClientFeedback = () => {
 
 						<UserName>
 							<span style={{ color: "gray" }}>Andrew Chris</span>
-							<span>Client from Uganda</span>
+							<span
+								style={{
+									fontWeight: "bold",
+								}}>
+								Client from Uganda
+							</span>
 						</UserName>
 					</Card>
 				</div>
@@ -125,6 +140,18 @@ const CardHolder = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
+	width: 100%;
+
+	@media screen and (max-width: 600px) {
+		flex-wrap: nowrap;
+		overflow-x: scroll;
+		::-webkit-scrollbar {
+			width: 0;
+		}
+
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
 
 	background-image: linear-gradient(
 		90deg,
@@ -134,7 +161,7 @@ const CardHolder = styled.div`
 	);
 `;
 const Card = styled.div`
-	height: 170px;
+	height: 180px;
 	width: 250px;
 	display: flex;
 	justify-content: center;
@@ -151,7 +178,8 @@ const Card = styled.div`
 		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
 	@media screen and (max-width: 600px) {
-		margin-right: 0;
+		/* margin-right: 10; */
+		width: 300px;
 	}
 `;
 
@@ -173,6 +201,10 @@ const Tit = styled.div`
 	font-weight: bold;
 	color: #ae67fa;
 	margin-bottom: 10px;
+
+	@media screen and (max-width: 600px) {
+		font-size: 25px;
+	}
 `;
 const Desc = styled.div`
 	color: #3e4581;

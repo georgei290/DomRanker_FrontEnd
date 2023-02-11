@@ -274,7 +274,7 @@ const GoogleImg = styled("img")`
 `;
 
 const MainHold = styled("div")`
-	width: 175px;
+	/* width: 175px; */
 
 	height: 100%;
 	display: flex;
@@ -324,10 +324,10 @@ const Text = styled.div`
 	align-items: center;
 
 	span {
-		font-width: 900;
+		font-weight: 900;
 		color: #ae67fa;
 		font-size: 30px;
-		font-family: Imported;
+		/* font-family: Imported; */
 	}
 `;
 
