@@ -5,7 +5,8 @@ import ResetPass from "../Auth/ResetPass";
 import SignIn from "../Auth/SignIn";
 import Signup from "../Auth/Signup";
 import Homescreen from "../HomeScreen";
-import Header from "../Header/Header";
+import Header from "../LandingPage/Header/Header";
+
 
 const HomeRoutes = () => {
 	let element = useRoutes([

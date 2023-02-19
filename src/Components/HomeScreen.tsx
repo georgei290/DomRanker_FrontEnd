@@ -1,11 +1,12 @@
 import React from "react";
-import ClientFeedback from "./ClientFeedback/ClientFeedback";
-import Footer from "./Footer/Footer";
-import HowItWork from "./HowItWork/HowItWork";
-import Hero from "./LandingComp/Hero";
-import OfferComp from "./OfferComp/OfferComp";
-import Plans from "./Plans/Plans";
-import StartPro from "./StartPro/StartPro";
+import ClientFeedback from "./LandingPage/ClientFeedback/ClientFeedback";
+import Footer from "./LandingPage/Footer/Footer";
+import HowItWork from "./LandingPage/HowItWork/HowItWork";
+import Hero from "./LandingPage/LandingComp/Hero";
+import OfferComp from "./LandingPage/OfferComp/OfferComp";
+import Plans from "./LandingPage/Plans/Plans";
+import StartPro from "./LandingPage/StartPro/StartPro";
+
 
 const Homescreen = () => {
 	return (
