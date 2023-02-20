@@ -7,6 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import ErrorHandler from "./utils/ErrorBoundary";
 import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
+import store from "./utils/stateManagement/store";
 
 const helmetContext = {};
 
@@ -20,9 +22,11 @@ root.render(
       // onError={ErrorHandler}
     >
       <HelmetProvider context={helmetContext}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
       </HelmetProvider>
     </ErrorBoundary>
   </React.StrictMode>,

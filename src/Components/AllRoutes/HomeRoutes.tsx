@@ -6,6 +6,7 @@ import {
   SignIn,
   ForgetPass,
   ResetPass,
+  AfterRegister,
 } from "./Bundled";
 
 const HomeRoutes = () => {
@@ -34,6 +35,10 @@ const HomeRoutes = () => {
     {
       path: "/reset",
       element: <ResetPass />,
+    },
+    {
+      path: "/after-register",
+      element: <AfterRegister />,
     },
   ]);
   return element;
