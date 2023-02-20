@@ -13,7 +13,7 @@ import { iRegister } from "../../utils/interfaces";
 import LoadingState from "../../utils/LoadingState";
 
 interface iData {
-  name: string;
+  userName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -91,7 +91,7 @@ const Signup = () => {
                 placeholder="eg : peter parker"
                 {...register("userName")}
               />
-              <Error>{errors.name && "Name is required"}</Error>
+              <Error>{errors.userName && "Name is required"}</Error>
             </HoldInput>
             <HoldInput>
               <Lable>Email</Lable>
@@ -190,6 +190,7 @@ const Sig = styled.div`
 const Already = styled.div`
 	width: 60%;
 	height: 20px;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
