@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import heroPic from "../Images/Herocontent.png";
 import pic1 from "../Images/Group 542.png";
@@ -10,75 +9,76 @@ import Typewriter from "typewriter-effect";
 import { NavLink } from "react-router-dom";
 
 const Hero = () => {
-	return (
-		<Container id='Home'>
-			<Wrapper>
-				<First>
-					<Title>
-						<Typewriter
-							options={{
-								loop: true,
-							}}
-							onInit={(typewriter: any) => {
-								typewriter
+  
+  return (
+    <Container id="Home">
+      <Wrapper>
+        <First>
+          <Title>
+            <Typewriter
+              options={{
+                loop: true,
+              }}
+              onInit={(typewriter: any) => {
+                typewriter
 
-									.typeString("UPSCALE YOUR WEBPAGE...")
-									.pauseFor(1000)
-									.deleteAll()
+                  .typeString("UPSCALE YOUR WEBPAGE...")
+                  .pauseFor(1000)
+                  .deleteAll()
 
-									.start()
-									.typeString("GET THE BEST RANKING...")
-									.pauseFor(1000)
-									.deleteAll()
+                  .start()
+                  .typeString("GET THE BEST RANKING...")
+                  .pauseFor(1000)
+                  .deleteAll()
 
-									.start()
-									.typeString("GET YOUR KEYWORD NOTICED...")
-									.pauseFor(1000)
-									.deleteAll()
+                  .start()
+                  .typeString("GET YOUR KEYWORD NOTICED...")
+                  .pauseFor(1000)
+                  .deleteAll()
 
-									.start()
-									.typeString("ADD BACKLINK TO YOUR WEBSITE...");
-							}}
-						/>
-					</Title>
-					<Cont>
-						Compliance with search engine guidelines is an important factor for
-						the success of your website. The SEO Checker analyzes your website
-						and gives you tips on optimizing your site for a long-term success
-						in search engine optimization!
-					</Cont>
-					<ButtonHold>
-						<NavLink to='/signup'>
-							<MyButton>Get Started</MyButton>
-						</NavLink>
-						<MyButton2>Contact Us</MyButton2>
-					</ButtonHold>
-				</First>
-				<Second>
-					<HeroImage src={heroPic} />
-				</Second>
-			</Wrapper>
+                  .start()
+                  .typeString("ADD BACKLINK TO YOUR WEBSITE...");
+              }}
+            />
+          </Title>
+          <Cont>
+            Compliance with search engine guidelines is an important factor for
+            the success of your website. The SEO Checker analyzes your website
+            and gives you tips on optimizing your site for a long-term success
+            in search engine optimization!
+          </Cont>
+          <ButtonHold>
+            <NavLink to="/signup">
+              <MyButton>Get Started</MyButton>
+            </NavLink>
+            <MyButton2>Contact Us</MyButton2>
+          </ButtonHold>
+        </First>
+        <Second>
+          <HeroImage src={heroPic} />
+        </Second>
+      </Wrapper>
 
-			<Supporers>
-				<SupImage src={pic1} />
-				<SupImage src={pic2} />
-				<SupImage src={pic3} />
-				<SupImage src={pic4} />
-				<SupImage src={pic5} />
-			</Supporers>
-			<br />
-			<br />
-			<Hold>
-				<Tit>What we Offer?</Tit>
-				<Desc>
-					{" "}
-					in virtual space through communication platforms. Durable relations
-					that
-					<br /> extend beyond immediate genealogical ties.
-				</Desc>
-			</Hold>
-		</Container>
-	);
+      <Supporers>
+        <SupImage src={pic1} />
+        <SupImage src={pic2} />
+        <SupImage src={pic3} />
+        <SupImage src={pic4} />
+        <SupImage src={pic5} />
+      </Supporers>
+      <br />
+      <br />
+      <Hold>
+        <Tit>What we Offer?</Tit>
+        <Desc>
+          {" "}
+          in virtual space through communication platforms. Durable relations
+          that
+          <br /> extend beyond immediate genealogical ties.
+        </Desc>
+      </Hold>
+    </Container>
+  );
 };
 
 export default Hero;
