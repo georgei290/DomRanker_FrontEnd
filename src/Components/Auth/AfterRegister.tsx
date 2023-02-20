@@ -1,16 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import pix from "./img/google.png";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { signinUser } from "../../utils/APICalls";
-import { iSign } from "../../utils/interfaces";
-import { useDispatch } from "react-redux/es/exports";
-import { loginUser } from "../../utils/stateManagement/authState";
 
 interface iData {
   email: string;
@@ -38,25 +29,6 @@ const AfterRegister = () => {
             <span>Sign in with google</span>
           </MainHold>
         </SocialCon>
-
-        <LinHold>
-          <Line></Line>
-          <div>or</div>
-          <Line></Line>
-        </LinHold>
-
-        <Already>
-          <OPP>
-            <Acc>Don't have an account?</Acc> &nbsp;{" "}
-            <Sig
-              onClick={() => {
-                Navigate("/signup");
-              }}
-            >
-              Sign up Here
-            </Sig>
-          </OPP>
-        </Already>
       </Wrapper>
     </Container>
   );
