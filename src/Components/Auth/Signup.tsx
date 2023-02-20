@@ -2,132 +2,158 @@ import React from "react";
 import styled from "styled-components";
 import pix from "./img/google.png";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { assert } from "console";
+import MetaComponents from "../../utils/MetaComponents";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../../utils/APICalls";
+import { iRegister } from "../../utils/interfaces";
+import LoadingState from "../../utils/LoadingState";
 
 interface iData {
-	name: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 const Signup = () => {
-	const [shown, setShown] = React.useState<boolean>(false);
-	const [shown2, setShown2] = React.useState<boolean>(false);
-	const Navigate = useNavigate();
+  const [shown, setShown] = React.useState<boolean>(false);
+  const [shown2, setShown2] = React.useState<boolean>(false);
+  const [loadingState, setLoadingState] = React.useState<boolean>(false);
+  const Navigate = useNavigate();
 
-	const schema = yup.object().shape({
-		name: yup.string().required("this filed must be empty"),
-		email: yup.string().email().required("please enter a valid email addresss"),
-		password: yup.string().required("please enter a valid password"),
-		confirmPassword: yup.string().oneOf([yup.ref("password")], null!),
-	});
+  const schema = yup.object().shape({
+    name: yup.string().required("this filed must be empty"),
+    email: yup.string().email().required("please enter a valid email addresss"),
+    password: yup.string().required("please enter a valid password"),
+    confirmPassword: yup.string().oneOf([yup.ref("password")], null!),
+  });
 
-	const {
-		handleSubmit,
-		formState: { errors },
-		reset,
-		register,
-	} = useForm<iData>({
-		resolver: yupResolver(schema),
-	});
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<iData>({
+    resolver: yupResolver(schema),
+  });
 
-	const onSubmit: SubmitHandler<iData> = async (value: any) => {
-		console.log(value);
-	};
+  const mutation = useMutation({
+    mutationFn: (data: iRegister) => {
+      return registerUser(data).then(() => {
+        setLoadingState(false);
+      });
+    },
+  });
 
-	return (
-		<Container>
-			<Wrapper>
-				<Text>
-					<span>Create An Account</span>
-				</Text>
-				<TextDecs>
-					<span>Lets's Help You Get Started</span>
-				</TextDecs>
+  const onSubmit: SubmitHandler<iData> = async (value: any) => {
+    
+    setLoadingState(true);
+    mutation.mutate(value);
+  };
 
-				<SocialCon>
-					<MainHold>
-						<GoogleImg src={pix} />
-						<span>Sign in with google</span>
-					</MainHold>
-				</SocialCon>
+  return (
+    <>
+      <MetaComponents
+        content="Want you try how it work!"
+        title="Registration Page"
+        path="/signup"
+      />
 
-				<LinHold>
-					<Line></Line>
-					<div>or</div>
-					<Line></Line>
-				</LinHold>
+      {loadingState ? <LoadingState /> : null}
+      <Container>
+        <Wrapper>
+          <Text>
+            <span>Create An Account</span>
+          </Text>
+          <TextDecs>
+            <span>Lets's Help You Get Started</span>
+          </TextDecs>
 
-				<Myform onSubmit={handleSubmit(onSubmit)}>
-					<HoldInput>
-						<Lable>Name</Lable>
-						<Input placeholder='eg : peter parker' {...register("name")} />
-						<Error>{errors.name && "Name is required"}</Error>
-					</HoldInput>
-					<HoldInput>
-						<Lable>Email</Lable>
-						<Input
-							placeholder='eg : peterparker223@gmail.com'
-							{...register("email")}
-						/>
-						<Error>{errors.email && "Email is required"}</Error>
-					</HoldInput>
-					<HoldInput>
-						<Lable>Password</Lable>
-						<Passshow>
-							<Input2
-								type={shown ? "text" : "password"}
-								placeholder='password'
-								{...register("password")}
-							/>
-							<Hide
-								onClick={() => {
-									setShown(!shown);
-								}}>
-								{shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-							</Hide>
-						</Passshow>
-						<Error>{errors.password && "Password is required"}</Error>
-					</HoldInput>
-					<HoldInput>
-						<Lable>Confirm-Password</Lable>
-						<Passshow>
-							<Input2
-								type={shown2 ? "text" : "password"}
-								placeholder='password'
-								{...register("confirmPassword")}
-							/>
-							<Hide
-								onClick={() => {
-									setShown2(!shown2);
-								}}>
-								{shown2 ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-							</Hide>
-						</Passshow>
-						<Error>{errors.confirmPassword && "Passwod did not match"}</Error>
-					</HoldInput>
+          <SocialCon>
+            <MainHold>
+              <GoogleImg src={pix} />
+              <span>Sign in with google</span>
+            </MainHold>
+          </SocialCon>
 
-					<Button>Sign Up</Button>
-				</Myform>
-				<Already>
-					<OPP>
-						<Acc>Already have an account</Acc> &nbsp;{" "}
-						<Sig
-							onClick={() => {
-								Navigate("/signin");
-							}}>
-							Log In
-						</Sig>
-					</OPP>
-				</Already>
-			</Wrapper>
-		</Container>
-	);
+          <LinHold>
+            <Line></Line>
+            <div>or</div>
+            <Line></Line>
+          </LinHold>
+
+          <Myform onSubmit={handleSubmit(onSubmit)}>
+            <HoldInput>
+              <Lable>Name</Lable>
+              <Input placeholder="eg : peter parker" {...register("name")} />
+              <Error>{errors.name && "Name is required"}</Error>
+            </HoldInput>
+            <HoldInput>
+              <Lable>Email</Lable>
+              <Input
+                placeholder="eg : peterparker223@gmail.com"
+                {...register("email")}
+              />
+              <Error>{errors.email && "Email is required"}</Error>
+            </HoldInput>
+            <HoldInput>
+              <Lable>Password</Lable>
+              <Passshow>
+                <Input2
+                  type={shown ? "text" : "password"}
+                  placeholder="password"
+                  {...register("password")}
+                />
+                <Hide
+                  onClick={() => {
+                    setShown(!shown);
+                  }}
+                >
+                  {shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </Hide>
+              </Passshow>
+              <Error>{errors.password && "Password is required"}</Error>
+            </HoldInput>
+            <HoldInput>
+              <Lable>Confirm-Password</Lable>
+              <Passshow>
+                <Input2
+                  type={shown2 ? "text" : "password"}
+                  placeholder="password"
+                  {...register("confirmPassword")}
+                />
+                <Hide
+                  onClick={() => {
+                    setShown2(!shown2);
+                  }}
+                >
+                  {shown2 ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </Hide>
+              </Passshow>
+              <Error>{errors.confirmPassword && "Passwod did not match"}</Error>
+            </HoldInput>
+
+            <Button type="submit">Sign Up</Button>
+          </Myform>
+          <Already>
+            <OPP>
+              <Acc>Already have an account</Acc> &nbsp;{" "}
+              <Sig
+                onClick={() => {
+                  Navigate("/signin");
+                }}
+              >
+                Log In
+              </Sig>
+            </OPP>
+          </Already>
+        </Wrapper>
+      </Container>
+    </>
+  );
 };
 
 export default Signup;
