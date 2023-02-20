@@ -6,100 +6,119 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { signinUser } from "../../utils/APICalls";
+import { iSign } from "../../utils/interfaces";
+import { useDispatch } from "react-redux/es/exports";
+import { loginUser } from "../../utils/stateManagement/authState";
 
 interface iData {
-	email: string;
-	password: string;
+  email: string;
+  password: string;
 }
 
 const SignIn = () => {
-	const [shown, setShown] = React.useState<boolean>(false);
-	const [shown2, setShown2] = React.useState<boolean>(false);
-	const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [shown, setShown] = React.useState<boolean>(false);
+  const [shown2, setShown2] = React.useState<boolean>(false);
+  const [loadingState, setLoadingState] = React.useState<boolean>(false);
 
-	const schema = yup.object().shape({
-		email: yup.string().email().required("please enter a valid email address"),
-		password: yup.string().required("please enter a valid password"),
-	});
+  const Navigate = useNavigate();
 
-	const {
-		handleSubmit,
-		formState: { errors },
-		reset,
-		register,
-	} = useForm<iData>({
-		resolver: yupResolver(schema),
-	});
+  const schema = yup.object().shape({
+    email: yup.string().email().required("please enter a valid email address"),
+    password: yup.string().required("please enter a valid password"),
+  });
 
-	const onSubmit: SubmitHandler<iData> = async (value: any) => {
-		console.log(value);
-	};
-	return (
-		<Container>
-			<Wrapper>
-				<Text>
-					<span>Welcome Back User</span>
-				</Text>
-				<TextDecs>
-					<span>Sign in to interact with your account</span>
-				</TextDecs>
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<iData>({
+    resolver: yupResolver(schema),
+  });
+  const mutation = useMutation({
+    mutationFn: (data: iSign) => {
+      return signinUser(data).then((data) => {
+        dispatch(loginUser(data));
+        setLoadingState(false);
+      });
+    },
+  });
 
-				<SocialCon>
-					<MainHold>
-						<GoogleImg src={pix} />
-						<span>Sign in with google</span>
-					</MainHold>
-				</SocialCon>
+  const onSubmit: SubmitHandler<iData> = async (value: any) => {
+    setLoadingState(true);
+    mutation.mutate(value);
+  };
 
-				<LinHold>
-					<Line></Line>
-					<div>or</div>
-					<Line></Line>
-				</LinHold>
+  return (
+    <Container>
+      <Wrapper>
+        <Text>
+          <span>Welcome Back User</span>
+        </Text>
+        <TextDecs>
+          <span>Sign in to interact with your account</span>
+        </TextDecs>
 
-				<Myform onSubmit={handleSubmit(onSubmit)}>
-					<HoldInput>
-						<Lable>Email</Lable>
-						<Input
-							placeholder='eg : peterparker223@gmail.com'
-							{...register("email")}
-						/>
-						<Error>{errors.email && "Email is required"}</Error>
-					</HoldInput>
-					<HoldInput>
-						<Lable>Password</Lable>
-						<Passshow>
-							<Input2
-								type={shown ? "text" : "password"}
-								placeholder='password'
-								{...register("password")}
-							/>
-							<Hide
-								onClick={() => {
-									setShown(!shown);
-								}}>
-								{shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-							</Hide>
-						</Passshow>
-						<Error>{errors.password && "Password is required"}</Error>
-					</HoldInput>
+        <SocialCon>
+          <MainHold>
+            <GoogleImg src={pix} />
+            <span>Sign in with google</span>
+          </MainHold>
+        </SocialCon>
 
-					<Button>Sign In</Button>
-				</Myform>
-				<Already>
-					<OPP>
-						<Acc>Don't have an account?</Acc> &nbsp;{" "}
-						<Sig
-							onClick={() => {
-								Navigate("/signup");
-							}}>
-							Sign up Here
-						</Sig>
-					</OPP>
-				</Already>
-			</Wrapper>
-		</Container>
-	);
+        <LinHold>
+          <Line></Line>
+          <div>or</div>
+          <Line></Line>
+        </LinHold>
+
+        <Myform onSubmit={handleSubmit(onSubmit)}>
+          <HoldInput>
+            <Lable>Email</Lable>
+            <Input
+              placeholder="eg : peterparker223@gmail.com"
+              {...register("email")}
+            />
+            <Error>{errors.email && "Email is required"}</Error>
+          </HoldInput>
+          <HoldInput>
+            <Lable>Password</Lable>
+            <Passshow>
+              <Input2
+                type={shown ? "text" : "password"}
+                placeholder="password"
+                {...register("password")}
+              />
+              <Hide
+                onClick={() => {
+                  setShown(!shown);
+                }}
+              >
+                {shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </Hide>
+            </Passshow>
+            <Error>{errors.password && "Password is required"}</Error>
+          </HoldInput>
+
+          <Button>Sign In</Button>
+        </Myform>
+        <Already>
+          <OPP>
+            <Acc>Don't have an account?</Acc> &nbsp;{" "}
+            <Sig
+              onClick={() => {
+                Navigate("/signup");
+              }}
+            >
+              Sign up Here
+            </Sig>
+          </OPP>
+        </Already>
+      </Wrapper>
+    </Container>
+  );
 };
 
 export default SignIn;

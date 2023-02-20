@@ -26,7 +26,7 @@ const Signup = () => {
   const Navigate = useNavigate();
 
   const schema = yup.object().shape({
-    name: yup.string().required("this filed must be empty"),
+    userName: yup.string().required("this filed must be empty"),
     email: yup.string().email().required("please enter a valid email addresss"),
     password: yup.string().required("please enter a valid password"),
     confirmPassword: yup.string().oneOf([yup.ref("password")], null!),
@@ -49,7 +49,6 @@ const Signup = () => {
   });
 
   const onSubmit: SubmitHandler<iData> = async (value: any) => {
-    
     setLoadingState(true);
     mutation.mutate(value);
   };
@@ -88,7 +87,10 @@ const Signup = () => {
           <Myform onSubmit={handleSubmit(onSubmit)}>
             <HoldInput>
               <Lable>Name</Lable>
-              <Input placeholder="eg : peter parker" {...register("name")} />
+              <Input
+                placeholder="eg : peter parker"
+                {...register("userName")}
+              />
               <Error>{errors.name && "Name is required"}</Error>
             </HoldInput>
             <HoldInput>

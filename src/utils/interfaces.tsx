@@ -1,7 +1,7 @@
 export interface iRegister {
   email?: string;
   password?: string;
-  name?: string;
+  userName?: string;
 }
 
 export interface iSign {
