@@ -3,6 +3,8 @@ import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import pix1 from "../images/share.svg";
 import BacklinkDetailed from "./BacklinkDetailed";
+import BacklinkLevel from "./BacklinkLevel";
+import BackLinkTable from "./BackLinkTable";
 
 const BackLinkChecker = () => {
   return (
@@ -18,6 +20,13 @@ const BackLinkChecker = () => {
          */}
         <br />
         <BacklinkDetailed />
+        <br />
+        <BacklinkLevel />
+        <br />
+        <Table>
+          <BackLinkTable title="Top referring domain anchor" color="#ae67fa" />
+          <BackLinkTable title="Top backlink anchors " color="#5BD982" />
+        </Table>
       </Wrapper>
     </Container>
   );
@@ -36,6 +45,10 @@ const BackLinkChecker = () => {
 };
 
 export default BackLinkChecker;
+
+const Table = styled.div`
+  display: flex;
+`;
 
 const Br = styled.div`
   margin-top: 10px;
