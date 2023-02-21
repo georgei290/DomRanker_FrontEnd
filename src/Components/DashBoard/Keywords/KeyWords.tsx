@@ -23,10 +23,12 @@ const Title = styled.div`
 const Wrapper = styled.div`
   margin-left: 20px;
   margin-top: 10px;
+  width: 97%;
+  /* background-color: aqua; */
 `;
 
 const Container = styled.div`
-  min-width: calc(100vw - 240px);
+  width: calc(100vw - 240px);
   min-height: calc(100vh - 60px);
   display: flex;
   overflow: hidden;
