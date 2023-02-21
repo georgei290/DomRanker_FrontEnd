@@ -1,8 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import DataKeyWord from "./DataKeyWord";
 import EmptyKeyWord from "./EmptyKeyWord";
 
 const KeyWords = () => {
+
+  return (
+    <Container>
+      <Wrapper>
+        {/* <EmptyKeyWord /> */}
+        <DataKeyWord />
+      </Wrapper>
+    </Container>
+  );
+
 	return (
 		<Container>
 			<Wrapper>
@@ -10,6 +21,7 @@ const KeyWords = () => {
 			</Wrapper>
 		</Container>
 	);
+
 };
 
 export default KeyWords;
@@ -21,6 +33,18 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
+
+  margin-left: 20px;
+  margin-top: 10px;
+  width: 97%;
+  /* background-color: aqua; */
+`;
+
+const Container = styled.div`
+  width: calc(100vw - 240px);
+  min-height: calc(100vh - 60px);
+  display: flex;
+  overflow: hidden;
 	margin-left: 20px;
 	margin-top: 10px;
 	width: 90%;
@@ -32,6 +56,7 @@ const Container = styled.div`
 	min-height: calc(100vh - 60px);
 	display: flex;
 	overflow: hidden;
+
 
 	/* justify-content: space-between; */
 	/* align-items: center; */
