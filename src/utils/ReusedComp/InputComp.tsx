@@ -1,21 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import InputComp from "../../../utils/ReusedComp/InputComp";
 
-const SeoChecker = () => {
+const InputComp = () => {
 	return (
-		<Container>
-			<Wrapper>
-				<Title>Seo Checker</Title>
-				<Span>Find the most profitable keywords to rank for</Span>
-
-				<InputComp />
-			</Wrapper>
-		</Container>
+		<>
+			<InputHold>
+				<Main>
+					<InputText>Search Engine Types</InputText>
+					<Select>
+						<option>Organic</option>
+					</Select>
+				</Main>
+				<Main>
+					<InputText>Search Engine Types</InputText>
+					<Input placeholder='Enter search' />
+				</Main>
+				<Main>
+					<InputText>Search Engine Types</InputText>
+					<Input placeholder='Enter search' />
+				</Main>
+			</InputHold>
+			<Main>
+				<InputText>Search Engine Types</InputText>
+				<Input2>
+					<Input3 placeholder='Enter search' />
+					<Button>Analyze</Button>
+				</Input2>
+			</Main>
+		</>
 	);
 };
 
-export default SeoChecker;
+export default InputComp;
 
 const Input3 = styled.input`
 	flex: 1;
@@ -113,29 +129,4 @@ const Title = styled.div`
 	color: #3e4581;
 	font-size: 25px;
 	font-weight: 800;
-`;
-
-const Wrapper = styled.div`
-	margin-left: 30px;
-	margin-top: 30px;
-	width: 95%;
-	/* background-color: ; */
-`;
-
-const Container = styled.div`
-	min-width: calc(100vw - 240px);
-	min-height: calc(100vh - 60px);
-	display: flex;
-	overflow: hidden;
-
-	/* justify-content: space-between; */
-	/* align-items: center; */
-	flex-direction: column;
-	background-color: #f8f8ff;
-	margin-top: 60px;
-
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-	/* flex-direction: column; */
 `;

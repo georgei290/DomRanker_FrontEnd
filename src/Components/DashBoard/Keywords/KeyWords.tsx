@@ -4,6 +4,7 @@ import DataKeyWord from "./DataKeyWord";
 import EmptyKeyWord from "./EmptyKeyWord";
 
 const KeyWords = () => {
+
   return (
     <Container>
       <Wrapper>
@@ -12,17 +13,27 @@ const KeyWords = () => {
       </Wrapper>
     </Container>
   );
+
+	return (
+		<Container>
+			<Wrapper>
+				<EmptyKeyWord />
+			</Wrapper>
+		</Container>
+	);
+
 };
 
 export default KeyWords;
 
 const Title = styled.div`
-  color: #3e4581;
-  font-size: 25px;
-  font-weight: 800;
+	color: #3e4581;
+	font-size: 25px;
+	font-weight: 800;
 `;
 
 const Wrapper = styled.div`
+
   margin-left: 20px;
   margin-top: 10px;
   width: 97%;
@@ -34,15 +45,27 @@ const Container = styled.div`
   min-height: calc(100vh - 60px);
   display: flex;
   overflow: hidden;
+	margin-left: 20px;
+	margin-top: 10px;
+	width: 90%;
+	/* background-color: aqua; */
+`;
 
-  /* justify-content: space-between; */
-  /* align-items: center; */
-  flex-direction: column;
-  background-color: #f8f8ff;
-  margin-top: 60px;
+const Container = styled.div`
+	width: calc(100vw - 240px);
+	min-height: calc(100vh - 60px);
+	display: flex;
+	overflow: hidden;
 
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-  /* flex-direction: column; */
+
+	/* justify-content: space-between; */
+	/* align-items: center; */
+	flex-direction: column;
+	background-color: #f8f8ff;
+	margin-top: 60px;
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+	/* flex-direction: column; */
 `;

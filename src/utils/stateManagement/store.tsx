@@ -16,7 +16,6 @@ const persistConfig = {
   version: 1,
   storage,
 };
-
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
