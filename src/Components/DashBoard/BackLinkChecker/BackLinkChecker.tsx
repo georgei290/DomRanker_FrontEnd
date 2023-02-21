@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import InputComp from "../../../utils/ReusedComp/InputComp";
 import pix1 from "../images/share.svg";
 
 const BackLinkChecker = () => {
@@ -11,16 +12,23 @@ const BackLinkChecker = () => {
           Get the full list of backlinks of any domain along with additional
           data on each backlink
         </SubTitle>
-        <MainHolder>
-          <ShaerImage src={pix1} alt="image for default backlink checker" />
-          <Br />
-          <SubTitle>
-            Monitor backlink performance for yourself and competitors.
-          </SubTitle>
-        </MainHolder>
+        <InputComp />
+        {newFunction()}
       </Wrapper>
     </Container>
   );
+
+  function newFunction() {
+    return (
+      <MainHolder>
+        <ShaerImage src={pix1} alt="image for default backlink checker" />
+        <Br />
+        <SubTitle>
+          Monitor backlink performance for yourself and competitors.
+        </SubTitle>
+      </MainHolder>
+    );
+  }
 };
 
 export default BackLinkChecker;
@@ -32,7 +40,7 @@ const MainHolder = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  height: 90vh;
+  height: 80vh;
   align-items: center;
   flex-direction: column;
 `;
