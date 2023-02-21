@@ -43,7 +43,8 @@ const Signup = () => {
   const mutation = useMutation({
     mutationFn: (data: iRegister) => {
       return registerUser(data).then(() => {
-        setLoadingState(false);
+		  setLoadingState(false);
+      Navigate("/after-register");
       });
     },
   });

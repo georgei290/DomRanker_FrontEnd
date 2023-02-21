@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { iRegister, iSign, iEmail, iPassword } from "./interfaces";
 
@@ -47,13 +48,15 @@ export const signinUser = async (data: iSign) => {
     await axios
       .post(mainURL, data)
       .then((res) => {
+        console.log("coming from here: ", res.data.data);
         return res.data.data;
       })
       .then((res) => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: `Welcome Back ${res.data.data.userName}!`,
+          title: `Welcome Back `,
+          // title: `Welcome Back ${res.data.data.userName}!`,
           showConfirmButton: false,
           timer: 3500,
         });
@@ -100,6 +103,15 @@ export const changeUsersPassword = async (data: iPassword, id: string) => {
           timer: 3500,
         });
       });
+  } catch (error: any) {
+    return error;
+  }
+};
+
+export const congrateCall = async (id: string) => {
+  try {
+    const mainURL = `${url}/api/user/${id}/verified-user`;
+    await axios.get(mainURL);
   } catch (error: any) {
     return error;
   }
