@@ -3,7 +3,8 @@ import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import pic from "../images/keypoint.svg";
-const Keywords = () => {
+
+const Keyword = () => {
 	return (
 		<Container>
 			<Wrapper>
@@ -21,7 +22,7 @@ const Keywords = () => {
 	);
 };
 
-export default Keywords;
+export default Keyword;
 
 const BottomEmptyData = styled.div`
 	width: 100%;
@@ -59,15 +60,10 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
-	margin-left: 30px;
-	margin-top: 30px;
+	margin-left: 20px;
+	margin-top: 20px;
 	width: 95%;
-	hr {
-		border: none;
-		height: 1px;
-		background-color: #e2e2e2;
-	}
-	/* background-color: ; */
+	/* background-color: aqua; */
 `;
 
 const Container = styled.div`
