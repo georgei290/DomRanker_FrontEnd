@@ -8,6 +8,7 @@ export const Signup = loaded(() => import("../Auth/Signup"));
 export const SignIn = loaded(() => import("../Auth/SignIn"));
 export const ForgetPass = loaded(() => import("../Auth/ForgetPass"));
 export const ResetPass = loaded(() => import("../Auth/ResetPass"));
+export const AfterRegister = loaded(() => import("../Auth/AfterRegister"));
 
 // dashboard loadable components
 export const SeoChecker = loaded(
