@@ -6,12 +6,21 @@ const BackLinkChecker = () => {
 		<Container>
 			<Wrapper>
 				<Title>BackLink Checker</Title>
+			
 			</Wrapper>
 		</Container>
 	);
 };
 
 export default BackLinkChecker;
+
+const MyHollde = styled.div`
+margin-left: 30px;
+margin-top: 30px;
+height:auto;
+min-height:500px;
+background-color:pink;
+`
 
 const Title = styled.div`
 	color: #3e4581;
