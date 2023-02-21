@@ -9,8 +9,30 @@ export const SignIn = loaded(() => import("../Auth/SignIn"));
 export const ForgetPass = loaded(() => import("../Auth/ForgetPass"));
 export const ResetPass = loaded(() => import("../Auth/ResetPass"));
 export const AfterRegister = loaded(() => import("../Auth/AfterRegister"));
+
 export const CongrateComponent = loaded(
   () => import("../Auth/CongrateComponent"),
 );
 
+
+
+
+// dashboard loadable components
+export const SeoChecker = loaded(
+	() => import("../DashBoard/SeoChecker/SeoChecker"),
+);
+
+export const BackLinkChecker = loaded(
+	() => import("../DashBoard/BackLinkChecker/BackLinkChecker"),
+);
+export const BusinessData = loaded(
+	() => import("../DashBoard/BusinessData/BusinessData"),
+);
+export const ContentAnalyzer = loaded(
+	() => import("../DashBoard/ContentAnalyzer/ContentAnalyzer"),
+);
+export const OnPageData = loaded(
+	() => import("../DashBoard/OnPageData/OnPageData"),
+);
+export const Keywords = loaded(() => import("../DashBoard/Keywords/KeyWords"));
 
