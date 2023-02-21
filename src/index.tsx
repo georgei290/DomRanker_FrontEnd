@@ -9,7 +9,10 @@ import ErrorHandler from "./utils/ErrorBoundary";
 import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import store from "./utils/stateManagement/store";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
+let persistor = persistStore(store);
 const helmetContext = {};
 
 const root = ReactDOM.createRoot(
@@ -23,9 +26,11 @@ root.render(
     >
       <HelmetProvider context={helmetContext}>
         <Provider store={store}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </PersistGate>
         </Provider>
       </HelmetProvider>
     </ErrorBoundary>

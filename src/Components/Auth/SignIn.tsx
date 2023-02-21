@@ -11,7 +11,11 @@ import { signinUser } from "../../utils/APICalls";
 import { iSign } from "../../utils/interfaces";
 import { useDispatch } from "react-redux/es/exports";
 import { loginUser } from "../../utils/stateManagement/authState";
+import LoadingState from "../../utils/LoadingState";
+import axios from "axios";
+import Swal from "sweetalert2";
 
+const url = "https://dom-ranker.onrender.com";
 interface iData {
   email: string;
   password: string;
@@ -20,7 +24,6 @@ interface iData {
 const SignIn = () => {
   const dispatch = useDispatch();
   const [shown, setShown] = React.useState<boolean>(false);
-  const [shown2, setShown2] = React.useState<boolean>(false);
   const [loadingState, setLoadingState] = React.useState<boolean>(false);
 
   const Navigate = useNavigate();
@@ -37,87 +40,131 @@ const SignIn = () => {
   } = useForm<iData>({
     resolver: yupResolver(schema),
   });
+
+  //	the sign-in api function
+
+  const signinUserData = async (data: iSign) => {
+    try {
+      const mainURL = `${url}/api/user/login-user`;
+      await axios
+        .post(mainURL, data)
+        .then((res) => {
+          console.log("coming from here: ", res.data.data);
+          dispatch(loginUser(res.data.data));
+          return res.data.data;
+        })
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Welcome Back`,
+            showConfirmButton: false,
+            timer: 3500,
+          });
+        })
+        .catch((error: any) => {
+          console.log(error);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: error.response.data.message,
+            showConfirmButton: false,
+            timer: 3500,
+          });
+        });
+    } catch (error: any) {
+      return error;
+    }
+  };
+
+  //	mutating the action with query for optimization and efficiency
   const mutation = useMutation({
-    mutationFn: (data: iSign) => {
-      return signinUser(data).then((data) => {
-        dispatch(loginUser(data));
-        setLoadingState(false);
+    mutationFn: (data: any) => {
+      return signinUserData(data).then((res: any) => {
+        console.log("What is this: ", res);
       });
+    },
+    onSuccess: async () => {
+      setLoadingState(false);
     },
   });
 
+  // 	function to be added to the button
   const onSubmit: SubmitHandler<iData> = async (value: any) => {
     setLoadingState(true);
     mutation.mutate(value);
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <Text>
-          <span>Welcome Back User</span>
-        </Text>
-        <TextDecs>
-          <span>Sign in to interact with your account</span>
-        </TextDecs>
+    <>
+      {loadingState ? <LoadingState /> : null}
+      <Container>
+        <Wrapper>
+          <Text>
+            <span>Welcome Back User</span>
+          </Text>
+          <TextDecs>
+            <span>Sign in to interact with your account</span>
+          </TextDecs>
 
-        <SocialCon>
-          <MainHold>
-            <GoogleImg src={pix} />
-            <span>Sign in with google</span>
-          </MainHold>
-        </SocialCon>
+          <SocialCon>
+            <MainHold>
+              <GoogleImg src={pix} />
+              <span>Sign in with google</span>
+            </MainHold>
+          </SocialCon>
 
-        <LinHold>
-          <Line></Line>
-          <div>or</div>
-          <Line></Line>
-        </LinHold>
+          <LinHold>
+            <Line></Line>
+            <div>or</div>
+            <Line></Line>
+          </LinHold>
 
-        <Myform onSubmit={handleSubmit(onSubmit)}>
-          <HoldInput>
-            <Lable>Email</Lable>
-            <Input
-              placeholder="eg : peterparker223@gmail.com"
-              {...register("email")}
-            />
-            <Error>{errors.email && "Email is required"}</Error>
-          </HoldInput>
-          <HoldInput>
-            <Lable>Password</Lable>
-            <Passshow>
-              <Input2
-                type={shown ? "text" : "password"}
-                placeholder="password"
-                {...register("password")}
+          <Myform onSubmit={handleSubmit(onSubmit)}>
+            <HoldInput>
+              <Lable>Email</Lable>
+              <Input
+                placeholder="eg : peterparker223@gmail.com"
+                {...register("email")}
               />
-              <Hide
+              <Error>{errors.email && "Email is required"}</Error>
+            </HoldInput>
+            <HoldInput>
+              <Lable>Password</Lable>
+              <Passshow>
+                <Input2
+                  type={shown ? "text" : "password"}
+                  placeholder="password"
+                  {...register("password")}
+                />
+                <Hide
+                  onClick={() => {
+                    setShown(!shown);
+                  }}
+                >
+                  {shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </Hide>
+              </Passshow>
+              <Error>{errors.password && "Password is required"}</Error>
+            </HoldInput>
+
+            <Button>Sign In</Button>
+          </Myform>
+          <Already>
+            <OPP>
+              <Acc>Don't have an account?</Acc> &nbsp;{" "}
+              <Sig
                 onClick={() => {
-                  setShown(!shown);
+                  Navigate("/signup");
                 }}
               >
-                {shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </Hide>
-            </Passshow>
-            <Error>{errors.password && "Password is required"}</Error>
-          </HoldInput>
-
-          <Button>Sign In</Button>
-        </Myform>
-        <Already>
-          <OPP>
-            <Acc>Don't have an account?</Acc> &nbsp;{" "}
-            <Sig
-              onClick={() => {
-                Navigate("/signup");
-              }}
-            >
-              Sign up Here
-            </Sig>
-          </OPP>
-        </Already>
-      </Wrapper>
-    </Container>
+                Sign up Here
+              </Sig>
+            </OPP>
+          </Already>
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
