@@ -28,3 +28,7 @@ export const OnPageData = loaded(
 	() => import("../DashBoard/OnPageData/OnPageData"),
 );
 export const Keywords = loaded(() => import("../DashBoard/Keywords/KeyWords"));
+
+export const SeoSearchEngine = loaded(
+	() => import("../DashBoard/SeoChecker/SeoSearchEngines"),
+);
