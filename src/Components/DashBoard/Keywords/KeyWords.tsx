@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import DataKeyWord from "./DataKeyWord";
 import EmptyKeyWord from "./EmptyKeyWord";
 
 const KeyWords = () => {
   return (
     <Container>
       <Wrapper>
-        <EmptyKeyWord />
+        {/* <EmptyKeyWord /> */}
+        <DataKeyWord />
       </Wrapper>
     </Container>
   );
