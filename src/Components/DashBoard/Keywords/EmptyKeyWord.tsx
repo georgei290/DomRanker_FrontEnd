@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FiSearch } from "react-icons/fi";
 
 const EmptyKeyWord = () => {
   return (
@@ -59,14 +60,31 @@ const EmptyKeyWord = () => {
               </FunctionsSelect>
             </DropdownHolds>
 
-            <SearchHold>
-              <label>Keyword</label>
-              <input type="search" placeholder="Enter the Target" />
-            </SearchHold>
+            <SearchBarHold>
+              <Label>
+                <label>Keyword</label>
+              </Label>
+              <SearchBar>
+                <SearchIcon>
+                  <FiSearch size="20px" color="gray" />
+                </SearchIcon>
+                <input type="search" placeholder="Enter Your Keyword..." />
+                <button>Analyse</button>
+              </SearchBar>
+            </SearchBarHold>
           </InputsHold>
         </TopInputData>
         <hr />
-        <BottomEmptyData>buttom</BottomEmptyData>
+        <BottomEmptyData>
+          <ImageDiv>
+            <img src="/image/keypoint.svg" alt="" />
+          </ImageDiv>
+          <Desc>
+            This endpoint will provide you with search volume, monthly searches,
+            competition, and other related data for up to 1000 keywords in a
+            single request.
+          </Desc>
+        </BottomEmptyData>
       </Wrapper>
     </Container>
   );
@@ -75,9 +93,15 @@ const EmptyKeyWord = () => {
 export default EmptyKeyWord;
 
 const Container = styled.div``;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #e2e2e2;
+  }
+`;
 const TopInputData = styled.div``;
-const BottomEmptyData = styled.div``;
+
 const Title = styled.div`
   font-size: 24px;
   font-weight: 800;
@@ -87,11 +111,14 @@ const SubTitle = styled.div`
 `;
 const InputsHold = styled.div`
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const DropdownHolds = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 `;
 const FunctionsSelect = styled.div`
   display: flex;
@@ -122,4 +149,89 @@ const FunctionsSelect = styled.div`
     }
   }
 `;
-const SearchHold = styled.div``;
+const SearchBar = styled.div`
+  width: 98%;
+  height: 35px;
+  background-color: #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #dddddd;
+  padding: 0 3px 0 8px;
+  @media (max-width: 450px) {
+    width: 95%;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+    font-family: Montserrat;
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+  button {
+    height: 90%;
+    width: 200px;
+    border-radius: 3px;
+    font-family: Montserrat;
+    background-color: #4285f4;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    transition: 350ms;
+    cursor: pointer;
+    :hover {
+      transform: scale(0.96);
+    }
+  }
+`;
+
+const SearchIcon = styled.div`
+  height: 20px;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+`;
+
+const SearchBarHold = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Label = styled.div`
+  width: 99%;
+  /* background-color: red; */
+
+  label {
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+`;
+const BottomEmptyData = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
+const ImageDiv = styled.div`
+  margin: 15px 0;
+  img {
+    width: 250px;
+  }
+`;
+const Desc = styled.div`
+  width: 700px;
+  text-align: center;
+  font-size: 13px;
+
+  @media (max-width: 700px) {
+    width: 80%;
+  }
+`;
