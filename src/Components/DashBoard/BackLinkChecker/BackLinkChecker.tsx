@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import pix1 from "../images/share.svg";
+import BacklinkDetailed from "./BacklinkDetailed";
 
 const BackLinkChecker = () => {
   return (
@@ -13,7 +14,10 @@ const BackLinkChecker = () => {
           data on each backlink
         </SubTitle>
         <InputComp />
-        {newFunction()}
+        {/* {newFunction()}
+         */}
+        <br />
+        <BacklinkDetailed />
       </Wrapper>
     </Container>
   );
