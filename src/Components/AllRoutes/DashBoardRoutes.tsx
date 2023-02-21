@@ -6,13 +6,23 @@ import {
 	Keywords,
 	OnPageData,
 	SeoChecker,
+	SeoSearchEngine,
 } from "./Bundled";
 
 const DashBoardRoutes = () => {
 	let element = useRoutes([
 		{
 			path: "/seochecker",
-			element: <SeoChecker />,
+			children: [
+				{
+					index: true,
+					element: <SeoSearchEngine />,
+				},
+				{
+					path: "search",
+					element: <SeoChecker />,
+				},
+			],
 		},
 
 		{
