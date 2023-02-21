@@ -7,6 +7,7 @@ import {
   ForgetPass,
   ResetPass,
   AfterRegister,
+  CongrateComponent,
 } from "./Bundled";
 
 const HomeRoutes = () => {
@@ -39,6 +40,10 @@ const HomeRoutes = () => {
     {
       path: "/after-register",
       element: <AfterRegister />,
+    },
+    {
+      path: "/congrate-screen",
+      element: <CongrateComponent />,
     },
   ]);
   return element;

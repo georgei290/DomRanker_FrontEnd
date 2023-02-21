@@ -56,6 +56,7 @@ const Title = styled.div`
 const Wrapper = styled.div`
 	margin-left: 30px;
 	margin-top: 30px;
+	width: 90%;
 `;
 
 const Container = styled.div`

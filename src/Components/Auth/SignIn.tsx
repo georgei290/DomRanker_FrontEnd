@@ -11,9 +11,9 @@ import { signinUser } from "../../utils/APICalls";
 import { iSign } from "../../utils/interfaces";
 import { useDispatch } from "react-redux/es/exports";
 import { loginUser } from "../../utils/stateManagement/authState";
-import Swal from "sweetalert2";
-import axios from "axios";
 import LoadingState from "../../utils/LoadingState";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const url = "https://dom-ranker.onrender.com";
 interface iData {
@@ -75,21 +75,19 @@ const SignIn = () => {
   } = useForm<iData>({
     resolver: yupResolver(schema),
   });
-
   const mutation = useMutation({
     mutationFn: (data: iSign) => {
-      return signinUserData(data);
-      // 		  .then((data) => {
-      //     dispatch(loginUser(data));
-      //   });
+      return signinUser(data).then((data) => {
+        dispatch(loginUser(data));
+        setLoadingState(false);
+      });
     },
-
-    onSuccess: (data, variables, context) => {
+    onSuccess: async () => {
       setLoadingState(false);
-      //   console.log(data);
     },
   });
 
+  // 	function to be added to the button
   const onSubmit: SubmitHandler<iData> = async (value: any) => {
     setLoadingState(true);
     mutation.mutate(value);

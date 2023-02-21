@@ -1,11 +1,20 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const AfterRegister = () => {
+import { congrateCall } from "../../utils/APICalls";
+
+const CongrateComponent = () => {
+  const { id } = useParams();
+  useEffect(() => {
+    congrateCall(id!);
+  }, []);
+
   return (
     <Container>
       <Wrapper>
         <Text>
-          <span>You are almost there!!!</span>
+          <span>Finally you're done!!!</span>
         </Text>
         <TextDecs>
           <span>Sign in to interact with your account</span>
@@ -13,11 +22,10 @@ const AfterRegister = () => {
 
         <SocialCon>
           <div>
-            This is send to you because you've made an attent to create an
-            Account with us!
+            Your account has been verified!
             <br />
             <br />
-            Please go your Email and finsh up your Registeration....!
+            Please goto sign in now....!
             <br />
             <br />
             Thanks
@@ -28,7 +36,7 @@ const AfterRegister = () => {
   );
 };
 
-export default AfterRegister;
+export default CongrateComponent;
 
 const SocialCon = styled("div")`
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
