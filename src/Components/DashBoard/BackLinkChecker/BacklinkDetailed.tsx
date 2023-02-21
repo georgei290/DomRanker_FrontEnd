@@ -24,5 +24,4 @@ const CardHolder = styled.div`
   width: 98%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 `;

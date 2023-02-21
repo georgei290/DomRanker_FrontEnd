@@ -23,7 +23,7 @@ const MainTitle = styled.div`
 `;
 
 const Main = styled.div`
-  width: 250px;
+  width: 290px;
   height: 100px;
   background-color: white;
   display: flex;
