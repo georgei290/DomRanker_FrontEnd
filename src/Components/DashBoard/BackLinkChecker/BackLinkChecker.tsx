@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import pix1 from "../images/share.svg";
 import BacklinkDetailed from "./BacklinkDetailed";
+import BacklinkLevel from "./BacklinkLevel";
 
 const BackLinkChecker = () => {
   return (
@@ -18,6 +19,8 @@ const BackLinkChecker = () => {
          */}
         <br />
         <BacklinkDetailed />
+        <br />
+        <BacklinkLevel />
       </Wrapper>
     </Container>
   );
