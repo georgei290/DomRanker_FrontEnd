@@ -2,21 +2,30 @@ import React from "react";
 import styled from "styled-components";
 
 const BackLinkChecker = () => {
-	return (
-		<Container>
-			<Wrapper>
-				<Title>BackLink Checker</Title>
-			</Wrapper>
-		</Container>
-	);
+  return (
+    <Container>
+      <Wrapper>
+        <Title>BackLink Checker</Title>
+        <SubTitle>
+          Get the full list of backlinks of any domain along with additional
+          data on each backlink
+        </SubTitle>
+      </Wrapper>
+    </Container>
+  );
 };
 
 export default BackLinkChecker;
 
+const SubTitle = styled.div`
+  font-size: 15px;
+  font-weight: 700;
+`;
+
 const Title = styled.div`
-	color: #3e4581;
-	font-size: 25px;
-	font-weight: 800;
+  color: #3e4581;
+  font-size: 25px;
+  font-weight: 600;
 `;
 
 const Wrapper = styled.div`
