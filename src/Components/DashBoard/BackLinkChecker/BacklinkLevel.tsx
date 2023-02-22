@@ -1,14 +1,11 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 
 const BacklinkLevel = () => {
-  const [colorLength, setColorLength] = useState(0);
   return (
     <div>
       <Main>
         <TopMain>
-          <Holder1>
-            {" "}
+          <TopHolder>
             <MainTop>
               <Title>Domain Trust</Title>
               <Build>
@@ -19,25 +16,34 @@ const BacklinkLevel = () => {
               </Build>
             </MainTop>
             <MainTop>
-              <Title>Page Trust</Title>
+              <Title>Domain Trust</Title>
               <Build>
-                <MainTitle>16</MainTitle>
+                <MainTitle>46</MainTitle>
                 <Bar>
-                  <ColorBar color="#BF63D2" val={`${(16 / 120) * 100}px`} />
+                  <ColorBar color="#0da1e3" val={`${(46 / 120) * 100}px`} />
                 </Bar>
               </Build>
             </MainTop>
             <MainTop>
-              <Title>Anchor Text</Title>
+              <Title>Domain Trust</Title>
               <Build>
-                <MainTitle>64</MainTitle>
+                <MainTitle>46</MainTitle>
                 <Bar>
-                  <ColorBar color="#F6E121" val={`${(64 / 120) * 100}px`} />
+                  <ColorBar color="#0da1e3" val={`${(46 / 120) * 100}px`} />
                 </Bar>
               </Build>
             </MainTop>
-          </Holder1>
-          <Holder2>
+            <MainTop>
+              <Title>Domain Trust</Title>
+              <Build>
+                <MainTitle>46</MainTitle>
+                <Bar>
+                  <ColorBar color="#0da1e3" val={`${(46 / 120) * 100}px`} />
+                </Bar>
+              </Build>
+            </MainTop>
+          </TopHolder>
+          <TopHolder>
             <Section>
               <Text>Referring Domains</Text>
               <Number>64</Number>
@@ -82,8 +88,9 @@ const BacklinkLevel = () => {
                 </InnerDetail>
               </Detail>
             </Section>
-          </Holder2>
+          </TopHolder>
         </TopMain>
+
         <SideMain>
           <Holder3>
             <HolderText>DOFOLLOW | NOFOLLOW</HolderText>
@@ -128,7 +135,20 @@ const BacklinkLevel = () => {
   );
 };
 // #5BD9B5
+
 export default BacklinkLevel;
+
+const TopHolder = styled.div`
+  width: 100%;
+  margin: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media screen and (max-width: 425px) {
+    width: 95%;
+  }
+`;
 
 const Holder4 = styled.div`
   margin-top: 10px;
@@ -191,7 +211,7 @@ const HolderText = styled.div`
 `;
 
 const Holder3 = styled.div`
-  height: 150px;
+  height: 230px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -218,6 +238,10 @@ const SmallText = styled.div`
   min-width: 60px;
   font-weight: 600;
   height: 30px;
+
+  @media screen and (max-width: 425px) {
+    font-size: 010px;
+  }
 `;
 
 const InnerDetail = styled.div`
@@ -225,6 +249,11 @@ const InnerDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  @media screen and (max-width: 425px) {
+    margin-top: -40px;
+    justify-content: flex-start;
+  }
 `;
 
 const Detail = styled.div`
@@ -249,15 +278,21 @@ const Text = styled.div`
 `;
 
 const Section = styled.div`
-  width: 380px;
-  height: 242px;
+  width: 300px;
+  height: 220px;
   background-color: white;
   padding: 0 10px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  margin-right: 10px;
+  margin: 10px;
+
+  @media screen and (max-width: 425px) {
+    margin: 5px 0;
+    width: 90%;
+    height: 190px;
+  }
 `;
 
 const Holder2 = styled.div`
@@ -267,6 +302,9 @@ const Holder2 = styled.div`
 
 const Holder1 = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  background-color: blueviolet;
+  justify-content: center;
 `;
 
 const ColorBar = styled.div<{ color: string; val: string }>`
@@ -305,7 +343,7 @@ const MainTitle = styled.div`
 `;
 
 const MainTop = styled.div`
-  width: 250px;
+  width: 270px;
   height: 80px;
   background-color: white;
   display: flex;
@@ -313,6 +351,11 @@ const MainTop = styled.div`
   justify-content: center;
   margin: 10px;
   padding-left: 10px;
+
+  @media screen and (max-width: 425px) {
+    margin: 5px;
+    width: 90%;
+  }
 `;
 
 const SideMain = styled.div`
@@ -323,10 +366,18 @@ const SideMain = styled.div`
 `;
 
 const TopMain = styled.div`
-  width: 900px;
+  width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
 `;
 
 const Main = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 99%;
+  justify-content: center;
 `;
