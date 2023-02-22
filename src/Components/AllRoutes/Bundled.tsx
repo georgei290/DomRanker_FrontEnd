@@ -11,11 +11,8 @@ export const ResetPass = loaded(() => import("../Auth/ResetPass"));
 export const AfterRegister = loaded(() => import("../Auth/AfterRegister"));
 
 export const CongrateComponent = loaded(
-  () => import("../Auth/CongrateComponent"),
+	() => import("../Auth/CongrateComponent"),
 );
-
-
-
 
 // dashboard loadable components
 export const SeoChecker = loaded(
@@ -36,3 +33,6 @@ export const OnPageData = loaded(
 );
 export const Keywords = loaded(() => import("../DashBoard/Keywords/KeyWords"));
 
+export const SeoSearchEngine = loaded(
+	() => import("../DashBoard/SeoChecker/SeoSearchEngines"),
+);

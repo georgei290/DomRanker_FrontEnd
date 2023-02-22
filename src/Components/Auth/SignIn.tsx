@@ -33,31 +33,22 @@ const SignIn = () => {
     password: yup.string().required("please enter a valid password"),
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-  } = useForm<iData>({
-    resolver: yupResolver(schema),
-  });
-
-  //	the sign-in api function
-
   const signinUserData = async (data: iSign) => {
     try {
       const mainURL = `${url}/api/user/login-user`;
       await axios
         .post(mainURL, data)
         .then((res) => {
-          console.log("coming from here: ", res.data.data);
           dispatch(loginUser(res.data.data));
-          return res.data.data;
+          console.log(res.data.data);
+          //   return res.data.data;
         })
         .then((res) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: `Welcome Back`,
+            title: `Welcome Back!`,
+            // title: `Welcome Back ${res.data.data.userName}!`,
             showConfirmButton: false,
             timer: 3500,
           });
@@ -77,11 +68,18 @@ const SignIn = () => {
     }
   };
 
-  //	mutating the action with query for optimization and efficiency
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<iData>({
+    resolver: yupResolver(schema),
+  });
   const mutation = useMutation({
-    mutationFn: (data: any) => {
-      return signinUserData(data).then((res: any) => {
-        console.log("What is this: ", res);
+    mutationFn: (data: iSign) => {
+      return signinUser(data).then((data) => {
+        dispatch(loginUser(data));
+        setLoadingState(false);
       });
     },
     onSuccess: async () => {
