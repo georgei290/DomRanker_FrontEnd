@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import DataKeyWord from "./DataKeyWord";
-import EmptyKeyWord from "./EmptyKeyWord";
 
 const KeyWords = () => {
   return (
     <Container>
       <Wrapper>
-        {/* <EmptyKeyWord /> */}
-        <DataKeyWord />
+        <Title>Keywords</Title>
       </Wrapper>
     </Container>
   );
@@ -23,14 +20,12 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
-  margin-left: 20px;
-  margin-top: 10px;
-  width: 97%;
-  /* background-color: aqua; */
+  margin-left: 30px;
+  margin-top: 30px;
 `;
 
 const Container = styled.div`
-  width: calc(100vw - 240px);
+  min-width: calc(100vw - 240px);
   min-height: calc(100vh - 60px);
   display: flex;
   overflow: hidden;

@@ -21,10 +21,9 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
-  margin-left: 10px;
-  margin-top: 10px;
-  width: 98%;
-  /* background-color: aqua; */
+  margin-left: 30px;
+  margin-top: 30px;
+  width: 95%;
 `;
 
 const Container = styled.div`

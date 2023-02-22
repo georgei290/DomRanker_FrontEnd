@@ -4,95 +4,92 @@ import { FiSearch } from "react-icons/fi";
 
 const EmptyKeyWord = () => {
   return (
-    <Container>
-      <Wrapper>
-        <TopInputData>
-          <Title>Keyword Data</Title>
-          <SubTitle>
-            Keyword Data Explorer will help you appreciate the scale of
-            information that Domranker Keyword provides.
-          </SubTitle>
-          <InputsHold>
-            <DropdownHolds>
-              <FunctionsSelect>
-                <label>Functions</label>
-                <select>
-                  <option>Summary</option>
-                  <option>Function 2</option>
-                  <option>Function 3</option>
-                  <option>Function 4</option>
-                  <option>Function 5</option>
-                  <option>Function 6</option>
-                </select>
-              </FunctionsSelect>
-              <FunctionsSelect>
-                <label>Include Subdomains</label>
-                <select>
-                  <option>Enable</option>
-                  <option>Function 2</option>
-                  <option>Function 3</option>
-                  <option>Function 4</option>
-                  <option>Function 5</option>
-                  <option>Function 6</option>
-                </select>
-              </FunctionsSelect>
-              <FunctionsSelect>
-                <label>Backlink Status Type</label>
-                <select>
-                  <option>Live</option>
-                  <option>Function 2</option>
-                  <option>Function 3</option>
-                  <option>Function 4</option>
-                  <option>Function 5</option>
-                  <option>Function 6</option>
-                </select>
-              </FunctionsSelect>
-              <FunctionsSelect>
-                <label>Internal List Limit</label>
-                <select>
-                  <option>10</option>
-                  <option>Function 2</option>
-                  <option>Function 3</option>
-                  <option>Function 4</option>
-                  <option>Function 5</option>
-                  <option>Function 6</option>
-                </select>
-              </FunctionsSelect>
-            </DropdownHolds>
+    <Wrapper>
+      <TopInputData>
+        <Title>Keyword Data</Title>
+        <SubTitle>
+          Keyword Data Explorer will help you appreciate the scale of
+          information that Domranker Keyword provides.
+        </SubTitle>
+        <InputsHold>
+          <DropdownHolds>
+            <FunctionsSelect>
+              <label>Functions</label>
+              <select>
+                <option>Summary</option>
+                <option>Function 2</option>
+                <option>Function 3</option>
+                <option>Function 4</option>
+                <option>Function 5</option>
+                <option>Function 6</option>
+              </select>
+            </FunctionsSelect>
+            <FunctionsSelect>
+              <label>Include Subdomains</label>
+              <select>
+                <option>Enable</option>
+                <option>Function 2</option>
+                <option>Function 3</option>
+                <option>Function 4</option>
+                <option>Function 5</option>
+                <option>Function 6</option>
+              </select>
+            </FunctionsSelect>
+            <FunctionsSelect>
+              <label>Backlink Status Type</label>
+              <select>
+                <option>Live</option>
+                <option>Function 2</option>
+                <option>Function 3</option>
+                <option>Function 4</option>
+                <option>Function 5</option>
+                <option>Function 6</option>
+              </select>
+            </FunctionsSelect>
+            <FunctionsSelect>
+              <label>Internal List Limit</label>
+              <select>
+                <option>10</option>
+                <option>Function 2</option>
+                <option>Function 3</option>
+                <option>Function 4</option>
+                <option>Function 5</option>
+                <option>Function 6</option>
+              </select>
+            </FunctionsSelect>
+          </DropdownHolds>
 
-            <SearchBarHold>
-              <Label>
-                <label>Keyword</label>
-              </Label>
-              <SearchBar>
-                <SearchIcon>
-                  <FiSearch size="20px" color="gray" />
-                </SearchIcon>
-                <input type="search" placeholder="Enter Your Keyword..." />
-                <button>Analyse</button>
-              </SearchBar>
-            </SearchBarHold>
-          </InputsHold>
-        </TopInputData>
-        <hr />
-        <BottomEmptyData>
-          <ImageDiv>
-            <img src="/image/keypoint.svg" alt="" />
-          </ImageDiv>
-          <Desc>
-            This endpoint will provide you with search volume, monthly searches,
-            competition, and other related data for up to 1000 keywords in a
-            single request.
-          </Desc>
-        </BottomEmptyData>
-      </Wrapper>
-    </Container>
+          <SearchBarHold>
+            <Label>
+              <label>Keyword</label>
+            </Label>
+            <SearchBar>
+              <SearchIcon>
+                <FiSearch size="20px" color="gray" />
+              </SearchIcon>
+              <input type="search" placeholder="Enter Your Keyword..." />
+              <button>Analyse</button>
+            </SearchBar>
+          </SearchBarHold>
+        </InputsHold>
+      </TopInputData>
+      <hr />
+      <BottomEmptyData>
+        <ImageDiv>
+          <img src="/image/keypoint.svg" alt="" />
+        </ImageDiv>
+        <Desc>
+          This endpoint will provide you with search volume, monthly searches,
+          competition, and other related data for up to 1000 keywords in a
+          single request.
+        </Desc>
+      </BottomEmptyData>
+    </Wrapper>
   );
 };
 
 export default EmptyKeyWord;
 
-const Container = styled.div``;
 const Wrapper = styled.div`
   hr {
     border: none;
