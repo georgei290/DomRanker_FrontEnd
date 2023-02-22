@@ -7,7 +7,8 @@ const KeyWords = () => {
   return (
     <Container>
       <Wrapper>
-        <EmptyKeyWord />
+        {/* <EmptyKeyWord /> */}
+        <DataKeyWord />
       </Wrapper>
     </Container>
   );
@@ -24,7 +25,7 @@ const Title = styled.div`
 const Wrapper = styled.div`
   margin-left: 20px;
   margin-top: 10px;
-  width: 90%;
+  width: 97%;
   /* background-color: aqua; */
 `;
 
