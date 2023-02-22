@@ -29,7 +29,7 @@ const BackLinkTable: React.FC<iTitle> = ({ title, color }) => {
         <DomainList color={color} numb={44} />
 
         <DomainList color={color} numb={69} />
-        <DomainList color={color} numb={88} />
+        <DomainList color={color} numb={38} />
       </Main>
     </DDiv>
   );

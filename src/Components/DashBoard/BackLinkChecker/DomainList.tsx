@@ -20,7 +20,7 @@ const DomainList: React.FC<iColor> = ({ color, numb }) => {
         </Holder1>
       </Header1>
       <Bar>
-        <ColorBar val={`${(numb / 100) * 650}px`} color={color} />
+        <ColorBar val={`${(numb / 100) * 550}px`} color={color} />
       </Bar>
     </div>
   );
