@@ -31,4 +31,8 @@ const Main = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10px;
+
+  @media screen and (max-width: 320px) {
+    width: 95%;
+  }
 `;

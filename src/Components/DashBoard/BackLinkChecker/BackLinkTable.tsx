@@ -5,11 +5,12 @@ import DomainList from "./DomainList";
 interface iTitle {
   title: string;
   color: string;
+  numb?: number;
 }
 
 const BackLinkTable: React.FC<iTitle> = ({ title, color }) => {
   return (
-    <div>
+    <DDiv>
       <Main>
         <Top>
           <Div>{title}</Div>
@@ -25,73 +26,20 @@ const BackLinkTable: React.FC<iTitle> = ({ title, color }) => {
           </Holder>
         </Header>
 
-        <DomainList color={color} />
+        <DomainList color={color} numb={44} />
 
-        <DomainList color={color} />
-        <DomainList color={color} />
+        <DomainList color={color} numb={69} />
+        <DomainList color={color} numb={38} />
       </Main>
-    </div>
+    </DDiv>
   );
 };
 
 export default BackLinkTable;
 
-const ColorBar = styled.div<{
-  val: string;
-  color: string;
-}>`
-  height: 100%;
-  width: ${({ val }) => val};
-  background-color: ${({ color }) => color};
-  border-radius: 50px;
-`;
-
-const Bar = styled.div`
-  width: 650px;
-  background-color: #f2f2f2;
-  height: 7px;
-  margin-left: 20px;
-  margin-top: 5px;
-  border-radius: 50px;
-`;
-
-const Space1 = styled.div`
-  flex: 1;
-`;
-const Domain1 = styled.div`
-  width: 100px;
-  font-weight: 700;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-`;
-
-const Percentage1 = styled.div`
-  width: 40px;
-  font-weight: 700;
-  font-size: 14px;
-`;
-
-const Title1 = styled.div`
-  margin-left: 20px;
-  font-weight: 700;
-  font-size: 16px;
-`;
-
-const Holder1 = styled.div`
-  display: flex;
-  margin-right: 20px;
-  width: 200px;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Header1 = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+const DDiv = styled.div`
+  width: 600px;
+  overflow-x: scroll;
 `;
 
 const Space = styled.div`
@@ -142,7 +90,7 @@ const Top = styled.div`
   font-weight: 700;
 `;
 const Main = styled.div`
-  width: 700px;
+  width: 600px;
   min-height: 300px;
   background-color: white;
   margin-bottom: 20px;
