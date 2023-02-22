@@ -1,6 +1,7 @@
 import React from "react";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
+import InputComp from "../../../utils/ReusedComp/InputComp";
 
 const EmptyContent = () => {
   return (
@@ -11,67 +12,7 @@ const EmptyContent = () => {
           Content Analysis is the ultimate solution for building up brand
           mention, sentiment analysis, and other content-related capabilities
         </SubTitle>
-        <InputsHold>
-          <DropdownHolds>
-            <FunctionsSelect>
-              <label>Functions</label>
-              <select>
-                <option>Summary</option>
-                <option>Function 2</option>
-                <option>Function 3</option>
-                <option>Function 4</option>
-                <option>Function 5</option>
-                <option>Function 6</option>
-              </select>
-            </FunctionsSelect>
-            <FunctionsSelect>
-              <label>Include Subdomains</label>
-              <select>
-                <option>Enable</option>
-                <option>Function 2</option>
-                <option>Function 3</option>
-                <option>Function 4</option>
-                <option>Function 5</option>
-                <option>Function 6</option>
-              </select>
-            </FunctionsSelect>
-            <FunctionsSelect>
-              <label>Backlink Status Type</label>
-              <select>
-                <option>Live</option>
-                <option>Function 2</option>
-                <option>Function 3</option>
-                <option>Function 4</option>
-                <option>Function 5</option>
-                <option>Function 6</option>
-              </select>
-            </FunctionsSelect>
-            <FunctionsSelect>
-              <label>Internal List Limit</label>
-              <select>
-                <option>10</option>
-                <option>Function 2</option>
-                <option>Function 3</option>
-                <option>Function 4</option>
-                <option>Function 5</option>
-                <option>Function 6</option>
-              </select>
-            </FunctionsSelect>
-          </DropdownHolds>
-
-          <SearchBarHold>
-            <Label>
-              <label>Keyword</label>
-            </Label>
-            <SearchBar>
-              <SearchIcon>
-                <FiSearch size="20px" color="gray" />
-              </SearchIcon>
-              <input type="search" placeholder="Enter Your Keyword..." />
-              <button>Analyse</button>
-            </SearchBar>
-          </SearchBarHold>
-        </InputsHold>
+        <InputComp />
       </TopInputData>
       <hr />
       <BottomEmptyData>
