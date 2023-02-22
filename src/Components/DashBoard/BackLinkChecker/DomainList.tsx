@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 interface iColor {
   color: string;
+  numb: number;
 }
 
-const DomainList: React.FC<iColor> = ({ color }) => {
+const DomainList: React.FC<iColor> = ({ color, numb }) => {
   return (
     <div style={{ margin: "5px" }}>
       {" "}
@@ -13,13 +14,13 @@ const DomainList: React.FC<iColor> = ({ color }) => {
         <Title1>thenetnija.net</Title1>
         <Holder1>
           {" "}
-          <Percentage1>66%</Percentage1>
+          <Percentage1>{numb}%</Percentage1>
           <Space1 />
           <Domain1>78</Domain1>
         </Holder1>
       </Header1>
       <Bar>
-        <ColorBar val={`${(66 / 100) * 650}px`} color={color} />
+        <ColorBar val={`${(numb / 100) * 650}px`} color={color} />
       </Bar>
     </div>
   );
@@ -38,7 +39,7 @@ const ColorBar = styled.div<{
 `;
 
 const Bar = styled.div`
-  width: 650px;
+  width: 550px;
   background-color: #f2f2f2;
   height: 7px;
   margin-left: 20px;
@@ -65,8 +66,8 @@ const Percentage1 = styled.div`
 
 const Title1 = styled.div`
   margin-left: 20px;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
 `;
 
 const Holder1 = styled.div`

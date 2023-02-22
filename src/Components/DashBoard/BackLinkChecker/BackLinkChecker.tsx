@@ -11,18 +11,20 @@ const BackLinkChecker = () => {
     <Container>
       <Wrapper>
         <Title>BackLink Checker</Title>
-        <SubTitle>
+        {/* <SubTitle>
           Get the full list of backlinks of any domain along with additional
           data on each backlink
-        </SubTitle>
+        </SubTitle> */}
         <InputComp />
-        {/* {newFunction()}
-         */}
+        <hr />
+        {/* {newFunction()} */}
+
         <br />
         <BacklinkDetailed />
         <br />
         <BacklinkLevel />
         <br />
+
         <Table>
           <BackLinkTable title="Top referring domain anchor" color="#ae67fa" />
           <BackLinkTable title="Top backlink anchors " color="#5BD982" />
@@ -48,13 +50,15 @@ export default BackLinkChecker;
 
 const Table = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Br = styled.div`
   margin-top: 10px;
 `;
 const MainHolder = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   height: 80vh;
@@ -79,25 +83,32 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
-	margin-left: 30px;
-	margin-top: 30px;
-	width: 90%;
+  margin-left: 30px;
+  margin-top: 30px;
+  width: 95%;
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #e2e2e2;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 20px;
+  }
 `;
 
 const Container = styled.div`
-	min-width: calc(100vw - 240px);
-	min-height: calc(100vh - 60px);
-	display: flex;
-	overflow: hidden;
+  width: calc(100vw - 235px);
+  min-height: calc(100vh - 60px);
+  display: flex;
+  overflow: hidden;
 
-	/* justify-content: space-between; */
-	/* align-items: center; */
-	flex-direction: column;
-	background-color: #f8f8ff;
-	margin-top: 60px;
+  flex-direction: column;
+  background-color: #f8f8ff;
+  margin-top: 60px;
 
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-	/* flex-direction: column; */
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
