@@ -5,228 +5,211 @@ const InputComp = () => {
   const [engine, setEngine] = useState("Google");
   const [track, setTrack] = useState("Organic");
   return (
-    <>
-      <InputHold>
-        <Main>
-          <InputText>Search Engine Types</InputText>
-          <Select
-            onChange={(e: any) => {
-              setEngine(e.target.value);
-            }}
-          >
-            <option value="Google">Google</option>
-            <option value="Bing">Bing</option>
-            <option value="Yahoo">Yahoo</option>
-            <option value="Baidu">Baidu</option>
-            <option value="Naver">Naver</option>
-            <option value="Seznam">Seznam</option>
-            <option value="Youtube">Youtube</option>
-          </Select>
-        </Main>
-        <Main>
-          <InputText>Search Engine Track</InputText>
-          <Select
-            onChange={(e: any) => {
-              setTrack(e.target.value);
-            }}
-          >
-            <option value="Organic">Organic</option>
-            <option value="News">News</option>
-            <option value="Jobs">Jobs</option>
-          </Select>
-        </Main>
-        {/* <Main>
+		<>
+			<InputHold>
+				<Main>
+					<InputText>Search Engine Types</InputText>
+					<Select
+						onChange={(e: any) => {
+							setEngine(e.target.value);
+						}}>
+						<option value='Google'>Google</option>
+						<option value='Bing'>Bing</option>
+						<option value='Yahoo'>Yahoo</option>
+						<option value='Youtube'>Youtube</option>
+						<option disabled value='Baidu'>
+							Baidu
+						</option>
+						<option disabled value='Naver'>
+							Naver
+						</option>
+						<option disabled value='Seznam'>
+							Seznam
+						</option>
+					</Select>
+				</Main>
+				<Main>
+					<InputText>Search Engine Track</InputText>
+					<Select
+						onChange={(e: any) => {
+							setTrack(e.target.value);
+						}}>
+						<option value='Organic'>Organic</option>
+						<option value='News'>News</option>
+						<option value='Jobs'>Jobs</option>
+					</Select>
+				</Main>
+				{/* <Main>
 					<InputText>Search Engine Types</InputText>
 					<Input placeholder='Enter search' />
 				</Main> */}
-      </InputHold>
-      <Main>
-        <InputText>Search Engine Types</InputText>
-        <Input2>
-          <Input3 placeholder="Enter search" />
+			</InputHold>
+			<Main>
+				<InputText>Search Engine Types</InputText>
+				<Input2>
+					<Input3 placeholder='Enter search' />
 
-          {
-            // Google
-            engine === "Google" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Google Jobs
-              </Button>
-            ) : engine === "Google" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Google News
-              </Button>
-            ) : engine === "Google" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Google Organic
-              </Button>
-            ) : // Bing
-            engine === "Bing" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Bing Jobs
-              </Button>
-            ) : engine === "Bing" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Bing News
-              </Button>
-            ) : engine === "Bing" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Bing Organic
-              </Button>
-            ) : //	Yahoo
-            engine === "Yahoo" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Yahoo Jobs
-              </Button>
-            ) : engine === "Yahoo" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Yahoo News
-              </Button>
-            ) : engine === "Yahoo" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Yahoo Organic
-              </Button>
-            ) : // Baidu
-            engine === "Baidu" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Baidu Jobs
-              </Button>
-            ) : engine === "Baidu" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Baidu News
-              </Button>
-            ) : engine === "Baidu" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Baidu Organic
-              </Button>
-            ) : // Naver
-            engine === "Naver" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Naver Jobs
-              </Button>
-            ) : engine === "Naver" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Naver News
-              </Button>
-            ) : engine === "Naver" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Naver Organic
-              </Button>
-            ) : // Saznam
-            engine === "Saznam" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Saznam Jobs
-              </Button>
-            ) : engine === "Saznam" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Saznam News
-              </Button>
-            ) : engine === "Saznam" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Saznam Organic
-              </Button>
-            ) : // Youtube
-            engine === "Youtube" && track === "Jobs" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Youtube Jobs
-              </Button>
-            ) : engine === "Youtube" && track === "News" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Youtube News
-              </Button>
-            ) : engine === "Youtube" && track === "Organic" ? (
-              <Button
-                onClick={() => {
-                  console.log(track, engine);
-                }}
-              >
-                Analyzing with Youtube Organic
-              </Button>
-            ) : null
-          }
-        </Input2>
-      </Main>
-    </>
-  );
+					{
+						// Google
+						engine === "Google" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Google Jobs
+							</Button>
+						) : engine === "Google" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Google News
+							</Button>
+						) : engine === "Google" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Google Organic
+							</Button>
+						) : // Bing
+						engine === "Bing" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Bing Jobs
+							</Button>
+						) : engine === "Bing" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Bing News
+							</Button>
+						) : engine === "Bing" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Bing Organic
+							</Button>
+						) : //	Yahoo
+						engine === "Yahoo" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Yahoo Jobs
+							</Button>
+						) : engine === "Yahoo" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Yahoo News
+							</Button>
+						) : engine === "Yahoo" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Yahoo Organic
+							</Button>
+						) : // Baidu
+						engine === "Baidu" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Baidu Jobs
+							</Button>
+						) : engine === "Baidu" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Baidu News
+							</Button>
+						) : engine === "Baidu" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Baidu Organic
+							</Button>
+						) : // Naver
+						engine === "Naver" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Naver Jobs
+							</Button>
+						) : engine === "Naver" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Naver News
+							</Button>
+						) : engine === "Naver" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Naver Organic
+							</Button>
+						) : // Saznam
+						engine === "Saznam" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Saznam Jobs
+							</Button>
+						) : engine === "Saznam" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Saznam News
+							</Button>
+						) : engine === "Saznam" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Saznam Organic
+							</Button>
+						) : // Youtube
+						engine === "Youtube" && track === "Jobs" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Youtube Jobs
+							</Button>
+						) : engine === "Youtube" && track === "News" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Youtube News
+							</Button>
+						) : engine === "Youtube" && track === "Organic" ? (
+							<Button
+								onClick={() => {
+									console.log(track, engine);
+								}}>
+								Analyzing with Youtube Organic
+							</Button>
+						) : null
+					}
+				</Input2>
+			</Main>
+		</>
+	);
 };
 
 export default InputComp;

@@ -50,7 +50,6 @@ const Hol = styled.div`
 const TT = styled.div`
 	width: 90%;
 	font-size: 13px;
-	/* background-color: red; */
 `;
 
 const Content = styled.div`
