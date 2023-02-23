@@ -43,23 +43,26 @@ const SeoSearchEngine = () => {
 						</Card>
 					</MyLink>
 
-					<MyLink to='/seochecker/search'>
-						<Card>
+					<MyLink to='/seochecker'>
+						<Card style={{ filter: "grayscale(100%)" }}>
 							<Logo src={pic5} />
 							<Text>Baidu</Text>
+							<div>Coming soon</div>
 						</Card>
 					</MyLink>
-					<MyLink to='/seochecker/search'>
-						<Card>
+					<MyLink to='/seochecker'>
+						<Card style={{ filter: "grayscale(100%)" }}>
 							<Logo src={pic6} />
 							<Text>Naver</Text>
+							<div>Coming soon</div>
 						</Card>
 					</MyLink>
 
-					<MyLink to='/seochecker/search'>
-						<Card>
+					<MyLink to='/seochecker'>
+						<Card style={{ filter: "grayscale(100%)" }}>
 							<Logo src={pic7} />
 							<Text>Seznam</Text>
+							<div>Coming soon</div>
 						</Card>
 					</MyLink>
 				</CardHold>
