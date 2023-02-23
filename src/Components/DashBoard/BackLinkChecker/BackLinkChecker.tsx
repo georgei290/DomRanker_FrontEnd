@@ -5,6 +5,7 @@ import pix1 from "../images/share.svg";
 import BacklinkDetailed from "./BacklinkDetailed";
 import BacklinkLevel from "./BacklinkLevel";
 import BackLinkTable from "./BackLinkTable";
+import BAcklinkTableHolder from "./BAcklinkTableHolder";
 
 const BackLinkChecker = () => {
 
@@ -30,6 +31,8 @@ const BackLinkChecker = () => {
           <BackLinkTable title="Top referring domain anchor" color="#ae67fa" />
           <BackLinkTable title="Top backlink anchors " color="#5BD982" />
         </Table>
+        <br />
+        <BAcklinkTableHolder />
       </Wrapper>
     </Container>
   );
