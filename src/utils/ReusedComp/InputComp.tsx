@@ -42,6 +42,7 @@ const InputComp = () => {
 				{/* <Main>
 					<InputText>Search Engine Types</InputText>
 					<Input placeholder='Enter search' />
+
 				</Main> */}
 			</InputHold>
 			<Main>
@@ -210,6 +211,7 @@ const InputComp = () => {
 			</Main>
 		</>
 	);
+
 };
 
 export default InputComp;
