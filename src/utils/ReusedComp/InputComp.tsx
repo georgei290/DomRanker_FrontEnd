@@ -19,6 +19,7 @@ const InputComp = () => {
 					<InputText>Search Engine Types</InputText>
 					<Input placeholder='Enter search' />
 				</Main>
+			
 			</InputHold>
 			<Main>
 				<InputText>Search Engine Types</InputText>
