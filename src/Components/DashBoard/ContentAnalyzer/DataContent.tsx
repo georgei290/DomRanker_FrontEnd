@@ -49,7 +49,30 @@ const DataContent = () => {
                 <InnerSub>E-Comerence</InnerSub>
               </InnerMidBox>
             </MiddleBox>
-            <MainBox></MainBox>
+            <MainBox>
+              <MainTop>
+                <Toptitle>Domain Rank</Toptitle>
+                <TopSub>74</TopSub>
+              </MainTop>
+
+              <MainButtom>
+                <RateBox>
+                  <RateBar>
+                    <RateBar2 />
+                  </RateBar>
+                </RateBox>
+                <RateData>
+                  <DataRate>
+                    <RateTitle>URL Rank</RateTitle>
+                    <RateSub>78</RateSub>
+                  </DataRate>
+                  <DataRate>
+                    <RateTitle>Spam Score</RateTitle>
+                    <RateSub>22</RateSub>
+                  </DataRate>
+                </RateData>
+              </MainButtom>
+            </MainBox>
           </BoxesDiv>
           <ContentCahrtDiv>
             <PageCategoryChart />
@@ -145,3 +168,35 @@ const InnerSub = styled.div`
 `;
 
 const ContentCahrtDiv = styled.div``;
+
+const MainTop = styled.div``;
+const MainButtom = styled.div``;
+const RateBox = styled.div``;
+const RateData = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const DataRate = styled.div``;
+const RateTitle = styled.div`
+  font-size: 9px;
+  font-weight: 600;
+  margin-bottom: 15px;
+`;
+const RateSub = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const RateBar = styled.div`
+  height: 6px;
+  width: 100%;
+  background-color: #f49867;
+  margin-bottom: 15px;
+  border-radius: 10px;
+`;
+const RateBar2 = styled.div`
+  width: 70%;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #ae67fa;
+`;
