@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import DataContent from "./DataContent";
 import EmptyContent from "./EmptyContent";
 
 const ContentAnalyzer = () => {
   return (
     <Container>
       <Wrapper>
-        <EmptyContent />
+        {/* <EmptyContent /> */}
+        <DataContent />
       </Wrapper>
     </Container>
   );
