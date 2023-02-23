@@ -67,7 +67,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-	min-width: calc(100vw - 240px);
+	width: calc(100vw - 240px);
 	min-height: calc(100vh - 60px);
 	display: flex;
 	overflow: hidden;
