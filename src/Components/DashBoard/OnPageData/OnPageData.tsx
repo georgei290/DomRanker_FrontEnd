@@ -6,6 +6,7 @@ import pix from "./undraw_analytics_re_dkf8.svg"
 import FirstTable from "./FirstTable";
 import SecondTable from "./SecondTable";
 import ThirdTable from "./ThirdTable";
+import TimmingCard from "./TimmingCard";
 
 const OnPageData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false)
@@ -142,8 +143,26 @@ const OnPageData = () => {
 				</TableHolder>
 				<TableHolder>
 					<ThirdTable/>
-					
 				</TableHolder>
+
+				<PageT>
+
+					<span>
+					Page Timing
+					</span>
+					
+				</PageT>
+
+				<PageContent>
+                    <TimmingCard/>
+                    <TimmingCard/>
+                    <TimmingCard/>
+                    <TimmingCard/>
+                    <TimmingCard/>
+                    <TimmingCard/>
+                    <TimmingCard/>
+				</PageContent>
+				
 
 
 
@@ -154,6 +173,40 @@ const OnPageData = () => {
 };
 
 export default OnPageData;
+
+const PageContent = styled.div`
+height:auto;
+padding-buttom: 20px;
+margin-bottom:30px;
+width:95%;
+background-color:white;
+padding-left:30px;
+padding-top:30px;
+justify-content:space-between;
+
+display: flex;
+flex-wrap: wrap;
+@media screen and (max-width: 768px) {
+	padding-left:0px;
+}
+
+`
+
+const PageT = styled.div`
+height:50px;
+width:98%;
+background-color:#EBEBEC;
+display:flex;
+align-items: center;
+
+span{
+	padding-left:30px;
+	font-size:15px;
+	font-weight:800;
+	color:#000000;
+	
+}
+`
 
 
 const  TableTitle = styled.div`
