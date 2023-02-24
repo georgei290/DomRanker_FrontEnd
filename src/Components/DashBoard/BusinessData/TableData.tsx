@@ -135,6 +135,7 @@ height:40px;
 `
 
 const Table = styled.table`
+width:100%;
 `
 const HoldTable = styled.div`
 overflow-x: auto;
