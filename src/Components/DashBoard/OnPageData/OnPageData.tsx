@@ -160,6 +160,7 @@ const OnPageData = () => {
                     <TimmingCard/>
                     <TimmingCard/>
                     <TimmingCard/>
+                    <TimmingCard/>
 				</PageContent>
 				
 
