@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+
 interface Iprops {
 	BackTitle: string;
 }
@@ -12,6 +13,7 @@ const SimpleCard: React.FC<Iprops> = ({ BackTitle }) => {
 			<MainTitle>6,842</MainTitle>
 		</Main>
 	);
+
 };
 
 export default SimpleCard;
