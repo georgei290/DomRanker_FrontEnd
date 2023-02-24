@@ -24,20 +24,20 @@ const SeoChecker = () => {
 					<DownData>
 						<CardHold>
 							<Card>
-								<TitleCard>Difficulty</TitleCard>
-								<Count>52</Count>
+								<TitleCard>Keyword</TitleCard>
+								<Count>Albert estein</Count>
 							</Card>
 							<Card>
-								<TitleCard>Search Volume</TitleCard>
-								<Count>165K</Count>
+								<TitleCard>Location Code</TitleCard>
+								<Count>3033</Count>
 							</Card>
 							<Card>
-								<TitleCard>CPC</TitleCard>
-								<Count>$2.02</Count>
+								<TitleCard>Item Count</TitleCard>
+								<Count>30</Count>
 							</Card>
 							<Card>
-								<TitleCard>Global Volume</TitleCard>
-								<Count>186.8K</Count>
+								<TitleCard>Se_Result Count</TitleCard>
+								<Count>10000</Count>
 							</Card>
 						</CardHold>
 
@@ -50,12 +50,12 @@ const SeoChecker = () => {
 								<TableHead>
 									<Head Hwd='40px'>RG</Head>
 									<Head Hwd='400px'>URL</Head>
-									<Head Hwd='100px'>Keyword Total</Head>
-									<Head Hwd='100px'>Total Trafic</Head>
+									<Head Hwd='100px'>Total Links</Head>
+									<Head Hwd='100px'>Domain</Head>
 									<Head Hwd='70px'>Sources</Head>
-									<Head Hwd='20px'>Total traffic cost</Head>
+									<Head Hwd='20px'>Position</Head>
 									<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-										Domain
+										Description
 									</Head>
 								</TableHead>
 
@@ -209,7 +209,7 @@ const TableTitle = styled.div`
 `;
 
 const Count = styled.div`
-	font-size: 35px;
+	font-size: 25px;
 	font-weight: 800;
 `;
 

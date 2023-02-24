@@ -5,7 +5,7 @@ const KeyWordIdeaTable = () => {
 		<Hol>
 			<TableHold>
 				<TableTitle>
-					<span>Keywords Ideals</span>
+					<span>People_Also_Ask</span>
 				</TableTitle>
 				<TableHolder>
 					<TableHead>
