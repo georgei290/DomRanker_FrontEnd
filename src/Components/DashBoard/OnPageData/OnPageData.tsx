@@ -3,9 +3,12 @@ import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import pix from "./undraw_analytics_re_dkf8.svg"
+import FirstTable from "./FirstTable";
+import SecondTable from "./SecondTable";
+import ThirdTable from "./ThirdTable";
 
 const OnPageData = () => {
-	const [showData, setShowDaat] = React.useState<boolean>(true)
+	const [showData, setShowDaat] = React.useState<boolean>(false)
 	return (
 		<Container>
 			<Wrapper>
@@ -51,12 +54,98 @@ const OnPageData = () => {
 					 (
 						<>
 						<div>
+							<Dholder>
+								<First>
+									<ImageCount>
+										<span>Image count</span>
+										<div>76</div>
+									</ImageCount>
+									<ImageSize> 
+									<span>Image size</span>
+										<div>0</div>
+									</ImageSize>
+								</First>
+								<Second>
+									<IntLinkCount>
+									<span>Internal Link Count</span>
+										<div>126</div>
+									</IntLinkCount>
+
+									<BothLink>
+										<ExLinkCount>
+										<span>External Link Count</span>
+										<div>92</div>
+										</ExLinkCount>
+										
+										<InbLinkCount>
+										<span>Inbound Link Count</span>
+										<div>0</div>
+										</InbLinkCount>
+									</BothLink>
+								</Second>
+								<Third>
+								<BothLink1>
+								<ExLinkCount>
+										<span>Script Count</span>
+										<div>4</div>
+								</ExLinkCount>
+
+								<InbLinkCount>
+										<span>Script Size</span>
+										<div>23</div>
+								</InbLinkCount>
+								</BothLink1>
+
+								<BothLink2>
+								<ExLinkCount>
+										<span>Stylesheet Count</span>
+										<div>74</div>
+								</ExLinkCount>
+
+								<InbLinkCount>
+										<span>Stylesheet Size</span>
+										<div>16</div>
+								</InbLinkCount>
+								</BothLink2>
+
+								</Third>
+								<Forth>
+								<ImageCount1>
+										<span>Title Lenght</span>
+										<div>43</div>
+									</ImageCount1>
+									<ImageSize> 
+									<span>Description Lenght</span>
+										<div>81</div>
+									</ImageSize>
+
+								</Forth>
+
+							</Dholder>
 
 						</div>
 							
 						</>
 					 )
 				}
+
+				<TableHolder>
+				
+					<FirstTable/>
+					
+				</TableHolder>
+
+				<TableHolder>
+				
+					<SecondTable/>
+					
+				</TableHolder>
+				<TableHolder>
+					<ThirdTable/>
+					
+				</TableHolder>
+
+
 
 
 			</Wrapper>
@@ -65,6 +154,266 @@ const OnPageData = () => {
 };
 
 export default OnPageData;
+
+
+const  TableTitle = styled.div`
+heigt:100px;
+width:100%;
+padding-top:5px;
+padding-buttom:5px;
+font-weight:700;
+font-size:15px;
+padding-left:10px;
+`
+
+const TableHolder  = styled.div`
+    margin-top: 15px;
+	width: 98%;
+	display: flex;
+	height:auto;
+	background-color:white;
+	margin-bottom:20px;
+	display: flex;
+	flex-direction: column;
+	border :2px solid #BFBFBF;
+
+
+	@media screen and (max-width: 768px) {
+		flex-wrap: wrap;
+		width: 90%;
+		
+	}
+`
+
+const ExLinkCount = styled.div`
+height:90px;
+width:50%;
+display: flex;
+flex-direction:column;
+border-right:2px solid #E2E2E2;
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:15px;
+	font-weight:700;
+	font-size:13px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}
+`
+const InbLinkCount = styled.div`
+height:90px;
+width:50%;
+display: flex;
+flex-direction:column;
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:16px;
+	font-weight:700;
+	font-size:13px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}
+
+`
+
+const BothLink1 = styled.div`
+height:90px;
+width:100%;
+display: flex;
+background-color:#FFFFFF;
+border-bottom:2px solid #E2E2E2;
+`
+const BothLink2 = styled.div`
+height:90px;
+width:100%;
+display: flex;
+background-color:#FFFFFF;
+border-bottom:2px solid #D62828;
+
+`
+const BothLink = styled.div`
+height:90px;
+width:100%;
+display: flex;
+background-color:#FFFFFF;
+border-bottom:2px solid #023047;
+`
+
+const IntLinkCount = styled.div`
+height:90px;
+width:100%;
+border-bottom:2px solid #E2E2E2;
+background-color:#FFFFFF;
+display: flex;
+flex-direction: column;
+
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:15px;
+	font-weight:700;
+	font-size:12px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}
+`
+
+const ImageCount1 = styled.div`
+height:90px;
+width:100%;
+border-bottom:2px solid #E2E2E2;
+background-color:#FFFFFF;
+display: flex;
+flex-direction: column;
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:13px;
+	font-weight:700;
+	font-size:13px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}`
+const ImageCount = styled.div`
+height:90px;
+width:100%;
+border-bottom:2px solid #8ECAE6;
+background-color:#FFFFFF;
+display: flex;
+flex-direction: column;
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:13px;
+	font-weight:700;
+	font-size:13px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}
+
+
+`
+const ImageSize = styled.div`
+height:90px;
+width:100%;
+border-bottom:2px solid #FFB703;
+background-color:#FFFFFF;
+
+
+span{
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:15px;
+	font-weight:700;
+	font-size:13px;
+};
+
+div{
+	padding-left:10px;
+	
+	font-weight:800;
+	font-size:25px;
+}
+
+`
+
+const First = styled.div`
+width:190px;
+height:190px;
+justify-content:space-between;
+display: flex;
+flex-direction:column;
+
+@media screen and (max-width: 768px) {
+	width:100%;
+}
+`
+const Second = styled.div`
+
+width:310px;
+height:190px;
+
+justify-content:space-between;
+display: flex;
+flex-direction:column;
+
+@media screen and (max-width: 768px) {
+	width:100%;
+}
+`
+const Third = styled.div`
+width:310px;
+height:190px;
+justify-content:space-between;
+display: flex;
+flex-direction:column;
+
+
+@media screen and (max-width: 768px) {
+	width:100%;
+}
+`
+const Forth = styled.div`
+width:165px;
+height:190px;
+
+justify-content:space-between;
+display: flex;
+flex-direction:column;
+
+@media screen and (max-width: 768px) {
+	width:100%;
+}
+`
+
+const Dholder = styled.div`
+height:auto;
+width:98%;
+justify-content:space-between;
+display: flex;
+margin-top:15px;
+flex-wrap:wrap;
+
+@media screen and (max-width: 768px) {
+ 
+	width:90%;
+	
+	
+
+}
+`
 
 const EmpytyHold  = styled.div`
 margin-top:50px;
