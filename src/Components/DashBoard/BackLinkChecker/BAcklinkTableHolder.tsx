@@ -32,11 +32,7 @@ const BAcklinkTableHolder = () => {
             <Body wid="100px">
               <TextHolder>
                 <Bar>
-                  <ColorBar
-                    bg=""
-                    //   wid={`${(25 / 50) * 100}px`}
-                    wid={`${(40 / 50) * 50}px`}
-                  />
+                  <ColorBar bg="" wid={`${(40 / 50) * 50}px`} />
                 </Bar>
                 <Text>40</Text>
               </TextHolder>

@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const SimpleCard = () => {
+interface iData {
+  title?: string;
+}
+
+const SimpleCard: React.FC<iData> = ({ title }) => {
   return (
     <Main>
       <Title>Backlinks</Title>
