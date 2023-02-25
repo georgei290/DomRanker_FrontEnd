@@ -96,14 +96,14 @@ const TableHolder  = styled.div`
     margin-top: 15px;
 	width: 100%;
 	display: flex;
-	height:390px;
+	height:auto;
 	background-color:white;
 	display: flex;
 	flex-direction: column;
 
 
 	@media screen and (max-width: 768px) {
-		flex-wrap: wrap;
+		
 		width: 90%;
 		
 	}

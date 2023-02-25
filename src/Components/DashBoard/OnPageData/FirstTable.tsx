@@ -78,7 +78,7 @@ border-right:2px solid #E2E2E2;
 `
 const Thead = styled.th`
 padding-left:10px;
-padding-right:849px;
+padding-right:95%;
 
 `
 
@@ -97,7 +97,7 @@ border-right:2px solid #E2E2E2;
 padding-left:10px;
 `
 const ContentRow  = styled.tr`
-
+ flex: 1;
 :nth-child(even) {
     background-color: #FAFAFC;
   }
@@ -109,6 +109,11 @@ height:40px;
 `
 
 const Table = styled.table`
+width: 100%;
+
+@media screen and (max-width: 768px) {
+    width:auto;
+}
 `
 const HoldTable = styled.div`
 overflow-x: auto;
