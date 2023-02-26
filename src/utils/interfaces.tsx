@@ -1,17 +1,23 @@
 export interface iRegister {
-  email?: string;
-  password?: string;
-  userName?: string;
+	email?: string;
+	password?: string;
+	userName?: string;
 }
 
 export interface iSign {
-  email?: string;
-  password?: string;
+	email?: string;
+	password?: string;
 }
 
 export interface iEmail {
-  email?: string;
+	email?: string;
 }
 export interface iPassword {
-  password?: string;
+	password?: string;
+}
+
+export interface User {
+	_id?: string;
+	email: string;
+	password: string;
 }

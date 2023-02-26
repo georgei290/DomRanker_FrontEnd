@@ -1,25 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit/dist/createAction";
-import { iSign } from "../interfaces";
+import { iSign, User } from "../interfaces";
 
 const initialState = {
-  currentUser: {} || null,
+	currentUser: {} as any | null,
+	googelData: {} as any,
 };
 
 const authState = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    loginUser: (state, { payload }: PayloadAction<iSign>) => {
-      state.currentUser = payload;
-    },
+	name: "auth",
+	initialState,
+	reducers: {
+		loginUser: (state, { payload }: PayloadAction<iSign>) => {
+			state.currentUser = payload;
+		},
 
-    logOut: (state) => {
-      state.currentUser = null;
-    },
-  },
+		logOut: (state) => {
+			state.currentUser = null;
+		},
+
+		googelSearchData: (state, { payload }: PayloadAction) => {
+			state.googelData = payload;
+		},
+	},
 });
 
-export const { loginUser, logOut } = authState.actions;
+export const { loginUser, logOut, googelSearchData } = authState.actions;
 
 export default authState.reducer;

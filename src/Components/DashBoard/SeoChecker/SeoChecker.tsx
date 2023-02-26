@@ -2,13 +2,33 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import InputComp from "../../../utils/ReusedComp/InputComp";
-
+import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
+import { useMutation } from "@tanstack/react-query";
 import pic from "../images/5.svg";
 import KeyWordIdeaTable from "./KeyWordIdeaTable";
 import PopularAds from "./PopularAds";
+import { SeoCheckerGoogle } from "../../../utils/APICalls";
+import {
+	useAppSelector,
+	UseAppDispach,
+} from "../../../utils/stateManagement/store";
+import { googelSearchData } from "../../../utils/stateManagement/authState";
 
 const SeoChecker = () => {
 	const [data, setData] = useState([]);
+	const user = useAppSelector((state) => state.currentUser);
+	const readGoogleData = useAppSelector((state) => state.googelData);
+	const dispatch = UseAppDispach();
+	const [googleKeywords, setGoogleKeyWords] = useState() as any;
+
+	const SearchGoogle = useMutation({
+		// mutationKey: ["serp"],
+		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
+		onSuccess: (data) => {
+			console.log("reading seo", data);
+			dispatch(googelSearchData(data?.data[0]));
+		},
+	});
 
 	return (
 		<Container>
@@ -16,28 +36,36 @@ const SeoChecker = () => {
 				<Title>Seo Checker</Title>
 				<Span>Find the most profitable keywords to rank for</Span>
 
-				<InputComp />
+				<InputComp
+					googleKeywords={googleKeywords}
+					setGoogleKeyWords={setGoogleKeyWords}
+					SearchGoogle={SearchGoogle}
+				/>
 				<hr />
-				{data.length !== 0 ? (
+				<LoadComp>
+					{" "}
+					{SearchGoogle?.isLoading ? <DashboardLoader /> : null}
+				</LoadComp>
+				{!readGoogleData.data ? (
 					<EmptyData avatar={pic} />
 				) : (
 					<DownData>
 						<CardHold>
 							<Card>
 								<TitleCard>Keyword</TitleCard>
-								<Count>Albert estein</Count>
+								<Count>{readGoogleData?.result[0]?.keyword}</Count>
 							</Card>
 							<Card>
 								<TitleCard>Location Code</TitleCard>
-								<Count>3033</Count>
+								<Count>{readGoogleData?.result[0]?.location_code}</Count>
 							</Card>
 							<Card>
 								<TitleCard>Item Count</TitleCard>
-								<Count>30</Count>
+								<Count>{readGoogleData?.result[0]?.items_count}</Count>
 							</Card>
 							<Card>
 								<TitleCard>Se_Result Count</TitleCard>
-								<Count>10000</Count>
+								<Count>{readGoogleData?.result[0]?.se_results_count}</Count>
 							</Card>
 						</CardHold>
 
@@ -126,6 +154,12 @@ const SeoChecker = () => {
 };
 
 export default SeoChecker;
+
+const LoadComp = styled.div`
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+`;
 
 const TT = styled.div`
 	width: 90%;

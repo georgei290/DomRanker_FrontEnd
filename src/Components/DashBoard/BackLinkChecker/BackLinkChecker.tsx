@@ -7,7 +7,7 @@ import BacklinkLevel from "./BacklinkLevel";
 import BackLinkTable from "./BackLinkTable";
 import BAcklinkTableHolder from "./BAcklinkTableHolder";
 
-const BackLinkChecker = () => {
+const BackLinkChecker = (props: any) => {
 	return (
 		<Container>
 			<Wrapper>
@@ -16,7 +16,7 @@ const BackLinkChecker = () => {
           Get the full list of backlinks of any domain along with additional
           data on each backlink
         </SubTitle> */}
-				<InputComp />
+				<InputComp {...props} />
 				<hr />
 				{/* {newFunction()} */}
 
