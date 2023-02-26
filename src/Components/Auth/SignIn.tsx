@@ -9,7 +9,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { signinUser } from "../../utils/APICalls";
 import { iSign } from "../../utils/interfaces";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { loginUser } from "../../utils/stateManagement/authState";
 import LoadingState from "../../utils/LoadingState";
 import axios from "axios";
@@ -22,9 +22,11 @@ interface iData {
 }
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [shown, setShown] = React.useState<boolean>(false);
   const [loadingState, setLoadingState] = React.useState<boolean>(false);
+  const user = useSelector((state: any) => state.currentUser);
 
   const Navigate = useNavigate();
 
@@ -40,15 +42,15 @@ const SignIn = () => {
         .post(mainURL, data)
         .then((res) => {
           dispatch(loginUser(res.data.data));
-          console.log(res.data.data);
+
           //   return res.data.data;
         })
         .then((res) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: `Welcome Back!`,
-            // title: `Welcome Back ${res.data.data.userName}!`,
+            // title: `Welcome Back!`,
+            title: `Welcome Back ${user.userName}!`,
             showConfirmButton: false,
             timer: 3500,
           });
@@ -77,13 +79,11 @@ const SignIn = () => {
   });
   const mutation = useMutation({
     mutationFn: (data: iSign) => {
-      return signinUser(data).then((data) => {
-        dispatch(loginUser(data));
-        setLoadingState(false);
-      });
+      return signinUserData(data);
     },
     onSuccess: async () => {
       setLoadingState(false);
+      navigate("/seochecker");
     },
   });
 
@@ -92,7 +92,7 @@ const SignIn = () => {
     setLoadingState(true);
     mutation.mutate(value);
   };
-
+  console.log("User data: ", user!);
   return (
     <>
       {loadingState ? <LoadingState /> : null}

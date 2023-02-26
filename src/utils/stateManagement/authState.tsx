@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit/dist/createAction";
 import { iSign } from "../interfaces";
 
 const initialState = {
-  currentUser: {} || null,
+  currentUser: {},
 };
 
 const authState = createSlice({
@@ -15,7 +15,7 @@ const authState = createSlice({
     },
 
     logOut: (state) => {
-      state.currentUser = null;
+      state.currentUser = {};
     },
   },
 });
