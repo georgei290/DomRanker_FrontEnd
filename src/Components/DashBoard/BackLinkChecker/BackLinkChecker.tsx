@@ -4,16 +4,19 @@ import InputComp from "../../../utils/ReusedComp/InputComp";
 import pix1 from "../images/share.svg";
 import ViewingBacklink from "./ViewingBacklink";
 
-const BackLinkChecker = () => {
-  const [backlinkData, setBacklinkData] = useState([] as any);
-  return (
-    <Container>
-      <Wrapper>
-        <Title>BackLink Checker</Title>
-        {/* <SubTitle>
+const BackLinkChecker = (props: any) => {
+	const [backlinkData, setBacklinkData] = useState([] as any)
+	return (
+		<Container>
+			<Wrapper>
+				<Title>BackLink Checker</Title>
+				{/* <SubTitle>
           Get the full list of backlinks of any domain along with additional
           data on each backlink
         </SubTitle> */}
+				{/* <InputComp {...props} /> */}
+				<hr />
+				{/* {newFunction()} */}
 
         {backlinkData.length < 1 ? (
           <div>{newFunction()}</div>
@@ -27,7 +30,7 @@ const BackLinkChecker = () => {
   function newFunction() {
     return (
       <div>
-        <InputComp />
+        <InputComp {...props} />
         <hr />
         <MainHolder>
           <ShaerImage src={pix1} alt="image for default backlink checker" />

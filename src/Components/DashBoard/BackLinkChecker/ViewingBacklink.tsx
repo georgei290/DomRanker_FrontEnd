@@ -6,11 +6,11 @@ import BacklinkLevel from "./BacklinkLevel";
 import BackLinkTable from "./BackLinkTable";
 import BAcklinkTableHolder from "./BAcklinkTableHolder";
 
-const ViewingBacklink = () => {
+const ViewingBacklink = (props: any) => {
   return (
     <div>
       <div>
-        <InputComp />
+        <InputComp {...props} />
         <hr />
         {/* {newFunction()} */}
 

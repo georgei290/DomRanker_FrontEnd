@@ -1,9 +1,26 @@
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { SeoCheckerGoogle } from "../APICalls";
+import { useAppSelector } from "../stateManagement/store";
 
-const InputComp = () => {
+interface Iprops {
+	setGoogleKeyWords: any;
+	googleKeywords: any;
+	SearchGoogle: any;
+}
+
+const InputComp: React.FC<Iprops> = ({
+	setGoogleKeyWords,
+	googleKeywords,
+	SearchGoogle,
+}) => {
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
+
+	// const createPost = posting.mutate(keyword);
+
 	return (
 		<>
 			<InputHold>
@@ -48,7 +65,14 @@ const InputComp = () => {
 			<Main>
 				<InputText>Search Engine Types</InputText>
 				<Input2>
-					<Input3 placeholder='Enter search' type='search' />
+					<Input3
+						value={googleKeywords}
+						onChange={(e) => {
+							setGoogleKeyWords(e.target.value);
+						}}
+						placeholder='Enter search'
+						type='search'
+					/>
 
 					{
 						// Google
@@ -70,6 +94,7 @@ const InputComp = () => {
 							<Button
 								onClick={() => {
 									console.log(track, engine);
+									SearchGoogle.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Google Organic
 							</Button>
@@ -211,7 +236,6 @@ const InputComp = () => {
 			</Main>
 		</>
 	);
-
 };
 
 export default InputComp;
