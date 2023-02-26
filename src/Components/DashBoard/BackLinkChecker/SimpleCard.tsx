@@ -8,11 +8,11 @@ interface Iprops {
 
 const SimpleCard: React.FC<Iprops> = ({ BackTitle }) => {
 	return (
-		<Main>
-			<Title>{BackTitle}</Title>
-			<MainTitle>6,842</MainTitle>
-		</Main>
-	);
+    <Main>
+      <Title>{BackTitle}</Title>
+      <MainTitle>6,841</MainTitle>
+    </Main>
+  );
 
 };
 

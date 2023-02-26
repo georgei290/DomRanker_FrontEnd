@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface iRegister {
   email?: string;
   password?: string;
@@ -14,4 +16,8 @@ export interface iEmail {
 }
 export interface iPassword {
   password?: string;
+}
+
+export interface iProps {
+  children?: ReactNode;
 }

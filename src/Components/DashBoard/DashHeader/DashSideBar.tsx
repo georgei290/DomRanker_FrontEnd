@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   MdOutlineBusiness,
@@ -11,7 +11,12 @@ import { BsJournalBookmarkFill } from "react-icons/bs";
 import { SlKey } from "react-icons/sl";
 import { TbUnlink } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
+import { logOut } from "../../../utils/stateManagement/authState";
+import { useDispatch } from "react-redux";
+
 const DashSideBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Container>
       <br />
@@ -161,7 +166,12 @@ const DashSideBar = () => {
       <br />
 
       <NavLink style={{ textDecoration: "none" }} to="/">
-        <Hold>
+        <Hold
+          onClick={() => {
+            dispatch(logOut());
+            navigate("/");
+          }}
+        >
           <IconHold>
             <BiLogOut />
           </IconHold>

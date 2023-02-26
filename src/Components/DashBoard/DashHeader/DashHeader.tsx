@@ -6,9 +6,11 @@ import ava from "../../LandingPage/Images/avatar.png";
 import { CiSearch } from "react-icons/ci";
 import { BiMenu } from "react-icons/bi";
 import SideBarMobile from "./SideBarMobile";
+import { useSelector } from "react-redux";
+
 const DashHeader = () => {
   const [show, setShow] = useState(false);
-
+  const user = useSelector((state: any) => state.currentUser);
   const toggleShow = () => {
     setShow(!show);
   };
@@ -25,8 +27,12 @@ const DashHeader = () => {
               </span>
               <Input placeholder="Make a search" />
             </SearchHold>
-            <UserName>Gideon ekeke</UserName>
-            <UserAvatar src={ava} />
+            <UserName>{user?.userName}</UserName>
+            {user?.avatar ? (
+              <UserAvatar src={user?.avatar} />
+            ) : (
+              <UserAvatarChat>{user?.userName?.charAt(0)}</UserAvatarChat>
+            )}
             <MenuIcon onClick={toggleShow}>
               <BiMenu
                 style={{
@@ -107,6 +113,19 @@ const UserName = styled.div`
     max-width: 50px;
     font-size: 13px;
   }
+`;
+const UserAvatarChat = styled.div`
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: silver;
+  object-fit: cover;
+  border: 1px solid #c175d1;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
 `;
 const UserAvatar = styled.img`
   height: 30px;
