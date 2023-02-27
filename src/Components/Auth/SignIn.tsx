@@ -79,14 +79,15 @@ const SignIn = () => {
 		resolver: yupResolver(schema),
 	});
 	const mutation = useMutation({
-		mutationKey: ["register"],
-		mutationFn: signinUser,
-		onSuccess: async (data) => {
-			dispatch(loginUser(data));
-			setLoadingState(false);
-			navigate("/seochecker");
-		},
-	});
+    mutationKey: ["register"],
+    mutationFn: signinUser,
+
+    onSuccess: async (data) => {
+      dispatch(loginUser(data));
+      setLoadingState(false);
+      navigate("/seochecker");
+    },
+  });
 
 	// 	function to be added to the button
 	const onSubmit: SubmitHandler<iData> = async (value: any) => {
