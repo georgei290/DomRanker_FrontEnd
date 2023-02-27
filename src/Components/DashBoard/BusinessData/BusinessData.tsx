@@ -62,7 +62,11 @@ const BusinessData = () => {
     queryFn: () => readingBusinessDataCall(user?._id, readData?.id),
   });
 
-  console.log("Reading data: ", data.data[0]);
+  // console.log("Reading data: ", data?.data[0]?.result[0].items?.[0]);
+  //   console.log(
+  //     "Reading data: ",
+  //     data?.data[0]?.result[0].items?.[0].work_time?.work_hours?.timetable,
+  //   );
 
   return (
     <Container>
@@ -98,20 +102,43 @@ const BusinessData = () => {
               ) : (
                 <div>
                   <CardHolder>
-                    <Mysimple title="Tite" subtitle="Pizzicato" />
-                    <Mysimple title="Category" subtitle="Pizza restaurant" />
-                    <Mysimple title="Phone" subtitle="+1 (234) 455 9764" />
+                    <Mysimple
+                      title="Tite"
+                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.title}`}
+                    />
+                    <Mysimple
+                      title="Category"
+                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}`}
+                    />
+                    <Mysimple
+                      title="Phone"
+                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
+                    />
                   </CardHolder>
                   <TableHolder>
                     <TableTitle>People Also Search</TableTitle>
 
-                    <TableData />
+                    <TableData
+                      iprops={
+                        data?.data[0]?.result[0].items?.[0]?.people_also_search
+                      }
+                    />
                   </TableHolder>
                   <br />
                   <TableHolder>
-                    <TableTitle>Work Time</TableTitle>
+                    <TableTitle>
+                      Current Work Time status:{" "}
+                      <span style={{ color: "red" }}>
+                        {(data?.data[0]?.result[0].items?.[0].work_time?.work_hours?.current_status).toUpperCase()}{" "}
+                      </span>
+                    </TableTitle>
 
-                    <WorkTable />
+                    <WorkTable
+                      iProps={
+                        data?.data[0]?.result[0].items?.[0].work_time
+                          ?.work_hours?.timetable
+                      }
+                    />
                   </TableHolder>
                 </div>
               )}

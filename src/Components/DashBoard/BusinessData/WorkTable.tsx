@@ -1,74 +1,51 @@
 import React from 'react'
 import {Also} from "./DataContent"
 import styled from 'styled-components'
+import { any } from 'prop-types';
 
-const WorkTable = () => {
+interface iData {
+    iProps: {};
+}
+
+const WorkTable: React.FC<iData> = ({ iProps }) => {
+//   console.log("viewing: ", iProps);
+  console.log("viewing: ", iProps?.monday);
   return (
     <>
-    
-    <HoldTable>
+      <HoldTable>
         <Table>
-            <Headrow>
-                <TheadCT>
-                    CID
-                </TheadCT>
-                <TheadCT>
-                    Title
-                </TheadCT>
-                <Thead>
-                    Rating Type
-                </Thead>
-                <Thead>
-                    Rating Value 
-                </Thead>
-                <TheadL>
-                    Rating Vote Count
-                </TheadL>
-            </Headrow>
+          <Headrow>
+            <TheadCT>Work Days</TheadCT>
+            <TheadCT>Open Hours</TheadCT>
+            <Thead>Close Hour</Thead>
+            <Thead>Rating Value</Thead>
+            <TheadL>Rating Vote Count</TheadL>
+          </Headrow>
 
-            {
-                Also.map((props)=>(
-                    <ContentRow>
-                    <ContentData>
-                        <MainData1>
-                            <a href='#'>{props.cid}</a>
-                        </MainData1>
-                    </ContentData>
-                    <ContentData>
-                        <MainData1>
-                        {props.title}
-                        </MainData1>
-                    
-                    </ContentData>
-                    <ContentDataTV>
-                        <MainData>
-                        Max5
-                        </MainData>
-                    </ContentDataTV>
-                    <ContentDataTV>
-                        <MainData>
-                        4.5
-                        </MainData>
-                            
-                    </ContentDataTV>
-                    <ContentData>
-                        <MainData>
-                        {props.ratingVoteCount}
-                        </MainData>
-                            
-                    </ContentData>
-                    
-                </ContentRow>
-                ))
-            }
-        
-
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                              <div>{ iProps? }</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>props</MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>Max5</MainData>
+            </ContentDataTV>
+            <ContentDataTV>
+              <MainData>4.5</MainData>
+            </ContentDataTV>
+            <ContentData>
+              <MainData>props</MainData>
+            </ContentData>
+          </ContentRow>
         </Table>
-    </HoldTable>
-
-</>
-  )
-}
+      </HoldTable>
+    </>
+  );
+};
 
 export default WorkTable
 
