@@ -8,6 +8,7 @@ import pic from "../images/5.svg";
 import KeyWordIdeaTable from "./KeyWordIdeaTable";
 import PopularAds from "./PopularAds";
 import { SeoCheckerGoogle } from "../../../utils/APICalls";
+import _ from "lodash";
 import {
 	useAppSelector,
 	UseAppDispach,
@@ -16,6 +17,7 @@ import { googelSearchData } from "../../../utils/stateManagement/authState";
 
 const SeoChecker = () => {
 	const [data, setData] = useState([]);
+
 	const user = useAppSelector((state) => state.currentUser);
 	const readGoogleData = useAppSelector((state) => state.googelData);
 	const dispatch = UseAppDispach();
@@ -29,6 +31,26 @@ const SeoChecker = () => {
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
+
+	const getData = readGoogleData?.result[0]?.items?.map((el: any) => {
+		// b.map((props: any) => {
+		// return props.links;
+		// });
+	});
+
+	const groupData = _.map(readGoogleData.result[0].items, function (x: any) {
+		return _.filter(x.links);
+	});
+
+	const groupData3 = _.filter(
+		readGoogleData.result[0].items,
+		function (x: any) {
+			return x.type === "organic";
+		},
+	);
+
+	const flatData = groupData3;
+	console.log(flatData);
 
 	return (
 		<Container>
@@ -46,7 +68,7 @@ const SeoChecker = () => {
 					{" "}
 					{SearchGoogle?.isLoading ? <DashboardLoader /> : null}
 				</LoadComp>
-				{!readGoogleData.data ? (
+				{!readGoogleData?.data ? (
 					<EmptyData avatar={pic} />
 				) : (
 					<DownData>
@@ -88,59 +110,40 @@ const SeoChecker = () => {
 								</TableHead>
 
 								<Content>
-									<TableBody>
-										<Body Bwd='40px'>1</Body>
-										<Body Bwd='400px'>
-											<BTitle cl='#1976D2'>
-												30 Most Popular Movies Right Now: What to Watch In...
-											</BTitle>
-											<BTitle cl='#136F48'>
-												https://editorial.rottentomatoes.com/guide/popular-movies/{" "}
-											</BTitle>
-										</Body>
-										<Body Bwd='100px'>
-											<TT>1.5k</TT>
-										</Body>
-										<Body Bwd='100px'>
-											<TT>260.0K</TT>
-										</Body>
-										<Body Bwd='70px'>
-											<TT>facebook</TT>
-										</Body>
-										<Body Bwd='20px'>
-											<TT>$376.9K</TT>
-										</Body>
-										<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-											<TT>www.wired.co</TT>
-										</Body>
-									</TableBody>
-
-									<TableBody>
-										<Body Bwd='40px'>2</Body>
-										<Body Bwd='400px'>
-											<BTitle cl='#1976D2'>
-												30 Most Popular Movies Right Now: What to Watch In...
-											</BTitle>
-											<BTitle cl='#136F48'>
-												https://editorial.rottentomatoes.com/guide/popular-movies/{" "}
-											</BTitle>
-										</Body>
-										<Body Bwd='100px'>
-											<TT>1.5k</TT>
-										</Body>
-										<Body Bwd='100px'>
-											<TT>260.0K</TT>
-										</Body>
-										<Body Bwd='70px'>
-											<TT>facebook</TT>
-										</Body>
-										<Body Bwd='20px'>
-											<TT>$376.9K</TT>
-										</Body>
-										<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-											<TT>www.wired.co.uk</TT>
-										</Body>
-									</TableBody>
+									{flatData?.map((props: any) => (
+										<TableBody>
+											<Body Bwd='40px'>{props?.rank_group}</Body>
+											<Body Bwd='400px'>
+												<BTitle cl=' #136F48 '>{props?.title}</BTitle>
+												<a href={props?.url}>
+													<BTitle cl='#1976D2'>{props?.url}</BTitle>
+												</a>
+											</Body>
+											<Body Bwd='100px'>
+												{props.links ? (
+													<TT>{props?.links?.length}</TT>
+												) : (
+													<TT>-</TT>
+												)}
+											</Body>
+											<Body Bwd='100px'>
+												<TT>260.0K</TT>
+											</Body>
+											<Body Bwd='70px'>
+												{props?.about_this_result?.source !== null ? (
+													<TT>{props?.about_this_result?.source}</TT>
+												) : (
+													<TT>-</TT>
+												)}
+											</Body>
+											<Body Bwd='20px'>
+												<TT>$376.9K</TT>
+											</Body>
+											<Body style={{ marginLeft: "50px" }} Bwd='150px'>
+												<TT>www.wired.co</TT>
+											</Body>
+										</TableBody>
+									))}
 								</Content>
 							</TableHolder>
 						</TableHold>
@@ -174,9 +177,14 @@ const Content = styled.div`
 `;
 
 const BTitle = styled.div<{ cl: string }>`
-	width: 90%;
+	width: 400px;
 	font-size: 14px;
 	color: ${(props) => props.cl};
+	/* background-color: red; */
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	/* white-space: ; */
 	/* background-color: black; */
 `;
 
