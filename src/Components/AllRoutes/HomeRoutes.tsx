@@ -42,7 +42,7 @@ const HomeRoutes = () => {
       element: <AfterRegister />,
     },
     {
-      path: "/congrate-screen",
+      path: "/:id/congrate-screen",
       element: <CongrateComponent />,
     },
   ]);

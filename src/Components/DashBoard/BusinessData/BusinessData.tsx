@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import Mysimple from "./Mysimple";
 import pix from "./undraw_business_decisions_re_84ag (1).svg";
-import pix1 from "./network.svg";
+// import pix1 from "./network.svg";
 import TableData from "./TableData";
 import WorkTable from "./WorkTable";
 
@@ -101,7 +101,7 @@ const BusinessData = () => {
                 <>
                   {data?.data[0]?.result === null ? (
                     <div>
-                      <EmptyData avatar={pix1} message="No result found" />
+                      <EmptyData avatar={pix} message="No result found" />
                     </div>
                   ) : (
                     <div>
