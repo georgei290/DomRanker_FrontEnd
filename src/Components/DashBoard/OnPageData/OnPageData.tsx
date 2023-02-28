@@ -7,9 +7,52 @@ import FirstTable from "./FirstTable";
 import SecondTable from "./SecondTable";
 import ThirdTable from "./ThirdTable";
 import TimmingCard from "./TimmingCard";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, SubmitHandler } from "react-hook-form";
+import {onPageCall, readingOnPageCall} from "../../../utils/APICalls"
+import {useSelector, useDispatch} from "react-redux"
+import {onPageAPI} from "../../../utils/stateManagement/authState"
+
+interface userSearch{
+	word: string
+}
 
 const OnPageData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false)
+	const user = useSelector((state:any)=> state.currentUser)
+	const getPageData = useSelector((state:any)=> state.onPageData)
+	console.log("this is user id",user?._id)
+	console.log("this is pageData id",getPageData.id)
+
+	const dispatch = useDispatch();
+
+	const schema = yup.object().shape({
+		word: yup.string().required("please enter a searh word")
+	})
+
+	const {register, handleSubmit, } = useForm<userSearch>({
+		resolver: yupResolver(schema),
+	})
+  
+
+	const submit: SubmitHandler<userSearch> = async (data:any) => {
+		// console.log("my input data", data)
+		onPageCall(data, user?._id ).then((data)=>{
+			console.log("this is the data to check on page",data)
+			dispatch(onPageAPI(data?.data[0]))
+		})
+	}
+
+	const {data, isLoading} = useQuery({
+         queryKey:["gettingOnPageData"],
+		 queryFn :() => readingOnPageCall(user?._id, getPageData.id)
+	})
+
+	console.log("onpageData", data)
+
+
 	return (
 		<Container>
 			<Wrapper>
@@ -40,9 +83,10 @@ const OnPageData = () => {
 			</InputHold>
 			<Main>
 				<InputText>Search Engine Types</InputText>
-				<Input2>
-					<Input3 placeholder='Enter search' />
+				<Input2 onSubmit={handleSubmit(submit)}>
+					<Input3 required placeholder='Enter search' {...register("word")} />
 					<Button>Analyze</Button>
+					{/* <Error>{errors.keywords && "Keyword is required"}</Error> */}
 				</Input2>
 			</Main>
 		</>
@@ -173,6 +217,11 @@ const OnPageData = () => {
 };
 
 export default OnPageData;
+
+const Error = styled.div`
+	font-size: 10px;
+	color: red;
+`;
 
 const PageContent = styled.div`
 height:auto;
@@ -479,7 +528,7 @@ const Input3 = styled.input`
 	outline: none;
 	border: none;
 `;
-const Input2 = styled.div`
+const Input2 = styled.form`
 	height: 50px;
 	width: 98%;
 	background-color: white;
