@@ -9,12 +9,16 @@ interface Iprops {
 	setGoogleKeyWords: any;
 	googleKeywords: string;
 	SearchGoogle: any;
+	SearchBing: any;
+	SearchYahoo: any;
 }
 
 const InputComp: React.FC<Iprops> = ({
 	setGoogleKeyWords,
 	googleKeywords,
 	SearchGoogle,
+	SearchBing,
+	SearchYahoo,
 }) => {
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
@@ -52,8 +56,6 @@ const InputComp: React.FC<Iprops> = ({
 							setTrack(e.target.value);
 						}}>
 						<option value='Organic'>Organic</option>
-						<option value='News'>News</option>
-						<option value='Jobs'>Jobs</option>
 					</Select>
 				</Main>
 				{/* <Main>
@@ -117,8 +119,12 @@ const InputComp: React.FC<Iprops> = ({
 							</Button>
 						) : engine === "Bing" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
+									SearchBing.mutate({
+										keywords: googleKeywords,
+									});
 								}}>
 								Analyzing with Bing Organic
 							</Button>
@@ -139,8 +145,12 @@ const InputComp: React.FC<Iprops> = ({
 							</Button>
 						) : engine === "Yahoo" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
+									SearchYahoo.mutate({
+										keywords: googleKeywords,
+									});
 								}}>
 								Analyzing with Yahoo Organic
 							</Button>

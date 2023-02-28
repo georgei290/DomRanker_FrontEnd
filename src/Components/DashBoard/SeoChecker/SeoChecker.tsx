@@ -7,7 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import pic from "../images/5.svg";
 import KeyWordIdeaTable from "./KeyWordIdeaTable";
 import PopularAds from "./PopularAds";
-import { SeoCheckerGoogle } from "../../../utils/APICalls";
+import {
+	SeoCheckerBing,
+	SeoCheckerGoogle,
+	SeoCheckerYahoo,
+} from "../../../utils/APICalls";
 import _ from "lodash";
 import {
 	useAppSelector,
@@ -27,20 +31,44 @@ const SeoChecker = () => {
 		// mutationKey: ["serp"],
 		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
 		onSuccess: (data) => {
-			console.log("reading seo", data);
+			// console.log("reading seo", data);
 			dispatch(googelSearchData(data?.data[0]));
+		},
+	});
+
+	const SearchBing = useMutation({
+		// mutationKey: ["serp"],
+		mutationFn: (keywords: any) => SeoCheckerBing(keywords, user?._id),
+		onSuccess: (data) => {
+			console.log("reading seoBing", data);
+			dispatch(googelSearchData(data?.data[0]));
+		},
+	});
+
+	const SearchYahoo = useMutation({
+		// mutationKey: ["serp"],
+		mutationFn: (keywords: any) => SeoCheckerYahoo(keywords, user?._id),
+		onSuccess: (data) => {
+			console.log("reading yahoo", data);
+			// dispatch(googelSearchData(data?.data[0]));
 		},
 	});
 
 	// const getData = readGoogleData?.result[0]?.items?.map((el: any) => {
 	// b.map((props: any) => {
-	// return props.links;
+	// return props.people_also_ask;
 	// });
 	// });
 
-	// const groupData = _.map(readGoogleData.result[0].items, function (x: any) {
-	// return _.filter(x.links);
-	// });
+	let peopleSearch;
+
+	if (readGoogleData?.result) {
+		peopleSearch = _.filter(readGoogleData.result[0].items, function (x: any) {
+			return x.type === "people_also_ask";
+		});
+	}
+
+	console.log("this is peopledf", peopleSearch);
 
 	let googleData;
 
@@ -65,17 +93,25 @@ const SeoChecker = () => {
 					googleKeywords={googleKeywords}
 					setGoogleKeyWords={setGoogleKeyWords}
 					SearchGoogle={SearchGoogle}
+					SearchBing={SearchBing}
+					SearchYahoo={SearchYahoo}
 				/>
 				<hr />
 				<LoadComp>
 					{" "}
-					{SearchGoogle?.isLoading ? <DashboardLoader /> : null}
+					{SearchGoogle?.isLoading ||
+					SearchYahoo?.isLoading ||
+					SearchBing?.isLoading ? (
+						<DashboardLoader />
+					) : null}
 				</LoadComp>
 				{!readGoogleData?.data && SearchGoogle?.isLoading === false ? (
 					<EmptyData avatar={pic} />
 				) : (
 					<>
-						{SearchGoogle?.isLoading ? null : (
+						{SearchGoogle?.isLoading ||
+						SearchBing?.isLoading ||
+						SearchYahoo?.isLoading ? null : (
 							<DownData>
 								<CardHold>
 									<Card>
@@ -97,18 +133,18 @@ const SeoChecker = () => {
 								</CardHold>
 								<TableHold>
 									<TableTitle>
-										<span>Organic Keywords</span>
+										<span>Organic Keywords ({readGoogleData?.data?.se})</span>
 									</TableTitle>
 									<TableHolder>
 										<TableHead>
 											<Head Hwd='40px'>RG</Head>
 											<Head Hwd='400px'>URL</Head>
 											<Head Hwd='100px'>Total Links</Head>
-											<Head Hwd='100px'>Domain</Head>
+											<Head Hwd='100px'>Rank.A</Head>
 											<Head Hwd='70px'>Sources</Head>
 											<Head Hwd='20px'>Position</Head>
 											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-												Description
+												Domain
 											</Head>
 										</TableHead>
 										<Content>
@@ -129,28 +165,54 @@ const SeoChecker = () => {
 														)}
 													</Body>
 													<Body Bwd='100px'>
-														<TT>260.0K</TT>
+														{props?.rank_absolute?.source !== null ? (
+															<TT>{props?.rank_absolute}</TT>
+														) : (
+															<TT>-</TT>
+														)}
 													</Body>
 													<Body Bwd='70px'>
-														{props?.about_this_result?.source !== null ? (
-															<TT>{props?.about_this_result?.source}</TT>
+														{props?.about_this_result ? (
+															<>
+																{props?.about_this_result?.source !== null ? (
+																	<TT>{props?.about_this_result?.source}</TT>
+																) : (
+																	<TT>-</TT>
+																)}
+															</>
 														) : (
 															<TT>-</TT>
 														)}
 													</Body>
 													<Body Bwd='20px'>
-														<TT>$376.9K</TT>
+														{props?.position ? (
+															<>
+																{props?.position !== null ? (
+																	<TT>{props?.position}</TT>
+																) : (
+																	<TT>-</TT>
+																)}
+															</>
+														) : (
+															<TT>-</TT>
+														)}
 													</Body>
 													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-														<TT>www.wired.co</TT>
+														{props?.domain?.source !== null ? (
+															<TT>{props?.domain}</TT>
+														) : (
+															<TT>-</TT>
+														)}
 													</Body>
 												</TableBody>
 											))}
 										</Content>
 									</TableHolder>
 								</TableHold>
-								<KeyWordIdeaTable />
-								<PopularAds />
+								{readGoogleData?.data?.se === "google" ? (
+									<KeyWordIdeaTable peopleSearch={peopleSearch} />
+								) : null}
+								{/* <PopularAds /> */}
 							</DownData>
 						)}
 					</>

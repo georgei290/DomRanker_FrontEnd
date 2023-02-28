@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-const KeyWordIdeaTable = () => {
+
+interface IData {
+	peopleSearch: any;
+}
+const KeyWordIdeaTable: React.FC<IData> = ({ peopleSearch }) => {
 	return (
 		<Hol>
 			<TableHold>
@@ -9,31 +13,36 @@ const KeyWordIdeaTable = () => {
 				</TableTitle>
 				<TableHolder>
 					<TableHead>
-						<Head Hwd='300px'>Similar Keywords</Head>
-						<Head Hwd='150px'>Search Volume</Head>
-						<Head Hwd='150px'>Related Keywords</Head>
-						<Head Hwd='120px'>Search Volume</Head>
-						<Head Hwd='300px'>Questions</Head>
+						<Head Hwd='300px'>Keywords</Head>
+						<Head Hwd='150px'>Exp.Title</Head>
+						<Head Hwd='150px'>Exp.Domain</Head>
+						<Head Hwd='300px'>Description</Head>
 					</TableHead>
 					<Content>
-						<TableBody>
-							<Body Bwd='300px'>
-								<BTitle cl='#1976D2'>netflix best movies</BTitle>
-							</Body>
-							<Body Bwd='150px'>
-								<TT>550k</TT>
-							</Body>
-							<Body style={{ color: "#1976D2" }} Bwd='150px'>
-								<TT>movies</TT>
-							</Body>
-							<Body Bwd='120px'>
-								<TT>340M</TT>
-							</Body>
+						{peopleSearch[0]?.items?.map((props: any) => (
+							<TableBody>
+								<Body Bwd='300px'>
+									<BTitle cl='#1976D2'>{props?.title}</BTitle>
+								</Body>
+								<Body Bwd='150px'>
+									<TT>{props?.expanded_element[0]?.title}</TT>
+								</Body>
+								<Body style={{ color: "#1976D2" }} Bwd='150px'>
+									<a href={props?.expanded_element[0]?.domain}>
+										{" "}
+										<TT>{props?.expanded_element[0]?.domain}</TT>
+									</a>
+								</Body>
 
-							<Body style={{ color: "#1976D2" }} Bwd='300px'>
-								<TT>what is the best movie of all time</TT>
-							</Body>
-						</TableBody>
+								<Body style={{ color: "#000" }} Bwd='300px'>
+									{props?.expanded_element[0]?.description ? (
+										<TT>{props?.expanded_element[0]?.description}</TT>
+									) : (
+										<TT>-</TT>
+									)}
+								</Body>
+							</TableBody>
+						))}
 					</Content>
 				</TableHolder>
 			</TableHold>
