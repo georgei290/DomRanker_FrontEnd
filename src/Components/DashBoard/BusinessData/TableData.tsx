@@ -1,76 +1,61 @@
 import React from 'react'
-import styled from 'styled-components'
-import {Also} from "./DataContent"
+import styled from "styled-components";
 
-const TableData = () => {
+interface iData {
+  iprops?: [];
+}
 
-
+const TableData: React.FC<iData> = ({ iprops }) => {
   return (
     <>
-    
-					<HoldTable>
-						<Table>
-							<Headrow>
-								<TheadCT>
-									CID
-								</TheadCT>
-								<TheadCT>
-									Title
-								</TheadCT>
-								<Thead>
-									Rating Type
-								</Thead>
-								<Thead>
-									Rating Value 
-								</Thead>
-								<TheadL>
-									Rating Vote Count
-								</TheadL>
-							</Headrow>
+      <HoldTable>
+        <Table>
+          <Headrow>
+            <TheadCT>CID</TheadCT>
+            <TheadCT>Title</TheadCT>
+            <Thead>Rating Type</Thead>
+            <Thead>Rating Value</Thead>
+            <TheadL>Rating Vote Count</TheadL>
+          </Headrow>
 
-                            {
-                                Also.map((props)=>(
-                                    <ContentRow>
-                                    <ContentData>
-                                        <MainData1>
-                                            <a>{props.cid}</a>
-                                        </MainData1>
-                                    </ContentData>
-                                    <ContentData>
-                                        <MainData1>
-                                        {props.title}
-                                        </MainData1>
-                                    
-                                    </ContentData>
-                                    <ContentDataTV>
-                                        <MainData>
-                                        Max5
-                                        </MainData>
-                                    </ContentDataTV>
-                                    <ContentDataTV>
-                                        <MainData>
-                                        4.5
-                                        </MainData>
-                                            
-                                    </ContentDataTV>
-                                    <ContentData>
-                                        <MainData>
-                                        {props.ratingVoteCount}
-                                        </MainData>
-                                            
-                                    </ContentData>
-                                    
-                                </ContentRow>
-                                ))
-                            }
-						
-
-						</Table>
-					</HoldTable>
-				
-     </>
-  )
-}
+          {iprops?.map((props: any) => (
+            <ContentRow key={props?.cid}>
+              <ContentData>
+                <MainData1>
+                  <a>{props?.cid}</a>
+                </MainData1>
+              </ContentData>
+              <ContentData>
+                <MainData1>{props?.title}</MainData1>
+              </ContentData>
+              <ContentDataTV>
+                <MainData>{props?.rating?.rating_type}</MainData>
+              </ContentDataTV>
+              <ContentDataTV>
+                <MainData>
+                  {props?.rating?.value !== null ? (
+                    <div>{props?.rating?.value}</div>
+                  ) : (
+                    <div>No Data</div>
+                  )}
+                </MainData>
+              </ContentDataTV>
+              <ContentData>
+                <MainData>
+                  {props?.rating?.votes_count !== null ? (
+                    <div>{props?.rating?.votes_count}</div>
+                  ) : (
+                    <div>No Data</div>
+                  )}
+                </MainData>
+              </ContentData>
+            </ContentRow>
+          ))}
+        </Table>
+      </HoldTable>
+    </>
+  );
+};
 
 export default TableData
 const MainData1 = styled.div`

@@ -6,6 +6,7 @@ const initialState = {
   currentUser: {} as any | null,
   googelData: {} as any,
   businessData: {} as any,
+  onPageData: {} as any,
 };
 
 const authState = createSlice({
@@ -24,13 +25,25 @@ const authState = createSlice({
       state.businessData = payload;
     },
 
+    onPageAPI: (state, { payload }: PayloadAction) => {
+      state.onPageData = payload;
+    },
+
     logOut: (state) => {
       state.currentUser = {};
+      state.googelData = {};
+      state.businessData = {};
+      state.onPageData = {};
     },
   },
 });
 
-export const { loginUser, logOut, googelSearchData, businessDataAPI } =
-  authState.actions;
+export const {
+  loginUser,
+  logOut,
+  googelSearchData,
+  businessDataAPI,
+  onPageAPI,
+} = authState.actions;
 
 export default authState.reducer;
