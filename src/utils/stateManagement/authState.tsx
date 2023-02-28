@@ -31,6 +31,9 @@ const authState = createSlice({
 
     logOut: (state) => {
       state.currentUser = {};
+      state.googelData = {};
+      state.businessData = {};
+      state.onPageData = {};
     },
   },
 });

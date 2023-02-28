@@ -3,6 +3,7 @@ import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import Mysimple from "./Mysimple";
 import pix from "./undraw_business_decisions_re_84ag (1).svg";
+import pix1 from "./network.svg";
 import TableData from "./TableData";
 import WorkTable from "./WorkTable";
 
@@ -40,14 +41,6 @@ const BusinessData = () => {
     resolver: yupResolver(schema),
   });
 
-  //   const mutation = useMutation({
-  //     mutationFn: (keywords: any) => businessDataCall(keywords, user?._id),
-
-  //     onSuccess: (data) => {
-  //       dispatch(businessDataAPI(data?.data[0]));
-  //     },
-  //   });
-
   const onSubmit: SubmitHandler<iSearch> = async (keywords: any) => {
     console.log("Pressed: ", keywords);
     // mutation.mutate(value);
@@ -62,11 +55,11 @@ const BusinessData = () => {
     queryFn: () => readingBusinessDataCall(user?._id, readData?.id),
   });
 
+  console.log(
+    "Reading data: ",
+    // data?.data[0]?.result[0] === null ? "show" : "off",
+  );
   // console.log("Reading data: ", data?.data[0]?.result[0].items?.[0]);
-  //   console.log(
-  //     "Reading data: ",
-  //     data?.data[0]?.result[0].items?.[0].work_time?.work_hours?.timetable,
-  //   );
 
   return (
     <Container>
@@ -91,7 +84,12 @@ const BusinessData = () => {
         </HolderForm>
         {!data ? (
           <EmpytyHold>
-            <EmptyData avatar={pix} />
+            <EmptyData
+              avatar={pix}
+              message="This endpoint will provide you with search volume, monthly searches,
+              competition, and other related data for up to 1000 keywords in a single
+              request."
+            />
           </EmpytyHold>
         ) : (
           <>
@@ -100,47 +98,59 @@ const BusinessData = () => {
               {isLoading ? (
                 <DashboardLoader />
               ) : (
-                <div>
-                  <CardHolder>
-                    <Mysimple
-                      title="Tite"
-                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.title}`}
-                    />
-                    <Mysimple
-                      title="Category"
-                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}`}
-                    />
-                    <Mysimple
-                      title="Phone"
-                      subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
-                    />
-                  </CardHolder>
-                  <TableHolder>
-                    <TableTitle>People Also Search</TableTitle>
+                <>
+                  {data?.data[0]?.result === null ? (
+                    <div>
+                      <EmptyData avatar={pix1} message="No result found" />
+                    </div>
+                  ) : (
+                    <div>
+                      <CardHolder>
+                        <Mysimple
+                          title="Tite"
+                          subtitle={`${data?.data[0]?.result[0]?.items?.[0]?.title}`}
+                        />
+                        <Mysimple
+                          title="Category"
+                          subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}`}
+                        />
+                        <Mysimple
+                          title="Phone"
+                          subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
+                        />
+                      </CardHolder>
+                      <TableHolder>
+                        <TableTitle>People Also Search</TableTitle>
 
-                    <TableData
-                      iprops={
-                        data?.data[0]?.result[0].items?.[0]?.people_also_search
-                      }
-                    />
-                  </TableHolder>
-                  <br />
-                  <TableHolder>
-                    <TableTitle>
-                      Current Work Time status:{" "}
-                      <span style={{ color: "red" }}>
-                        {(data?.data[0]?.result[0].items?.[0].work_time?.work_hours?.current_status).toUpperCase()}{" "}
-                      </span>
-                    </TableTitle>
+                        <TableData
+                          iprops={
+                            data?.data[0]?.result[0].items?.[0]
+                              ?.people_also_search
+                          }
+                        />
+                      </TableHolder>
+                      <br />
+                      <TableHolder>
+                        <TableTitle>
+                          Current Work Time status:{" "}
+                          <span style={{ color: "red" }}>
+                            {
+                              data?.data[0]?.result[0].items?.[0].work_time
+                                ?.work_hours?.current_status
+                            }{" "}
+                          </span>
+                        </TableTitle>
 
-                    <WorkTable
-                      iProps={
-                        data?.data[0]?.result[0].items?.[0].work_time
-                          ?.work_hours?.timetable
-                      }
-                    />
-                  </TableHolder>
-                </div>
+                        <WorkTable
+                          iProps={
+                            data?.data[0]?.result[0].items?.[0].work_time
+                              ?.work_hours?.timetable
+                          }
+                        />
+                      </TableHolder>
+                    </div>
+                  )}
+                </>
               )}
             </LoadComp>
           </>

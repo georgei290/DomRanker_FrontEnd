@@ -4,12 +4,14 @@ import styled from 'styled-components'
 import { any } from 'prop-types';
 
 interface iData {
-    iProps: {};
+  iProps: any;
 }
 
 const WorkTable: React.FC<iData> = ({ iProps }) => {
-//   console.log("viewing: ", iProps);
-  console.log("viewing: ", iProps?.monday);
+  //   console.log("viewing: ", iProps);
+  console.log("viewing: ", iProps?.friday[0]);
+  console.log("viewing: ", iProps?.monday[0]);
+  //   console.log("viewing: ", iProps);
   return (
     <>
       <HoldTable>
@@ -18,28 +20,131 @@ const WorkTable: React.FC<iData> = ({ iProps }) => {
             <TheadCT>Work Days</TheadCT>
             <TheadCT>Open Hours</TheadCT>
             <Thead>Close Hour</Thead>
-            <Thead>Rating Value</Thead>
-            <TheadL>Rating Vote Count</TheadL>
           </Headrow>
 
           <ContentRow>
             <ContentData>
               <MainData1>
-                              <div>{ iProps? }</div>
+                <div>Monday</div>
               </MainData1>
             </ContentData>
             <ContentData>
-              <MainData1>props</MainData1>
+              <MainData1>
+                {iProps?.monday[0]?.open?.hour}:
+                {iProps?.monday[0]?.open?.minute}AM
+              </MainData1>
             </ContentData>
             <ContentDataTV>
-              <MainData>Max5</MainData>
+              <MainData>{iProps?.monday[0]?.close?.hour % 12}PM</MainData>
             </ContentDataTV>
-            <ContentDataTV>
-              <MainData>4.5</MainData>
-            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
             <ContentData>
-              <MainData>props</MainData>
+              <MainData1>
+                <div>Tuesday</div>
+              </MainData1>
             </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.tuesday[0]?.open?.hour} :
+                {iProps?.tuesday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.tuesday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Wednesday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.wednesday[0]?.open?.hour}:
+                {iProps?.wednesday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.wednesday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Thursday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.thursday[0]?.open?.hour}:
+                {iProps?.thursday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.thursday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Friday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.friday[0]?.open?.hour}:
+                {iProps?.friday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.friday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Saturday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.saturday === null ? (
+                  <div>Closed</div>
+                ) : (
+                  <div>{iProps?.saturday[0]?.open?.hour}AM</div>
+                )}
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>Closed</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Sunday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.sunday === null ? (
+                  <div>Closed</div>
+                ) : (
+                  <div>{iProps?.sunday[0]?.open?.hour}AM</div>
+                )}
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>Closed</MainData>
+            </ContentDataTV>
           </ContentRow>
         </Table>
       </HoldTable>

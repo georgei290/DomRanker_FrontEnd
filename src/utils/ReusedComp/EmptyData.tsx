@@ -3,19 +3,16 @@ import styled from "styled-components";
 
 interface Iprops {
   avatar: any;
+  message?: string;
 }
 
-const EmptyData: React.FC<Iprops> = ({ avatar }) => {
+const EmptyData: React.FC<Iprops> = ({ message, avatar }) => {
   return (
     <BottomEmptyData>
       <ImageDiv>
         <img src={avatar} alt="imag" />
       </ImageDiv>
-      <Desc>
-        This endpoint will provide you with search volume, monthly searches,
-        competition, and other related data for up to 1000 keywords in a single
-        request.
-      </Desc>
+      <Desc>{message}</Desc>
     </BottomEmptyData>
   );
 };

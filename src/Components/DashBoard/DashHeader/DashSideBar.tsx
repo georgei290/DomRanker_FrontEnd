@@ -169,6 +169,8 @@ const DashSideBar = () => {
         <Hold
           onClick={() => {
             dispatch(logOut());
+            dispatch(logOut());
+            dispatch(logOut());
             navigate("/");
           }}
         >
