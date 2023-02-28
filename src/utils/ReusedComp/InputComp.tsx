@@ -7,7 +7,7 @@ import { useAppSelector } from "../stateManagement/store";
 
 interface Iprops {
 	setGoogleKeyWords: any;
-	googleKeywords: any;
+	googleKeywords: string;
 	SearchGoogle: any;
 }
 
@@ -19,7 +19,7 @@ const InputComp: React.FC<Iprops> = ({
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
 
-	// const createPost = posting.mutate(keyword);
+	console.log(googleKeywords);
 
 	return (
 		<>
@@ -66,7 +66,8 @@ const InputComp: React.FC<Iprops> = ({
 				<InputText>Search Engine Types</InputText>
 				<Input2>
 					<Input3
-						value={googleKeywords}
+						// value={googleKeywords}
+						required={true}
 						onChange={(e) => {
 							setGoogleKeyWords(e.target.value);
 						}}
@@ -92,6 +93,7 @@ const InputComp: React.FC<Iprops> = ({
 							</Button>
 						) : engine === "Google" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
 									console.log(track, engine);
 									SearchGoogle.mutate({ keywords: googleKeywords });
@@ -273,6 +275,11 @@ const Button = styled.button`
 	background-color: #ae67fa;
 	font-weight: 600;
 	font-size: 12px;
+
+	:disabled {
+		background-color: silver;
+		cursor: not-allowed;
+	}
 `;
 
 const Select = styled.select`

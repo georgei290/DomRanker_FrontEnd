@@ -21,7 +21,7 @@ const SeoChecker = () => {
 	const user = useAppSelector((state) => state.currentUser);
 	const readGoogleData = useAppSelector((state) => state.googelData);
 	const dispatch = UseAppDispach();
-	const [googleKeywords, setGoogleKeyWords] = useState() as any;
+	const [googleKeywords, setGoogleKeyWords] = useState("");
 
 	const SearchGoogle = useMutation({
 		// mutationKey: ["serp"],
@@ -32,25 +32,28 @@ const SeoChecker = () => {
 		},
 	});
 
-	const getData = readGoogleData?.result[0]?.items?.map((el: any) => {
-		// b.map((props: any) => {
-		// return props.links;
-		// });
-	});
+	// const getData = readGoogleData?.result[0]?.items?.map((el: any) => {
+	// b.map((props: any) => {
+	// return props.links;
+	// });
+	// });
 
-	const groupData = _.map(readGoogleData.result[0].items, function (x: any) {
-		return _.filter(x.links);
-	});
+	// const groupData = _.map(readGoogleData.result[0].items, function (x: any) {
+	// return _.filter(x.links);
+	// });
 
-	const groupData3 = _.filter(
-		readGoogleData.result[0].items,
-		function (x: any) {
-			return x.type === "organic";
-		},
-	);
+	let googleData;
 
-	const flatData = groupData3;
-	console.log(flatData);
+	if (readGoogleData?.result) {
+		_.filter(
+			(googleData = readGoogleData!.result[0]!.items),
+			function (x: any) {
+				return x.type === "organic";
+			},
+		);
+	}
+
+	const flatData = googleData;
 
 	return (
 		<Container>
@@ -68,88 +71,89 @@ const SeoChecker = () => {
 					{" "}
 					{SearchGoogle?.isLoading ? <DashboardLoader /> : null}
 				</LoadComp>
-				{!readGoogleData?.data ? (
+				{!readGoogleData?.data && SearchGoogle?.isLoading === false ? (
 					<EmptyData avatar={pic} />
 				) : (
-					<DownData>
-						<CardHold>
-							<Card>
-								<TitleCard>Keyword</TitleCard>
-								<Count>{readGoogleData?.result[0]?.keyword}</Count>
-							</Card>
-							<Card>
-								<TitleCard>Location Code</TitleCard>
-								<Count>{readGoogleData?.result[0]?.location_code}</Count>
-							</Card>
-							<Card>
-								<TitleCard>Item Count</TitleCard>
-								<Count>{readGoogleData?.result[0]?.items_count}</Count>
-							</Card>
-							<Card>
-								<TitleCard>Se_Result Count</TitleCard>
-								<Count>{readGoogleData?.result[0]?.se_results_count}</Count>
-							</Card>
-						</CardHold>
-
-						<TableHold>
-							<TableTitle>
-								<span>Organic Keywords</span>
-							</TableTitle>
-
-							<TableHolder>
-								<TableHead>
-									<Head Hwd='40px'>RG</Head>
-									<Head Hwd='400px'>URL</Head>
-									<Head Hwd='100px'>Total Links</Head>
-									<Head Hwd='100px'>Domain</Head>
-									<Head Hwd='70px'>Sources</Head>
-									<Head Hwd='20px'>Position</Head>
-									<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-										Description
-									</Head>
-								</TableHead>
-
-								<Content>
-									{flatData?.map((props: any) => (
-										<TableBody>
-											<Body Bwd='40px'>{props?.rank_group}</Body>
-											<Body Bwd='400px'>
-												<BTitle cl=' #136F48 '>{props?.title}</BTitle>
-												<a href={props?.url}>
-													<BTitle cl='#1976D2'>{props?.url}</BTitle>
-												</a>
-											</Body>
-											<Body Bwd='100px'>
-												{props.links ? (
-													<TT>{props?.links?.length}</TT>
-												) : (
-													<TT>-</TT>
-												)}
-											</Body>
-											<Body Bwd='100px'>
-												<TT>260.0K</TT>
-											</Body>
-											<Body Bwd='70px'>
-												{props?.about_this_result?.source !== null ? (
-													<TT>{props?.about_this_result?.source}</TT>
-												) : (
-													<TT>-</TT>
-												)}
-											</Body>
-											<Body Bwd='20px'>
-												<TT>$376.9K</TT>
-											</Body>
-											<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-												<TT>www.wired.co</TT>
-											</Body>
-										</TableBody>
-									))}
-								</Content>
-							</TableHolder>
-						</TableHold>
-						<KeyWordIdeaTable />
-						<PopularAds />
-					</DownData>
+					<>
+						{SearchGoogle?.isLoading ? null : (
+							<DownData>
+								<CardHold>
+									<Card>
+										<TitleCard>Keyword</TitleCard>
+										<Count>{readGoogleData?.result[0]?.keyword}</Count>
+									</Card>
+									<Card>
+										<TitleCard>Location Code</TitleCard>
+										<Count>{readGoogleData?.result[0]?.location_code}</Count>
+									</Card>
+									<Card>
+										<TitleCard>Item Count</TitleCard>
+										<Count>{readGoogleData?.result[0]?.items_count}</Count>
+									</Card>
+									<Card>
+										<TitleCard>Se_Result Count</TitleCard>
+										<Count>{readGoogleData?.result[0]?.se_results_count}</Count>
+									</Card>
+								</CardHold>
+								<TableHold>
+									<TableTitle>
+										<span>Organic Keywords</span>
+									</TableTitle>
+									<TableHolder>
+										<TableHead>
+											<Head Hwd='40px'>RG</Head>
+											<Head Hwd='400px'>URL</Head>
+											<Head Hwd='100px'>Total Links</Head>
+											<Head Hwd='100px'>Domain</Head>
+											<Head Hwd='70px'>Sources</Head>
+											<Head Hwd='20px'>Position</Head>
+											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+												Description
+											</Head>
+										</TableHead>
+										<Content>
+											{flatData?.map((props: any) => (
+												<TableBody>
+													<Body Bwd='40px'>{props?.rank_group}</Body>
+													<Body Bwd='400px'>
+														<BTitle cl=' #136F48 '>{props?.title}</BTitle>
+														<a href={props?.url}>
+															<BTitle cl='#1976D2'>{props?.url}</BTitle>
+														</a>
+													</Body>
+													<Body Bwd='100px'>
+														{props.links ? (
+															<TT>{props?.links?.length}</TT>
+														) : (
+															<TT>-</TT>
+														)}
+													</Body>
+													<Body Bwd='100px'>
+														<TT>260.0K</TT>
+													</Body>
+													<Body Bwd='70px'>
+														{props?.about_this_result?.source !== null ? (
+															<TT>{props?.about_this_result?.source}</TT>
+														) : (
+															<TT>-</TT>
+														)}
+													</Body>
+													<Body Bwd='20px'>
+														<TT>$376.9K</TT>
+													</Body>
+													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
+														<TT>www.wired.co</TT>
+													</Body>
+												</TableBody>
+											))}
+										</Content>
+									</TableHolder>
+								</TableHold>
+								<KeyWordIdeaTable />
+								<PopularAds />
+							</DownData>
+						)}
+					</>
 				)}
 			</Wrapper>
 		</Container>
