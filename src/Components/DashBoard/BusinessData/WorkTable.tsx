@@ -1,74 +1,156 @@
 import React from 'react'
 import {Also} from "./DataContent"
 import styled from 'styled-components'
+import { any } from 'prop-types';
 
-const WorkTable = () => {
+interface iData {
+  iProps: any;
+}
+
+const WorkTable: React.FC<iData> = ({ iProps }) => {
+  //   console.log("viewing: ", iProps);
+  console.log("viewing: ", iProps?.friday[0]);
+  console.log("viewing: ", iProps?.monday[0]);
+  //   console.log("viewing: ", iProps);
   return (
     <>
-    
-    <HoldTable>
+      <HoldTable>
         <Table>
-            <Headrow>
-                <TheadCT>
-                    CID
-                </TheadCT>
-                <TheadCT>
-                    Title
-                </TheadCT>
-                <Thead>
-                    Rating Type
-                </Thead>
-                <Thead>
-                    Rating Value 
-                </Thead>
-                <TheadL>
-                    Rating Vote Count
-                </TheadL>
-            </Headrow>
+          <Headrow>
+            <TheadCT>Work Days</TheadCT>
+            <TheadCT>Open Hours</TheadCT>
+            <Thead>Close Hour</Thead>
+          </Headrow>
 
-            {
-                Also.map((props)=>(
-                    <ContentRow>
-                    <ContentData>
-                        <MainData1>
-                            <a href='#'>{props.cid}</a>
-                        </MainData1>
-                    </ContentData>
-                    <ContentData>
-                        <MainData1>
-                        {props.title}
-                        </MainData1>
-                    
-                    </ContentData>
-                    <ContentDataTV>
-                        <MainData>
-                        Max5
-                        </MainData>
-                    </ContentDataTV>
-                    <ContentDataTV>
-                        <MainData>
-                        4.5
-                        </MainData>
-                            
-                    </ContentDataTV>
-                    <ContentData>
-                        <MainData>
-                        {props.ratingVoteCount}
-                        </MainData>
-                            
-                    </ContentData>
-                    
-                </ContentRow>
-                ))
-            }
-        
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Monday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.monday[0]?.open?.hour}:
+                {iProps?.monday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.monday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
 
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Tuesday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.tuesday[0]?.open?.hour} :
+                {iProps?.tuesday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.tuesday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Wednesday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.wednesday[0]?.open?.hour}:
+                {iProps?.wednesday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.wednesday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Thursday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.thursday[0]?.open?.hour}:
+                {iProps?.thursday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.thursday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Friday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.friday[0]?.open?.hour}:
+                {iProps?.friday[0]?.open?.minute}AM
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>{iProps?.friday[0]?.close?.hour % 12}PM</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Saturday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.saturday === null ? (
+                  <div>Closed</div>
+                ) : (
+                  <div>{iProps?.saturday[0]?.open?.hour}AM</div>
+                )}
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>Closed</MainData>
+            </ContentDataTV>
+          </ContentRow>
+
+          <ContentRow>
+            <ContentData>
+              <MainData1>
+                <div>Sunday</div>
+              </MainData1>
+            </ContentData>
+            <ContentData>
+              <MainData1>
+                {iProps?.sunday === null ? (
+                  <div>Closed</div>
+                ) : (
+                  <div>{iProps?.sunday[0]?.open?.hour}AM</div>
+                )}
+              </MainData1>
+            </ContentData>
+            <ContentDataTV>
+              <MainData>Closed</MainData>
+            </ContentDataTV>
+          </ContentRow>
         </Table>
-    </HoldTable>
-
-</>
-  )
-}
+      </HoldTable>
+    </>
+  );
+};
 
 export default WorkTable
 
