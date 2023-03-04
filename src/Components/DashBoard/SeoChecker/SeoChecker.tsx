@@ -3,11 +3,13 @@ import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import pic from "../images/5.svg";
 import KeyWordIdeaTable from "./KeyWordIdeaTable";
 import PopularAds from "./PopularAds";
 import {
+	ReadBaiduData,
+	SeoCheckerBaidu,
 	SeoCheckerBing,
 	SeoCheckerGoogle,
 	SeoCheckerYahoo,
@@ -17,30 +19,54 @@ import {
 	useAppSelector,
 	UseAppDispach,
 } from "../../../utils/stateManagement/store";
-import { googelSearchData } from "../../../utils/stateManagement/authState";
+import {
+	googelSearchData,
+	storeBaiduId,
+} from "../../../utils/stateManagement/authState";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 const SeoChecker = () => {
 	const [data, setData] = useState([]);
+	const queryClient = useQueryClient();
 
 	const user = useAppSelector((state) => state.currentUser);
 	const readGoogleData = useAppSelector((state) => state.googelData);
+	const readBaiduId = useAppSelector((state) => state.baiduID);
 	const dispatch = UseAppDispach();
 	const [googleKeywords, setGoogleKeyWords] = useState("");
 
 	const SearchGoogle = useMutation({
-		// mutationKey: ["serp"],
 		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
 		onSuccess: (data) => {
-			// console.log("reading seo", data);
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
 
 	const SearchBing = useMutation({
-		// mutationKey: ["serp"],
 		mutationFn: (keywords: any) => SeoCheckerBing(keywords, user?._id),
 		onSuccess: (data) => {
 			console.log("reading seoBing", data);
+			dispatch(googelSearchData(data?.data[0]));
+		},
+	});
+
+	const SearchBaidu = useMutation({
+		mutationFn: (keywords: any) => SeoCheckerBaidu(keywords, user?._id),
+		onSuccess: (data) => {
+			queryClient.prefetchQuery(["baidudata"]);
+			// console.log("reading seoBaidu", data);
+			dispatch(storeBaiduId(data?.data[0].id));
+		},
+	});
+
+	const readBaidu = useQuery({
+		queryKey: ["baidudata"],
+
+		queryFn: () => {
+			return ReadBaiduData(user?._id, readBaiduId);
+		},
+		onSuccess: (data) => {
+			// console.log("done fetching", data);
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
@@ -95,12 +121,15 @@ const SeoChecker = () => {
 					SearchGoogle={SearchGoogle}
 					SearchBing={SearchBing}
 					SearchYahoo={SearchYahoo}
+					SearchBaidu={SearchBaidu}
 				/>
 				<hr />
 				<LoadComp>
 					{" "}
 					{SearchGoogle?.isLoading ||
 					SearchYahoo?.isLoading ||
+					readBaidu?.isLoading ||
+					SearchBaidu?.isLoading ||
 					SearchBing?.isLoading ? (
 						<DashboardLoader />
 					) : null}
@@ -111,26 +140,35 @@ const SeoChecker = () => {
 					<>
 						{SearchGoogle?.isLoading ||
 						SearchBing?.isLoading ||
+						readBaidu?.isFetching ||
+						SearchBaidu?.isLoading ||
 						SearchYahoo?.isLoading ? null : (
 							<DownData>
-								<CardHold>
-									<Card>
-										<TitleCard>Keyword</TitleCard>
-										<Count>{readGoogleData?.result[0]?.keyword}</Count>
-									</Card>
-									<Card>
-										<TitleCard>Location Code</TitleCard>
-										<Count>{readGoogleData?.result[0]?.location_code}</Count>
-									</Card>
-									<Card>
-										<TitleCard>Item Count</TitleCard>
-										<Count>{readGoogleData?.result[0]?.items_count}</Count>
-									</Card>
-									<Card>
-										<TitleCard>Se_Result Count</TitleCard>
-										<Count>{readGoogleData?.result[0]?.se_results_count}</Count>
-									</Card>
-								</CardHold>
+								{readGoogleData?.result === null ? (
+									<EmptyData avatar={pic} message='No result found' />
+								) : (
+									<CardHold>
+										<Card>
+											<TitleCard>Keyword</TitleCard>
+											<Count>{readGoogleData?.result[0]?.keyword}</Count>
+										</Card>
+										<Card>
+											<TitleCard>Location Code</TitleCard>
+											<Count>{readGoogleData?.result[0]?.location_code}</Count>
+										</Card>
+										<Card>
+											<TitleCard>Item Count</TitleCard>
+											<Count>{readGoogleData?.result[0]?.items_count}</Count>
+										</Card>
+										<Card>
+											<TitleCard>Se_Result Count</TitleCard>
+											<Count>
+												{readGoogleData?.result[0]?.se_results_count}
+											</Count>
+										</Card>
+									</CardHold>
+								)}
+
 								<TableHold>
 									<TableTitle>
 										<span>Organic Keywords ({readGoogleData?.data?.se})</span>

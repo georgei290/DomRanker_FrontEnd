@@ -2,7 +2,6 @@ import React from "react";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
-
 import KeyWordChart from "./KeyWordChart";
 
 const DataKeyWord = (props: any) => {

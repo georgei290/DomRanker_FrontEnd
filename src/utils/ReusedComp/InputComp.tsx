@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ interface Iprops {
 	SearchGoogle: any;
 	SearchBing: any;
 	SearchYahoo: any;
+	SearchBaidu: any;
 }
 
 const InputComp: React.FC<Iprops> = ({
@@ -19,11 +20,13 @@ const InputComp: React.FC<Iprops> = ({
 	SearchGoogle,
 	SearchBing,
 	SearchYahoo,
+	SearchBaidu,
 }) => {
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
+	const queryClient: any = useQueryClient();
 
-	console.log(googleKeywords);
+	// console.log(googleKeywords);
 
 	return (
 		<>
@@ -38,9 +41,7 @@ const InputComp: React.FC<Iprops> = ({
 						<option value='Bing'>Bing</option>
 						<option value='Yahoo'>Yahoo</option>
 						<option value='Youtube'>Youtube</option>
-						<option disabled value='Baidu'>
-							Baidu
-						</option>
+						<option value='Baidu'>Baidu</option>
 						<option disabled value='Naver'>
 							Naver
 						</option>
@@ -171,8 +172,11 @@ const InputComp: React.FC<Iprops> = ({
 							</Button>
 						) : engine === "Baidu" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
 									console.log(track, engine);
+									// queryClient.clear();
+									SearchBaidu.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Baidu Organic
 							</Button>

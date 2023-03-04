@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
-import pix from "./undraw_analytics_re_dkf8.svg"
+import pix from "./undraw_analytics_re_dkf8.svg";
 import FirstTable from "./FirstTable";
 import SecondTable from "./SecondTable";
 import ThirdTable from "./ThirdTable";
@@ -11,93 +11,94 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {onPageCall, readingOnPageCall} from "../../../utils/APICalls"
-import {useSelector, useDispatch} from "react-redux"
-import {onPageAPI} from "../../../utils/stateManagement/authState"
+import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
+import { useSelector, useDispatch } from "react-redux";
+import { onPageAPI } from "../../../utils/stateManagement/authState";
 
-interface userSearch{
-	word: string
+interface userSearch {
+	word: string;
 }
 
 const OnPageData = () => {
-	const [showData, setShowDaat] = React.useState<boolean>(false)
-	const user = useSelector((state:any)=> state.currentUser)
-	const getPageData = useSelector((state:any)=> state.onPageData)
-	console.log("this is user id",user?._id)
-	console.log("this is pageData id",getPageData.id)
+	const [showData, setShowDaat] = React.useState<boolean>(false);
+	const user = useSelector((state: any) => state.currentUser);
+	const getPageData = useSelector((state: any) => state.onPageData);
+	console.log("this is user id", user?._id);
+	console.log("this is pageData id", getPageData.id);
 
 	const dispatch = useDispatch();
 
 	const schema = yup.object().shape({
-		word: yup.string().required("please enter a searh word")
-	})
+		word: yup.string().required("please enter a searh word"),
+	});
 
-	const {register, handleSubmit, } = useForm<userSearch>({
+	const { register, handleSubmit } = useForm<userSearch>({
 		resolver: yupResolver(schema),
-	})
-  
+	});
 
-	const submit: SubmitHandler<userSearch> = async (data:any) => {
+	const submit: SubmitHandler<userSearch> = async (data: any) => {
 		// console.log("my input data", data)
-		onPageCall(data, user?._id ).then((data)=>{
-			console.log("this is the data to check on page",data)
-			dispatch(onPageAPI(data?.data[0]))
-		})
-	}
+		onPageCall(data, user?._id).then((data) => {
+			console.log("this is the data to check on page", data);
+			dispatch(onPageAPI(data?.data[0]));
+		});
+	};
 
-	const {data, isLoading} = useQuery({
-         queryKey:["gettingOnPageData"],
-		 queryFn :() => readingOnPageCall(user?._id, getPageData.id)
-	})
+	const { data, isLoading } = useQuery({
+		queryKey: ["gettingOnPageData"],
+		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
+	});
 
-	console.log("onpageData", data)
-
+	console.log("onpageData", data);
 
 	return (
 		<Container>
 			<Wrapper>
 				<Title>OnPage Data</Title>
 				<SubTitle>
-				With On-Page API you can obtain a variety of on-page SEO data, which you can use to eliminate hidden website errors and, consequently,
+					With On-Page API you can obtain a variety of on-page SEO data, which
+					you can use to eliminate hidden website errors and, consequently,
 					boost rankings
 				</SubTitle>
 				<>
-			<InputHold>
-				
-				<Main>
-					<InputText>Fucntion</InputText>
-					<Input placeholder='Summary' />
-				</Main>
-				<Main>
-					<InputText>Include Subdomain</InputText>
-					<Input placeholder='Enable' />
-				</Main>
-				<Main>
-					<InputText>Backlink Status Types</InputText>
-					<Input placeholder='Live' />
-				</Main>
-				<Main>
-					<InputText>Internal Link List</InputText>
-					<Input placeholder='10' />
-				</Main>
-			</InputHold>
-			<Main>
-				<InputText>Search Engine Types</InputText>
-				<Input2 onSubmit={handleSubmit(submit)}>
-					<Input3 required placeholder='Enter search' {...register("word")} />
-					<Button>Analyze</Button>
-					{/* <Error>{errors.keywords && "Keyword is required"}</Error> */}
-				</Input2>
-			</Main>
-		</>
+					<InputHold>
+						<Main>
+							<InputText>Fucntion</InputText>
+							<Input placeholder='Summary' />
+						</Main>
+						<Main>
+							<InputText>Include Subdomain</InputText>
+							<Input placeholder='Enable' />
+						</Main>
+						<Main>
+							<InputText>Backlink Status Types</InputText>
+							<Input placeholder='Live' />
+						</Main>
+						<Main>
+							<InputText>Internal Link List</InputText>
+							<Input placeholder='10' />
+						</Main>
+					</InputHold>
+					<Main>
+						<InputText>Search Engine Types</InputText>
+						<Input2 onSubmit={handleSubmit(submit)}>
+							<Input3
+								required
+								placeholder='Enter search'
+								{...register("word")}
+							/>
+							<Button>Analyze</Button>
+							{/* <Error>{errors.keywords && "Keyword is required"}</Error> */}
+						</Input2>
+					</Main>
+				</>
 
-		{
-					showData ? 
-					(<EmpytyHold>
-						<EmptyData avatar={pix}/>
-					</EmpytyHold>) :
-					 (
-						<>
+				{showData ? (
+					<EmpytyHold>
+						<EmptyData avatar={pix} />
+					</EmpytyHold>
+				) : (
+					<>
 						<div>
 							<Dholder>
 								<First>
@@ -105,112 +106,93 @@ const OnPageData = () => {
 										<span>Image count</span>
 										<div>76</div>
 									</ImageCount>
-									<ImageSize> 
-									<span>Image size</span>
+									<ImageSize>
+										<span>Image size</span>
 										<div>0</div>
 									</ImageSize>
 								</First>
 								<Second>
 									<IntLinkCount>
-									<span>Internal Link Count</span>
+										<span>Internal Link Count</span>
 										<div>126</div>
 									</IntLinkCount>
 
 									<BothLink>
 										<ExLinkCount>
-										<span>External Link Count</span>
-										<div>92</div>
+											<span>External Link Count</span>
+											<div>92</div>
 										</ExLinkCount>
-										
+
 										<InbLinkCount>
-										<span>Inbound Link Count</span>
-										<div>0</div>
+											<span>Inbound Link Count</span>
+											<div>0</div>
 										</InbLinkCount>
 									</BothLink>
 								</Second>
 								<Third>
-								<BothLink1>
-								<ExLinkCount>
-										<span>Script Count</span>
-										<div>4</div>
-								</ExLinkCount>
+									<BothLink1>
+										<ExLinkCount>
+											<span>Script Count</span>
+											<div>4</div>
+										</ExLinkCount>
 
-								<InbLinkCount>
-										<span>Script Size</span>
-										<div>23</div>
-								</InbLinkCount>
-								</BothLink1>
+										<InbLinkCount>
+											<span>Script Size</span>
+											<div>23</div>
+										</InbLinkCount>
+									</BothLink1>
 
-								<BothLink2>
-								<ExLinkCount>
-										<span>Stylesheet Count</span>
-										<div>74</div>
-								</ExLinkCount>
+									<BothLink2>
+										<ExLinkCount>
+											<span>Stylesheet Count</span>
+											<div>74</div>
+										</ExLinkCount>
 
-								<InbLinkCount>
-										<span>Stylesheet Size</span>
-										<div>16</div>
-								</InbLinkCount>
-								</BothLink2>
-
+										<InbLinkCount>
+											<span>Stylesheet Size</span>
+											<div>16</div>
+										</InbLinkCount>
+									</BothLink2>
 								</Third>
 								<Forth>
-								<ImageCount1>
+									<ImageCount1>
 										<span>Title Lenght</span>
 										<div>43</div>
 									</ImageCount1>
-									<ImageSize> 
-									<span>Description Lenght</span>
+									<ImageSize>
+										<span>Description Lenght</span>
 										<div>81</div>
 									</ImageSize>
-
 								</Forth>
-
 							</Dholder>
-
 						</div>
-							
-						</>
-					 )
-				}
+					</>
+				)}
 
 				<TableHolder>
-				
-					<FirstTable/>
-					
+					<FirstTable />
 				</TableHolder>
 
 				<TableHolder>
-				
-					<SecondTable/>
-					
+					<SecondTable />
 				</TableHolder>
 				<TableHolder>
-					<ThirdTable/>
+					<ThirdTable />
 				</TableHolder>
 
 				<PageT>
-
-					<span>
-					Page Timing
-					</span>
-					
+					<span>Page Timing</span>
 				</PageT>
 
 				<PageContent>
-                    <TimmingCard/>
-                    <TimmingCard/>
-                    <TimmingCard/>
-                    <TimmingCard/>
-                    <TimmingCard/>
-                    <TimmingCard/>
-                    <TimmingCard/>
+					<TimmingCard />
+					<TimmingCard />
+					<TimmingCard />
+					<TimmingCard />
+					<TimmingCard />
+					<TimmingCard />
+					<TimmingCard />
 				</PageContent>
-				
-
-
-
-
 			</Wrapper>
 		</Container>
 	);
@@ -224,302 +206,285 @@ const Error = styled.div`
 `;
 
 const PageContent = styled.div`
-height:auto;
-padding-buttom: 20px;
-margin-bottom:30px;
-width:95%;
-background-color:white;
-padding-left:30px;
-padding-top:30px;
-justify-content:space-between;
+	height: auto;
+	padding-buttom: 20px;
+	margin-bottom: 30px;
+	width: 95%;
+	background-color: white;
+	padding-left: 30px;
+	padding-top: 30px;
+	justify-content: space-between;
 
-display: flex;
-flex-wrap: wrap;
-@media screen and (max-width: 768px) {
-	padding-left:0px;
-}
-
-`
+	display: flex;
+	flex-wrap: wrap;
+	@media screen and (max-width: 768px) {
+		padding-left: 0px;
+	}
+`;
 
 const PageT = styled.div`
-height:50px;
-width:98%;
-background-color:#EBEBEC;
-display:flex;
-align-items: center;
+	height: 50px;
+	width: 98%;
+	background-color: #ebebec;
+	display: flex;
+	align-items: center;
 
-span{
-	padding-left:30px;
-	font-size:15px;
-	font-weight:800;
-	color:#000000;
-	
-}
-`
+	span {
+		padding-left: 30px;
+		font-size: 15px;
+		font-weight: 800;
+		color: #000000;
+	}
+`;
 
+const TableTitle = styled.div`
+	heigt: 100px;
+	width: 100%;
+	padding-top: 5px;
+	padding-buttom: 5px;
+	font-weight: 700;
+	font-size: 15px;
+	padding-left: 10px;
+`;
 
-const  TableTitle = styled.div`
-heigt:100px;
-width:100%;
-padding-top:5px;
-padding-buttom:5px;
-font-weight:700;
-font-size:15px;
-padding-left:10px;
-`
-
-const TableHolder  = styled.div`
-    margin-top: 15px;
+const TableHolder = styled.div`
+	margin-top: 15px;
 	width: 98%;
 	display: flex;
-	height:auto;
-	background-color:white;
-	margin-bottom:20px;
+	height: auto;
+	background-color: white;
+	margin-bottom: 20px;
 	display: flex;
 	flex-direction: column;
-	border :2px solid #BFBFBF;
-
+	border: 2px solid #bfbfbf;
 
 	@media screen and (max-width: 768px) {
 		flex-wrap: wrap;
 		width: 90%;
-		
 	}
-`
+`;
 
 const ExLinkCount = styled.div`
-height:90px;
-width:50%;
-display: flex;
-flex-direction:column;
-border-right:2px solid #E2E2E2;
+	height: 90px;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	border-right: 2px solid #e2e2e2;
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:15px;
-	font-weight:700;
-	font-size:13px;
-};
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 15px;
+		font-weight: 700;
+		font-size: 13px;
+	}
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}
-`
+	div {
+		padding-left: 10px;
+
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 const InbLinkCount = styled.div`
-height:90px;
-width:50%;
-display: flex;
-flex-direction:column;
+	height: 90px;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:16px;
-	font-weight:700;
-	font-size:13px;
-};
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 16px;
+		font-weight: 700;
+		font-size: 13px;
+	}
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}
+	div {
+		padding-left: 10px;
 
-`
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 
 const BothLink1 = styled.div`
-height:90px;
-width:100%;
-display: flex;
-background-color:#FFFFFF;
-border-bottom:2px solid #E2E2E2;
-`
+	height: 90px;
+	width: 100%;
+	display: flex;
+	background-color: #ffffff;
+	border-bottom: 2px solid #e2e2e2;
+`;
 const BothLink2 = styled.div`
-height:90px;
-width:100%;
-display: flex;
-background-color:#FFFFFF;
-border-bottom:2px solid #D62828;
-
-`
+	height: 90px;
+	width: 100%;
+	display: flex;
+	background-color: #ffffff;
+	border-bottom: 2px solid #d62828;
+`;
 const BothLink = styled.div`
-height:90px;
-width:100%;
-display: flex;
-background-color:#FFFFFF;
-border-bottom:2px solid #023047;
-`
+	height: 90px;
+	width: 100%;
+	display: flex;
+	background-color: #ffffff;
+	border-bottom: 2px solid #023047;
+`;
 
 const IntLinkCount = styled.div`
-height:90px;
-width:100%;
-border-bottom:2px solid #E2E2E2;
-background-color:#FFFFFF;
-display: flex;
-flex-direction: column;
+	height: 90px;
+	width: 100%;
+	border-bottom: 2px solid #e2e2e2;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
 
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 15px;
+		font-weight: 700;
+		font-size: 12px;
+	}
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:15px;
-	font-weight:700;
-	font-size:12px;
-};
+	div {
+		padding-left: 10px;
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}
-`
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 
 const ImageCount1 = styled.div`
-height:90px;
-width:100%;
-border-bottom:2px solid #E2E2E2;
-background-color:#FFFFFF;
-display: flex;
-flex-direction: column;
+	height: 90px;
+	width: 100%;
+	border-bottom: 2px solid #e2e2e2;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:13px;
-	font-weight:700;
-	font-size:13px;
-};
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 13px;
+		font-weight: 700;
+		font-size: 13px;
+	}
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}`
+	div {
+		padding-left: 10px;
+
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 const ImageCount = styled.div`
-height:90px;
-width:100%;
-border-bottom:2px solid #8ECAE6;
-background-color:#FFFFFF;
-display: flex;
-flex-direction: column;
+	height: 90px;
+	width: 100%;
+	border-bottom: 2px solid #8ecae6;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:13px;
-	font-weight:700;
-	font-size:13px;
-};
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 13px;
+		font-weight: 700;
+		font-size: 13px;
+	}
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}
+	div {
+		padding-left: 10px;
 
-
-`
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 const ImageSize = styled.div`
-height:90px;
-width:100%;
-border-bottom:2px solid #FFB703;
-background-color:#FFFFFF;
+	height: 90px;
+	width: 100%;
+	border-bottom: 2px solid #ffb703;
+	background-color: #ffffff;
 
+	span {
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-bottom: 15px;
+		font-weight: 700;
+		font-size: 13px;
+	}
 
-span{
-	padding-left:10px;
-	padding-top:10px;
-	padding-bottom:15px;
-	font-weight:700;
-	font-size:13px;
-};
+	div {
+		padding-left: 10px;
 
-div{
-	padding-left:10px;
-	
-	font-weight:800;
-	font-size:25px;
-}
-
-`
+		font-weight: 800;
+		font-size: 25px;
+	}
+`;
 
 const First = styled.div`
-width:190px;
-height:190px;
-justify-content:space-between;
-display: flex;
-flex-direction:column;
+	width: 190px;
+	height: 190px;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: column;
 
-@media screen and (max-width: 768px) {
-	width:100%;
-}
-`
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
 const Second = styled.div`
+	width: 310px;
+	height: 190px;
 
-width:310px;
-height:190px;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: column;
 
-justify-content:space-between;
-display: flex;
-flex-direction:column;
-
-@media screen and (max-width: 768px) {
-	width:100%;
-}
-`
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
 const Third = styled.div`
-width:310px;
-height:190px;
-justify-content:space-between;
-display: flex;
-flex-direction:column;
+	width: 310px;
+	height: 190px;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: column;
 
-
-@media screen and (max-width: 768px) {
-	width:100%;
-}
-`
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
 const Forth = styled.div`
-width:165px;
-height:190px;
+	width: 165px;
+	height: 190px;
 
-justify-content:space-between;
-display: flex;
-flex-direction:column;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: column;
 
-@media screen and (max-width: 768px) {
-	width:100%;
-}
-`
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
 
 const Dholder = styled.div`
-height:auto;
-width:98%;
-justify-content:space-between;
-display: flex;
-margin-top:15px;
-flex-wrap:wrap;
+	height: auto;
+	width: 98%;
+	justify-content: space-between;
+	display: flex;
+	margin-top: 15px;
+	flex-wrap: wrap;
 
-@media screen and (max-width: 768px) {
- 
-	width:90%;
-	
-	
+	@media screen and (max-width: 768px) {
+		width: 90%;
+	}
+`;
 
-}
-`
-
-const EmpytyHold  = styled.div`
-margin-top:50px;
-`
+const EmpytyHold = styled.div`
+	margin-top: 50px;
+`;
 
 const Input3 = styled.input`
 	flex: 1;
@@ -608,11 +573,11 @@ const InputText = styled.div`
 `;
 
 const SubTitle = styled.div`
-color:black;
-margin-top:6px;
-font-weight:500;
-font-size:16px;
-`
+	color: black;
+	margin-top: 6px;
+	font-weight: 500;
+	font-size: 16px;
+`;
 
 const Title = styled.div`
 	color: #3e4581;

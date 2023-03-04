@@ -167,6 +167,26 @@ export const SeoCheckerYahoo = async (keywords: any, id: string) => {
 	}
 };
 
+//yahoo search request
+export const SeoCheckerBaidu = async (keywords: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/get-baidu-search`;
+		return await axios.post(mainURL, keywords).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//reading baidu data
+export const ReadBaiduData = async (id: string, myID: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/${myID}/get-baidu-search`;
+		return await axios.get(mainURL).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
 // Request for Business Data
 export const businessDataCall = async (keywords: any, id: string) => {
 	try {
@@ -201,11 +221,8 @@ export const onPageCall = async (keywords: any, id: string) => {
 export const readingOnPageCall = async (id: string, myID: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/read-on-page-search`;
-		return await axios.post(mainURL, myID).then((res) => res.data);
+		return await axios.post(mainURL, { dataID: myID }).then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
 };
-
-
-
