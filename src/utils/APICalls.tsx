@@ -187,6 +187,46 @@ export const ReadBaiduData = async (id: string, myID: string) => {
 	}
 };
 
+//searching naver data
+export const SeoCheckerNaverData = async (keywords: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/get-naver-search`;
+		return await axios.post(mainURL, keywords).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//reading naver data
+export const ReadNaverData = async (id: string, myID: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/${myID}/get-naver-search`;
+		return await axios.get(mainURL).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//searching seznam data
+export const SeoCheckerSeznamData = async (keywords: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/get-seznam-search`;
+		return await axios.post(mainURL, keywords).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//reading sezam data
+export const ReadSeznamData = async (id: string, myID: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/${myID}/get-seznam-search`;
+		return await axios.get(mainURL).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
 // Request for Business Data
 export const businessDataCall = async (keywords: any, id: string) => {
 	try {
