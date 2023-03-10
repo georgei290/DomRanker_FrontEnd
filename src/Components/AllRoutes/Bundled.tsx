@@ -31,6 +31,11 @@ export const ContentAnalyzer = loaded(
 export const OnPageData = loaded(
 	() => import("../DashBoard/OnPageData/OnPageData"),
 );
+
+export const DetaildOnpage = loaded(
+	() => import("../DashBoard/OnPageData/DetailsOnpage")
+)
+
 export const Keywords = loaded(() => import("../DashBoard/Keywords/KeyWords"));
 
 export const SeoSearchEngine = loaded(

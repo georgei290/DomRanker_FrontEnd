@@ -7,6 +7,8 @@ import {
 	OnPageData,
 	SeoChecker,
 	SeoSearchEngine,
+	DetaildOnpage
+	
 } from "./Bundled";
 
 const DashBoardRoutes = () => {
@@ -40,7 +42,18 @@ const DashBoardRoutes = () => {
 
 		{
 			path: "/onpagedata",
-			element: <OnPageData />,
+			children: [
+				{
+					index: true,
+					element: <OnPageData />,
+				},
+
+				{
+					path: "detail/:id",
+					element: <DetaildOnpage/>
+				},
+			]
+			
 		},
 		{
 			path: "/keywords",

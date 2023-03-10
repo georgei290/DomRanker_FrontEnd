@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import InputComp from "../../../utils/ReusedComp/InputComp";
+import { NavLink, useNavigate } from "react-router-dom";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import pix from "./undraw_analytics_re_dkf8.svg";
-import FirstTable from "./FirstTable";
-import SecondTable from "./SecondTable";
-import ThirdTable from "./ThirdTable";
-import TimmingCard from "./TimmingCard";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,12 +41,16 @@ const OnPageData = () => {
 		});
 	};
 
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, isFetching } = useQuery({
 		queryKey: ["gettingOnPageData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
 
-	console.log("onpageData", data);
+   let num = 0
+
+	
+	// console.log("onpageData", data?.data);
+	// console.log("onpageDatamap", data.data[0]?.result[0]?.items);
 
 	return (
 		<Container>
@@ -93,106 +94,123 @@ const OnPageData = () => {
 					</Main>
 				</>
 
-				{showData ? (
+				{!data ? (
 					<EmpytyHold>
-						<EmptyData avatar={pix} />
+						<EmptyData avatar={pix}
+							message='This endpoint will provide you with search volume, monthly searches,
+              competition, and other related data for up to 1000 keywords in a single
+              request.'
+						/>
 					</EmpytyHold>
 				) : (
-					<>
-						<div>
-							<Dholder>
-								<First>
-									<ImageCount>
-										<span>Image count</span>
-										<div>76</div>
-									</ImageCount>
-									<ImageSize>
-										<span>Image size</span>
-										<div>0</div>
-									</ImageSize>
-								</First>
-								<Second>
-									<IntLinkCount>
-										<span>Internal Link Count</span>
-										<div>126</div>
-									</IntLinkCount>
+						<>
+							{
+								isLoading || isFetching ? (
+									<div>
+										
+									</div>) :
+							
+									(
+										<>
+											
+											{
+												data.data[0]?.status_code === 404 ||
+													data?.data[0]?.result === null ?
+													(
+													<EmptyData avatar={pix}
+													message='No Result Found'
+														/>
+													)
+														:
+													(
+													
+														
+														
+								<TableHold>
+									<TableTitle>
+								<span>Onpage Data
+									{/* ({readGoogleData?.data?.se}) */}
+								</span>
+									</TableTitle>
+									<TableHolder>
+										<TableHead>
+											<Head Hwd='40px'>RG</Head>
+											<Head Hwd='300px'>URL</Head>
+											<Head Hwd='100px'>Image Count</Head>
+											<Head Hwd='150px'>Internal Link Count</Head>
+											<Head Hwd='70px'>No of h[tags]</Head>
+											<Head Hwd='20px'>Script Count</Head>
+											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+												Onpage Score
+											</Head>
+										</TableHead>
 
-									<BothLink>
-										<ExLinkCount>
-											<span>External Link Count</span>
-											<div>92</div>
-										</ExLinkCount>
+										
+																<Content>
+																	
+																	{
+																		data.data[0]?.result[0]?.items?.map((props:any) => (
+																				<TableBody to={`detail/:id`}>
+													<Body Bwd='40px'>{++num}</Body>
+													<Body Bwd='300px'>
+														{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
+														<a href="#">
+																						<BTitle cl='#1976D2'>{ props.url}</BTitle>
+														</a>
+													</Body>
+													<Body Bwd='100px'>
+														
+																					<TT>{ props.meta.images_count}</TT>
+													
+													</Body>
+													<Body Bwd='150px'>
+														
+																					<TT>{ props.meta.internal_links_count}</TT>
+														
+													</Body>
+													<Body Bwd='70px'>
+													
+															<>
+																						<TT>{Object.keys(props.meta.htags).length}</TT>
+															</>
+														
+													</Body>
+													<Body Bwd='20px'>
+													
+															<>
+																
+																	<TT>{ props.meta.scripts_count}</TT>
+															
+															</>
+													
+													</Body>
+													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
+														
+															<TT>{ props.onpage_score}</TT>
+													
+													</Body>
+												</TableBody>
+																		))
+																	}
+											
+											
+										
+										</Content>
+									</TableHolder>
+								</TableHold>
+													)
 
-										<InbLinkCount>
-											<span>Inbound Link Count</span>
-											<div>0</div>
-										</InbLinkCount>
-									</BothLink>
-								</Second>
-								<Third>
-									<BothLink1>
-										<ExLinkCount>
-											<span>Script Count</span>
-											<div>4</div>
-										</ExLinkCount>
-
-										<InbLinkCount>
-											<span>Script Size</span>
-											<div>23</div>
-										</InbLinkCount>
-									</BothLink1>
-
-									<BothLink2>
-										<ExLinkCount>
-											<span>Stylesheet Count</span>
-											<div>74</div>
-										</ExLinkCount>
-
-										<InbLinkCount>
-											<span>Stylesheet Size</span>
-											<div>16</div>
-										</InbLinkCount>
-									</BothLink2>
-								</Third>
-								<Forth>
-									<ImageCount1>
-										<span>Title Lenght</span>
-										<div>43</div>
-									</ImageCount1>
-									<ImageSize>
-										<span>Description Lenght</span>
-										<div>81</div>
-									</ImageSize>
-								</Forth>
-							</Dholder>
-						</div>
-					</>
+											}
+											
+										</>
+									
+									)
+							}
+						</>
+					
 				)}
 
-				<TableHolder>
-					<FirstTable />
-				</TableHolder>
-
-				<TableHolder>
-					<SecondTable />
-				</TableHolder>
-				<TableHolder>
-					<ThirdTable />
-				</TableHolder>
-
-				<PageT>
-					<span>Page Timing</span>
-				</PageT>
-
-				<PageContent>
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-				</PageContent>
+				
 			</Wrapper>
 		</Container>
 	);
@@ -200,287 +218,129 @@ const OnPageData = () => {
 
 export default OnPageData;
 
+const LoadComp = styled.div`
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+`;
+
+const TT = styled.div`
+	width: 90%;
+	font-size: 13px;
+	/* background-color: red; */
+`;
+
+const BTitle = styled.div<{ cl: string }>`
+	width: 290px;
+	font-size: 14px;
+	color: ${(props) => props.cl};
+	/* background-color: red; */
+	 overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+	/* white-space: ; */
+	/* background-color: black; */
+`;
+
+
+const TableBody = styled(NavLink)`
+	display: flex;
+	width: 100%;
+	align-items: center;
+	text-decoration: none;
+	color: black;
+	height: 100%;
+	padding-top:10px;
+	border-bottom: 1px solid #f1f1f1;
+	padding-bottom: 10px;
+	cursor: pointer;
+
+		:nth-child(odd) {
+ background: white;
+		}
+		:nth-child(even) {
+  background: #F8F8FF;
+
+  
+}
+
+:hover{
+	background:#FFF8F8;
+  }
+`;
+
+const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+
+`;
+
+
+const Body = styled.div<{ Bwd: string }>`
+	margin-left: 20px;
+	/* background-color: red; */
+	align-items: center;
+	min-width: ${(props) => props.Bwd};
+	font-weight: 600;
+	/* border-right: 1px solid #f1f1f1; */
+`;
+
+const Head = styled.div<{ Hwd: string }>`
+	margin-left: 20px;
+	/* background-color: red; */
+	align-items: center;
+	font-weight: 800;
+
+	min-width: ${(props) => props.Hwd};
+`;
+
+const TableHead = styled.div`
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+
+	border-bottom: 1px solid #f1f1f1;
+	height: 70px;
+	background-color: white;
+	font-size: 13px;
+`;
+
+const TableHold = styled.div``;
+const TableTitle = styled.div`
+	width: 100%;
+	height: 60px;
+	background-color: white;
+	display: flex;
+
+	border-radius: 5px;
+	align-items: center;
+	span {
+		margin-left: 20px;
+		font-size: 20px;
+		font-weight: 500;
+		color: #ae67fa;
+	}
+`;
+
+const TableHolder = styled.div`
+	background-color: white;
+	margin-top: 10px;
+	width: 100%;
+	overflow-x: scroll;
+`;
+
 const Error = styled.div`
 	font-size: 10px;
 	color: red;
 `;
 
-const PageContent = styled.div`
-	height: auto;
-	padding-buttom: 20px;
-	margin-bottom: 30px;
-	width: 95%;
-	background-color: white;
-	padding-left: 30px;
-	padding-top: 30px;
-	justify-content: space-between;
 
-	display: flex;
-	flex-wrap: wrap;
-	@media screen and (max-width: 768px) {
-		padding-left: 0px;
-	}
-`;
 
-const PageT = styled.div`
-	height: 50px;
-	width: 98%;
-	background-color: #ebebec;
-	display: flex;
-	align-items: center;
 
-	span {
-		padding-left: 30px;
-		font-size: 15px;
-		font-weight: 800;
-		color: #000000;
-	}
-`;
 
-const TableTitle = styled.div`
-	heigt: 100px;
-	width: 100%;
-	padding-top: 5px;
-	padding-buttom: 5px;
-	font-weight: 700;
-	font-size: 15px;
-	padding-left: 10px;
-`;
-
-const TableHolder = styled.div`
-	margin-top: 15px;
-	width: 98%;
-	display: flex;
-	height: auto;
-	background-color: white;
-	margin-bottom: 20px;
-	display: flex;
-	flex-direction: column;
-	border: 2px solid #bfbfbf;
-
-	@media screen and (max-width: 768px) {
-		flex-wrap: wrap;
-		width: 90%;
-	}
-`;
-
-const ExLinkCount = styled.div`
-	height: 90px;
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	border-right: 2px solid #e2e2e2;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 15px;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-const InbLinkCount = styled.div`
-	height: 90px;
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 16px;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-
-const BothLink1 = styled.div`
-	height: 90px;
-	width: 100%;
-	display: flex;
-	background-color: #ffffff;
-	border-bottom: 2px solid #e2e2e2;
-`;
-const BothLink2 = styled.div`
-	height: 90px;
-	width: 100%;
-	display: flex;
-	background-color: #ffffff;
-	border-bottom: 2px solid #d62828;
-`;
-const BothLink = styled.div`
-	height: 90px;
-	width: 100%;
-	display: flex;
-	background-color: #ffffff;
-	border-bottom: 2px solid #023047;
-`;
-
-const IntLinkCount = styled.div`
-	height: 90px;
-	width: 100%;
-	border-bottom: 2px solid #e2e2e2;
-	background-color: #ffffff;
-	display: flex;
-	flex-direction: column;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 15px;
-		font-weight: 700;
-		font-size: 12px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-
-const ImageCount1 = styled.div`
-	height: 90px;
-	width: 100%;
-	border-bottom: 2px solid #e2e2e2;
-	background-color: #ffffff;
-	display: flex;
-	flex-direction: column;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 13px;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-const ImageCount = styled.div`
-	height: 90px;
-	width: 100%;
-	border-bottom: 2px solid #8ecae6;
-	background-color: #ffffff;
-	display: flex;
-	flex-direction: column;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 13px;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-const ImageSize = styled.div`
-	height: 90px;
-	width: 100%;
-	border-bottom: 2px solid #ffb703;
-	background-color: #ffffff;
-
-	span {
-		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 15px;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
-	div {
-		padding-left: 10px;
-
-		font-weight: 800;
-		font-size: 25px;
-	}
-`;
-
-const First = styled.div`
-	width: 190px;
-	height: 190px;
-	justify-content: space-between;
-	display: flex;
-	flex-direction: column;
-
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-`;
-const Second = styled.div`
-	width: 310px;
-	height: 190px;
-
-	justify-content: space-between;
-	display: flex;
-	flex-direction: column;
-
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-`;
-const Third = styled.div`
-	width: 310px;
-	height: 190px;
-	justify-content: space-between;
-	display: flex;
-	flex-direction: column;
-
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-`;
-const Forth = styled.div`
-	width: 165px;
-	height: 190px;
-
-	justify-content: space-between;
-	display: flex;
-	flex-direction: column;
-
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-`;
-
-const Dholder = styled.div`
-	height: auto;
-	width: 98%;
-	justify-content: space-between;
-	display: flex;
-	margin-top: 15px;
-	flex-wrap: wrap;
-
-	@media screen and (max-width: 768px) {
-		width: 90%;
-	}
-`;
 
 const EmpytyHold = styled.div`
 	margin-top: 50px;
@@ -519,21 +379,7 @@ const Button = styled.button`
 	font-weight: bold;
 `;
 
-const Select = styled.select`
-	width: 100%;
-	height: 40px;
-	border-radius: 5px;
-	border: 1px solid #f1f1f1;
-	outline: none;
-	padding-left: 10px;
-	margin-right: 10px;
-	::placeholder {
-		color: gray;
-	}
-	@media screen and (max-width: 768px) {
-		width: 100%;
-	}
-`;
+
 
 const InputHold = styled.div`
 	margin-top: 15px;
