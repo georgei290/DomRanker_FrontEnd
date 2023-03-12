@@ -47,7 +47,8 @@ const SeoChecker = () => {
 		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
 		onSuccess: (data) => {
 			dispatch(googelSearchData(data?.data[0]));
-			setGoogleKeyWords("");
+			console.log("google", data);
+			// setGoogleKeyWords("");
 		},
 	});
 
@@ -201,13 +202,15 @@ const SeoChecker = () => {
 					<>
 						{SearchGoogle?.isLoading ||
 						SearchBing?.isLoading ||
-						readBaidu?.isFetching ||
+						// readBaidu?.isFetching ||
 						SearchBaidu?.isLoading ||
 						SearchNaver?.isLoading ||
 						SearchSeznam?.isLoading ||
-						readSeznam?.isFetching ||
-						readNaver?.isFetching ||
-						SearchYahoo?.isLoading ? null : (
+						// readSeznam?.isFetching ||
+						// readNaver?.isFetching ||
+						SearchYahoo?.isLoading ? (
+							<DashboardLoader />
+						) : (
 							<DownData>
 								{readGoogleData?.result === null ? (
 									<EmptyData avatar={pic} message='No result found' />

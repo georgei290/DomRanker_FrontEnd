@@ -46,9 +46,8 @@ const OnPageData = () => {
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
 
-   let num = 0
+	let num = 0;
 
-	
 	// console.log("onpageData", data?.data);
 	// console.log("onpageDatamap", data.data[0]?.result[0]?.items);
 
@@ -96,121 +95,82 @@ const OnPageData = () => {
 
 				{!data ? (
 					<EmpytyHold>
-						<EmptyData avatar={pix}
+						<EmptyData
+							avatar={pix}
 							message='This endpoint will provide you with search volume, monthly searches,
               competition, and other related data for up to 1000 keywords in a single
               request.'
 						/>
 					</EmpytyHold>
 				) : (
-						<>
-							{
-								isLoading || isFetching ? (
-									<div>
-										
-									</div>) :
-							
-									(
-										<>
-											
-											{
-												data.data[0]?.status_code === 404 ||
-													data?.data[0]?.result === null ?
-													(
-													<EmptyData avatar={pix}
-													message='No Result Found'
-														/>
-													)
-														:
-													(
-													
-														
-														
-								<TableHold>
-									<TableTitle>
-								<span>Onpage Data
-									{/* ({readGoogleData?.data?.se}) */}
-								</span>
-									</TableTitle>
-									<TableHolder>
-										<TableHead>
-											<Head Hwd='40px'>RG</Head>
-											<Head Hwd='300px'>URL</Head>
-											<Head Hwd='100px'>Image Count</Head>
-											<Head Hwd='150px'>Internal Link Count</Head>
-											<Head Hwd='70px'>No of h[tags]</Head>
-											<Head Hwd='20px'>Script Count</Head>
-											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-												Onpage Score
-											</Head>
-										</TableHead>
+					<>
+						{isLoading ? (
+							<div></div>
+						) : (
+							<>
+								{data.data[0]?.status_code === 404 ||
+								data?.data[0]?.result === null ? (
+									<EmptyData avatar={pix} message='No Result Found' />
+								) : (
+									<TableHold>
+										<TableTitle>
+											<span>
+												Onpage Data
+												{/* ({readGoogleData?.data?.se}) */}
+											</span>
+										</TableTitle>
+										<TableHolder>
+											<TableHead>
+												<Head Hwd='40px'>RG</Head>
+												<Head Hwd='300px'>URL</Head>
+												<Head Hwd='100px'>Image Count</Head>
+												<Head Hwd='150px'>Internal Link Count</Head>
+												<Head Hwd='70px'>No of h[tags]</Head>
+												<Head Hwd='20px'>Script Count</Head>
+												<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+													Onpage Score
+												</Head>
+											</TableHead>
 
-										
-																<Content>
-																	
-																	{
-																		data.data[0]?.result[0]?.items?.map((props:any) => (
-																				<TableBody to={`detail/:id`}>
-													<Body Bwd='40px'>{++num}</Body>
-													<Body Bwd='300px'>
-														{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
-														<a href="#">
-																						<BTitle cl='#1976D2'>{ props.url}</BTitle>
-														</a>
-													</Body>
-													<Body Bwd='100px'>
-														
-																					<TT>{ props.meta.images_count}</TT>
-													
-													</Body>
-													<Body Bwd='150px'>
-														
-																					<TT>{ props.meta.internal_links_count}</TT>
-														
-													</Body>
-													<Body Bwd='70px'>
-													
+											<Content>
+												{data.data[0]?.result[0]?.items?.map((props: any) => (
+													<TableBody to={`detail/:id`}>
+														<Body Bwd='40px'>{++num}</Body>
+														<Body Bwd='300px'>
+															{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
+															<a href='#'>
+																<BTitle cl='#1976D2'>{props.url}</BTitle>
+															</a>
+														</Body>
+														<Body Bwd='100px'>
+															<TT>{props.meta.images_count}</TT>
+														</Body>
+														<Body Bwd='150px'>
+															<TT>{props.meta.internal_links_count}</TT>
+														</Body>
+														<Body Bwd='70px'>
 															<>
-																						<TT>{Object.keys(props.meta.htags).length}</TT>
+																<TT>{Object.keys(props.meta.htags).length}</TT>
 															</>
-														
-													</Body>
-													<Body Bwd='20px'>
-													
+														</Body>
+														<Body Bwd='20px'>
 															<>
-																
-																	<TT>{ props.meta.scripts_count}</TT>
-															
+																<TT>{props.meta.scripts_count}</TT>
 															</>
-													
-													</Body>
-													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-														
-															<TT>{ props.onpage_score}</TT>
-													
-													</Body>
-												</TableBody>
-																		))
-																	}
-											
-											
-										
-										</Content>
-									</TableHolder>
-								</TableHold>
-													)
-
-											}
-											
-										</>
-									
-									)
-							}
-						</>
-					
+														</Body>
+														<Body style={{ marginLeft: "50px" }} Bwd='150px'>
+															<TT>{props.onpage_score}</TT>
+														</Body>
+													</TableBody>
+												))}
+											</Content>
+										</TableHolder>
+									</TableHold>
+								)}
+							</>
+						)}
+					</>
 				)}
-
-				
 			</Wrapper>
 		</Container>
 	);
@@ -235,14 +195,13 @@ const BTitle = styled.div<{ cl: string }>`
 	font-size: 14px;
 	color: ${(props) => props.cl};
 	/* background-color: red; */
-	 overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 
 	/* white-space: ; */
 	/* background-color: black; */
 `;
-
 
 const TableBody = styled(NavLink)`
 	display: flex;
@@ -251,33 +210,28 @@ const TableBody = styled(NavLink)`
 	text-decoration: none;
 	color: black;
 	height: 100%;
-	padding-top:10px;
+	padding-top: 10px;
 	border-bottom: 1px solid #f1f1f1;
 	padding-bottom: 10px;
 	cursor: pointer;
 
-		:nth-child(odd) {
- background: white;
-		}
-		:nth-child(even) {
-  background: #F8F8FF;
+	:nth-child(odd) {
+		background: white;
+	}
+	:nth-child(even) {
+		background: #f8f8ff;
+	}
 
-  
-}
-
-:hover{
-	background:#FFF8F8;
-  }
+	:hover {
+		background: #fff8f8;
+	}
 `;
 
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-
-
 `;
-
 
 const Body = styled.div<{ Bwd: string }>`
 	margin-left: 20px;
@@ -337,11 +291,6 @@ const Error = styled.div`
 	color: red;
 `;
 
-
-
-
-
-
 const EmpytyHold = styled.div`
 	margin-top: 50px;
 `;
@@ -378,8 +327,6 @@ const Button = styled.button`
 	background-color: #ae67fa;
 	font-weight: bold;
 `;
-
-
 
 const InputHold = styled.div`
 	margin-top: 15px;

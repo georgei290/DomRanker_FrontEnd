@@ -102,7 +102,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 									console.log(track, engine);
 									SearchGoogle.mutate({ keywords: googleKeywords });
 								}}>
@@ -127,7 +127,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 									// console.log(track, engine);
 									SearchBing.mutate({
 										keywords: googleKeywords,
@@ -154,7 +154,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 									// console.log(track, engine);
 									SearchYahoo.mutate({
 										keywords: googleKeywords,
@@ -181,7 +181,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 									console.log(track, engine);
 									// queryClient.clear();
 									SearchBaidu.mutate({ keywords: googleKeywords });
@@ -207,7 +207,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 									console.log(track, engine);
 									SearchNaver.mutate({ keywords: googleKeywords });
 								}}>
@@ -232,7 +232,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									dispatch(clearData());
+									// dispatch(clearData());
 
 									console.log(track, engine);
 									SearchSeznam.mutate({ keywords: googleKeywords });

@@ -1,4 +1,5 @@
 import { useRoutes } from "react-router-dom";
+import PrivateRoute from "../../utils/PrivateRoute";
 import {
 	BackLinkChecker,
 	BusinessData,
@@ -7,8 +8,7 @@ import {
 	OnPageData,
 	SeoChecker,
 	SeoSearchEngine,
-	DetaildOnpage
-	
+	DetaildOnpage,
 } from "./Bundled";
 
 const DashBoardRoutes = () => {
@@ -50,10 +50,9 @@ const DashBoardRoutes = () => {
 
 				{
 					path: "detail/:id",
-					element: <DetaildOnpage/>
+					element: <DetaildOnpage />,
 				},
-			]
-			
+			],
 		},
 		{
 			path: "/keywords",
