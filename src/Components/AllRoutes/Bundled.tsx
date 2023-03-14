@@ -33,10 +33,13 @@ export const OnPageData = loaded(
 );
 
 export const DetaildOnpage = loaded(
-	() => import("../DashBoard/OnPageData/DetailsOnpage")
-)
+	() => import("../DashBoard/OnPageData/DetailsOnpage"),
+);
 
 export const Keywords = loaded(() => import("../DashBoard/Keywords/KeyWords"));
+export const KewWordTable = loaded(
+	() => import("../DashBoard/Keywords/KewWordTable"),
+);
 
 export const SeoSearchEngine = loaded(
 	() => import("../DashBoard/SeoChecker/SeoSearchEngines"),
