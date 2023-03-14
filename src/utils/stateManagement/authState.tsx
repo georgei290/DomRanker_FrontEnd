@@ -8,6 +8,8 @@ const initialState = {
 	businessData: {} as any,
 	onPageData: {} as any,
 	baiduID: "",
+	naverID: "",
+	seznamID: "",
 };
 
 const authState = createSlice({
@@ -34,6 +36,21 @@ const authState = createSlice({
 			state.baiduID = payload;
 		},
 
+		storeNaverId: (state, { payload }) => {
+			state.naverID = payload;
+		},
+
+		StoreseznamID: (state, { payload }) => {
+			state.seznamID = payload;
+		},
+
+		clearData: (state) => {
+			state.googelData = null;
+			// state.baiduID = "";
+			// state.naverID = "";
+			// state.seznamID = "";
+		},
+
 		logOut: (state) => {
 			state.currentUser = {};
 			state.googelData = {};
@@ -50,6 +67,9 @@ export const {
 	businessDataAPI,
 	onPageAPI,
 	storeBaiduId,
+	storeNaverId,
+	StoreseznamID,
+	clearData,
 } = authState.actions;
 
 export default authState.reducer;

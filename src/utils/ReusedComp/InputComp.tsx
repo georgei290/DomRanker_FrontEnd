@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { SeoCheckerGoogle } from "../APICalls";
-import { useAppSelector } from "../stateManagement/store";
+import { clearData, googelSearchData } from "../stateManagement/authState";
+import { UseAppDispach, useAppSelector } from "../stateManagement/store";
 
 interface Iprops {
 	setGoogleKeyWords: any;
@@ -12,6 +13,8 @@ interface Iprops {
 	SearchBing: any;
 	SearchYahoo: any;
 	SearchBaidu: any;
+	SearchNaver: any;
+	SearchSeznam: any;
 }
 
 const InputComp: React.FC<Iprops> = ({
@@ -21,10 +24,13 @@ const InputComp: React.FC<Iprops> = ({
 	SearchBing,
 	SearchYahoo,
 	SearchBaidu,
+	SearchNaver,
+	SearchSeznam,
 }) => {
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
 	const queryClient: any = useQueryClient();
+	const dispatch = UseAppDispach();
 
 	// console.log(googleKeywords);
 
@@ -40,13 +46,11 @@ const InputComp: React.FC<Iprops> = ({
 						<option value='Google'>Google</option>
 						<option value='Bing'>Bing</option>
 						<option value='Yahoo'>Yahoo</option>
-						<option value='Youtube'>Youtube</option>
 						<option value='Baidu'>Baidu</option>
-						<option disabled value='Naver'>
-							Naver
-						</option>
-						<option disabled value='Seznam'>
-							Seznam
+						<option value='Naver'>Naver</option>
+						<option value='Seznam'>Seznam</option>
+						<option disabled value='Youtube'>
+							Youtube
 						</option>
 					</Select>
 				</Main>
@@ -98,6 +102,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
 									console.log(track, engine);
 									SearchGoogle.mutate({ keywords: googleKeywords });
 								}}>
@@ -122,6 +127,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
 									// console.log(track, engine);
 									SearchBing.mutate({
 										keywords: googleKeywords,
@@ -148,6 +154,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
 									// console.log(track, engine);
 									SearchYahoo.mutate({
 										keywords: googleKeywords,
@@ -174,6 +181,7 @@ const InputComp: React.FC<Iprops> = ({
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
 									console.log(track, engine);
 									// queryClient.clear();
 									SearchBaidu.mutate({ keywords: googleKeywords });
@@ -197,30 +205,37 @@ const InputComp: React.FC<Iprops> = ({
 							</Button>
 						) : engine === "Naver" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
 									console.log(track, engine);
+									SearchNaver.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Naver Organic
 							</Button>
 						) : // Saznam
-						engine === "Saznam" && track === "Jobs" ? (
+						engine === "Seznam" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
 									console.log(track, engine);
 								}}>
 								Analyzing with Saznam Jobs
 							</Button>
-						) : engine === "Saznam" && track === "News" ? (
+						) : engine === "Seznam" && track === "News" ? (
 							<Button
 								onClick={() => {
 									console.log(track, engine);
 								}}>
 								Analyzing with Saznam News
 							</Button>
-						) : engine === "Saznam" && track === "Organic" ? (
+						) : engine === "Seznam" && track === "Organic" ? (
 							<Button
+								disabled={googleKeywords === ""}
 								onClick={() => {
+									// dispatch(clearData());
+
 									console.log(track, engine);
+									SearchSeznam.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Saznam Organic
 							</Button>

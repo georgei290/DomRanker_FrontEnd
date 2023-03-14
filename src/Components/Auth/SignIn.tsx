@@ -23,149 +23,147 @@ interface iData {
 }
 
 const SignIn = () => {
-  const dispatch = UseAppDispach();
-  const navigate = useNavigate();
-  const [shown, setShown] = React.useState<boolean>(false);
-  const [loadingState, setLoadingState] = React.useState<boolean>(false);
+	const dispatch = UseAppDispach();
+	const navigate = useNavigate();
+	const [shown, setShown] = React.useState<boolean>(false);
+	const [loadingState, setLoadingState] = React.useState<boolean>(false);
 
-  const Navigate = useNavigate();
+	const Navigate = useNavigate();
 
-  const schema = yup.object().shape({
-    email: yup.string().email().required("please enter a valid email address"),
-    password: yup.string().required("please enter a valid password"),
-  });
+	const schema = yup.object().shape({
+		email: yup.string().email().required("please enter a valid email address"),
+		password: yup.string().required("please enter a valid password"),
+	});
 
-  const signinUserData = async (data: iSign) => {
-    try {
-      const mainURL = `${url}/api/user/login-user`;
-      await axios
-        .post(mainURL, data)
-        .then((res) => {
-          dispatch(loginUser(res.data.data));
-          console.log(res.data.data);
-          //   return res.data.data;
-        })
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: `Welcome Back!`,
-            // title: `Welcome Back ${res.data.data.userName}!`,
-            showConfirmButton: false,
-            timer: 3500,
-          });
-        })
-        .catch((error: any) => {
-          console.log(error);
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: error.response.data.message,
-            showConfirmButton: false,
-            timer: 3500,
-          });
-        });
-    } catch (error: any) {
-      return error;
-    }
-  };
+	const signinUserData = async (data: iSign) => {
+		try {
+			const mainURL = `${url}/api/user/login-user`;
+			await axios
+				.post(mainURL, data)
+				.then((res) => {
+					dispatch(loginUser(res.data.data));
+					console.log(res.data.data);
+					//   return res.data.data;
+				})
+				.then((res) => {
+					Swal.fire({
+						position: "center",
+						icon: "success",
+						title: `Welcome Back!`,
+						// title: `Welcome Back ${res.data.data.userName}!`,
+						showConfirmButton: false,
+						timer: 3500,
+					});
+				})
+				.catch((error: any) => {
+					console.log(error);
+					Swal.fire({
+						position: "center",
+						icon: "error",
+						title: error.response.data.message,
+						showConfirmButton: false,
+						timer: 3500,
+					});
+				});
+		} catch (error: any) {
+			return error;
+		}
+	};
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-  } = useForm<iData>({
-    resolver: yupResolver(schema),
-  });
+	const {
+		handleSubmit,
+		formState: { errors },
+		register,
+	} = useForm<iData>({
+		resolver: yupResolver(schema),
+	});
 
-  const mutation = useMutation({
-    mutationKey: ["register"],
-    mutationFn: signinUser,
+	const mutation = useMutation({
+		mutationKey: ["register"],
+		mutationFn: signinUser,
 
-    onSuccess: async (data) => {
-      dispatch(loginUser(data));
-      setLoadingState(false);
-      navigate("/seochecker");
-    },
-  });
+		onSuccess: async (data) => {
+			dispatch(loginUser(data));
+			setLoadingState(false);
+			navigate("/seochecker");
+		},
+	});
 
-  // 	function to be added to the button
-  const onSubmit: SubmitHandler<iData> = async (value: any) => {
-    setLoadingState(true);
-    mutation.mutate(value);
-  };
+	// 	function to be added to the button
+	const onSubmit: SubmitHandler<iData> = async (value: any) => {
+		setLoadingState(true);
+		mutation.mutate(value);
+	};
 
-  return (
-    <>
-      {loadingState ? <LoadingState /> : null}
-      <Container>
-        <Wrapper>
-          <Text>
-            <span>Welcome Back User</span>
-          </Text>
-          <TextDecs>
-            <span>Sign in to interact with your account</span>
-          </TextDecs>
+	return (
+		<>
+			{loadingState ? <LoadingState /> : null}
+			<Container>
+				<Wrapper>
+					<Text>
+						<span>Welcome Back User</span>
+					</Text>
+					<TextDecs>
+						<span>Sign in to interact with your account</span>
+					</TextDecs>
 
-          <SocialCon>
-            <MainHold>
-              <GoogleImg src={pix} />
-              <span>Sign in with google</span>
-            </MainHold>
-          </SocialCon>
+					<SocialCon>
+						<MainHold>
+							<GoogleImg src={pix} />
+							<span>Sign in with google</span>
+						</MainHold>
+					</SocialCon>
 
-          <LinHold>
-            <Line></Line>
-            <div>or</div>
-            <Line></Line>
-          </LinHold>
+					<LinHold>
+						<Line></Line>
+						<div>or</div>
+						<Line></Line>
+					</LinHold>
 
-          <Myform onSubmit={handleSubmit(onSubmit)}>
-            <HoldInput>
-              <Lable>Email</Lable>
-              <Input
-                placeholder="eg : peterparker223@gmail.com"
-                {...register("email")}
-              />
-              <Error>{errors.email && "Email is required"}</Error>
-            </HoldInput>
-            <HoldInput>
-              <Lable>Password</Lable>
-              <Passshow>
-                <Input2
-                  type={shown ? "text" : "password"}
-                  placeholder="password"
-                  {...register("password")}
-                />
-                <Hide
-                  onClick={() => {
-                    setShown(!shown);
-                  }}
-                >
-                  {shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                </Hide>
-              </Passshow>
-              <Error>{errors.password && "Password is required"}</Error>
-            </HoldInput>
+					<Myform onSubmit={handleSubmit(onSubmit)}>
+						<HoldInput>
+							<Lable>Email</Lable>
+							<Input
+								placeholder='eg : peterparker223@gmail.com'
+								{...register("email")}
+							/>
+							<Error>{errors.email && "Email is required"}</Error>
+						</HoldInput>
+						<HoldInput>
+							<Lable>Password</Lable>
+							<Passshow>
+								<Input2
+									type={shown ? "text" : "password"}
+									placeholder='password'
+									{...register("password")}
+								/>
+								<Hide
+									onClick={() => {
+										setShown(!shown);
+									}}>
+									{shown ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+								</Hide>
+							</Passshow>
+							<Error>{errors.password && "Password is required"}</Error>
+						</HoldInput>
 
-            <Button>Sign In</Button>
-          </Myform>
-          <Already>
-            <OPP>
-              <Acc>Don't have an account?</Acc> &nbsp;{" "}
-              <Sig
-                onClick={() => {
-                  Navigate("/signup");
-                }}
-              >
-                Sign up Here
-              </Sig>
-            </OPP>
-          </Already>
-        </Wrapper>
-      </Container>
-    </>
-  );
+						<Button>Sign In</Button>
+					</Myform>
+					<Already>
+						<OPP>
+							<Acc>Don't have an account?</Acc> &nbsp;{" "}
+							<Sig
+								onClick={() => {
+									Navigate("/signup");
+								}}>
+								Sign up Here
+							</Sig>
+						</OPP>
+					</Already>
+				</Wrapper>
+			</Container>
+		</>
+	);
 };
 
 export default SignIn;
@@ -198,7 +196,7 @@ const Sig = styled.div`
 `;
 
 const Already = styled.div`
-	width: 66%;
+	width: 75%;
 	height: 20px;
 	display: flex;
 	justify-content: center;

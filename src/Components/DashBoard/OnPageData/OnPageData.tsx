@@ -47,11 +47,18 @@ const OnPageData = () => {
 		queryKey: ["readingBusinessData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
+
    
 	console.log("u say check data",user?._id)
 
 	
 	console.log("onpageData", data);
+
+
+	let num = 0;
+
+	// console.log("onpageData", data?.data);
+
 	// console.log("onpageDatamap", data.data[0]?.result[0]?.items);
 
 	return (
@@ -98,13 +105,15 @@ const OnPageData = () => {
 
 				{!data?.data ? (
 					<EmpytyHold>
-						<EmptyData avatar={pix}
+						<EmptyData
+							avatar={pix}
 							message='This endpoint will provide you with search volume, monthly searches,
               competition, and other related data for up to 1000 keywords in a single
               request.'
 						/>
 					</EmpytyHold>
 				) : (
+
 						<>
 							{
 								isLoading || isFetching ? (
@@ -169,47 +178,29 @@ const OnPageData = () => {
 													</Body>
 													<Body Bwd='70px'>
 													
-															<>
-																						<TT>{Object.keys(props.meta.htags).length}</TT>
-															</>
-														
-													</Body>
-													<Body Bwd='20px'>
-													
-															<>
-																
-																	<TT>{ props.meta.scripts_count}</TT>
-															
-															</>
-													
-													</Body>
-													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-														
-															<TT>{ props.onpage_score}</TT>
-													
-													</Body>
-												</TableBody>
-																		))
-																	}
-											
-											
-										
-										</Content>
-									</TableHolder>
-								</TableHold>
-													)
 
-											}
-											
-										</>
-									
-									)
-							}
-						</>
-					
+															<>
+																<TT>{Object.keys(props.meta.htags).length}</TT>
+															</>
+														</Body>
+														<Body Bwd='20px'>
+															<>
+																<TT>{props.meta.scripts_count}</TT>
+															</>
+														</Body>
+														<Body style={{ marginLeft: "50px" }} Bwd='150px'>
+															<TT>{props.onpage_score}</TT>
+														</Body>
+													</TableBody>
+												))}
+											</Content>
+										</TableHolder>
+									</TableHold>
+								)}
+							</>
+						)}
+					</>
 				)}
-
-				
 			</Wrapper>
 		</Container>
 	);
@@ -234,14 +225,13 @@ const BTitle = styled.div<{ cl: string }>`
 	font-size: 14px;
 	color: ${(props) => props.cl};
 	/* background-color: red; */
-	 overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 
 	/* white-space: ; */
 	/* background-color: black; */
 `;
-
 
 const TableBody = styled(NavLink)`
 	display: flex;
@@ -250,33 +240,28 @@ const TableBody = styled(NavLink)`
 	text-decoration: none;
 	color: black;
 	height: 100%;
-	padding-top:10px;
+	padding-top: 10px;
 	border-bottom: 1px solid #f1f1f1;
 	padding-bottom: 10px;
 	cursor: pointer;
 
-		:nth-child(odd) {
- background: white;
-		}
-		:nth-child(even) {
-  background: #F8F8FF;
+	:nth-child(odd) {
+		background: white;
+	}
+	:nth-child(even) {
+		background: #f8f8ff;
+	}
 
-  
-}
-
-:hover{
-	background:#FFF8F8;
-  }
+	:hover {
+		background: #fff8f8;
+	}
 `;
 
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-
-
 `;
-
 
 const Body = styled.div<{ Bwd: string }>`
 	margin-left: 20px;
@@ -336,11 +321,6 @@ const Error = styled.div`
 	color: red;
 `;
 
-
-
-
-
-
 const EmpytyHold = styled.div`
 	margin-top: 50px;
 `;
@@ -377,8 +357,6 @@ const Button = styled.button`
 	background-color: #ae67fa;
 	font-weight: bold;
 `;
-
-
 
 const InputHold = styled.div`
 	margin-top: 15px;

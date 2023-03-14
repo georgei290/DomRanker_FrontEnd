@@ -1,52 +1,63 @@
-import { useRoutes } from "react-router";
+import { useEffect } from "react";
+import { useNavigate, useRoutes } from "react-router";
+import { useAppSelector } from "../../utils/stateManagement/store";
 import {
-  Header,
-  Homescreen,
-  Signup,
-  SignIn,
-  ForgetPass,
-  ResetPass,
-  AfterRegister,
-  CongrateComponent,
+	Header,
+	Homescreen,
+	Signup,
+	SignIn,
+	ForgetPass,
+	ResetPass,
+	AfterRegister,
+	CongrateComponent,
 } from "./Bundled";
 
 const HomeRoutes = () => {
-  let element = useRoutes([
-    {
-      path: "/",
-      element: (
-        <>
-          <Header />
-          <Homescreen />
-        </>
-      ),
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: "/signin",
-      element: <SignIn />,
-    },
-    {
-      path: "/forget",
-      element: <ForgetPass />,
-    },
-    {
-      path: "/reset",
-      element: <ResetPass />,
-    },
-    {
-      path: "/after-register",
-      element: <AfterRegister />,
-    },
-    {
-      path: "/:id/congrate-screen",
-      element: <CongrateComponent />,
-    },
-  ]);
-  return element;
+	const navigate = useNavigate();
+	const user = useAppSelector((state: any) => state.currentUser);
+
+	useEffect(() => {
+		if (user) {
+			navigate("/seochecker", { replace: true });
+		}
+	}, [user]);
+
+	let element = useRoutes([
+		{
+			path: "/",
+			element: (
+				<>
+					<Header />
+					<Homescreen />
+				</>
+			),
+		},
+		{
+			path: "/signup",
+			element: <Signup />,
+		},
+		{
+			path: "/signin",
+			element: <SignIn />,
+		},
+		{
+			path: "/forget",
+			element: <ForgetPass />,
+		},
+		{
+			path: "/reset",
+			element: <ResetPass />,
+		},
+		{
+			path: "/after-register",
+			element: <AfterRegister />,
+		},
+		{
+			path: "/:id/congrate-screen",
+			element: <CongrateComponent />,
+		},
+	]);
+	return element;
 };
 
 export default HomeRoutes;

@@ -9,9 +9,13 @@ import KeyWordIdeaTable from "./KeyWordIdeaTable";
 import PopularAds from "./PopularAds";
 import {
 	ReadBaiduData,
+	ReadNaverData,
+	ReadSeznamData,
 	SeoCheckerBaidu,
 	SeoCheckerBing,
 	SeoCheckerGoogle,
+	SeoCheckerNaverData,
+	SeoCheckerSeznamData,
 	SeoCheckerYahoo,
 } from "../../../utils/APICalls";
 import _ from "lodash";
@@ -22,6 +26,8 @@ import {
 import {
 	googelSearchData,
 	storeBaiduId,
+	storeNaverId,
+	StoreseznamID,
 } from "../../../utils/stateManagement/authState";
 import { wait } from "@testing-library/user-event/dist/utils";
 
@@ -32,6 +38,8 @@ const SeoChecker = () => {
 	const user = useAppSelector((state) => state.currentUser);
 	const readGoogleData = useAppSelector((state) => state.googelData);
 	const readBaiduId = useAppSelector((state) => state.baiduID);
+	const readNaverId = useAppSelector((state) => state.naverID);
+	const readSeznamId = useAppSelector((state) => state.seznamID);
 	const dispatch = UseAppDispach();
 	const [googleKeywords, setGoogleKeyWords] = useState("");
 
@@ -39,13 +47,60 @@ const SeoChecker = () => {
 		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
 		onSuccess: (data) => {
 			dispatch(googelSearchData(data?.data[0]));
+			console.log("google", data);
+			// setGoogleKeyWords("");
 		},
 	});
 
 	const SearchBing = useMutation({
 		mutationFn: (keywords: any) => SeoCheckerBing(keywords, user?._id),
 		onSuccess: (data) => {
-			console.log("reading seoBing", data);
+			// console.log("reading seoBing", data);
+			dispatch(googelSearchData(data?.data[0]));
+			setGoogleKeyWords("");
+		},
+	});
+
+	const SearchNaver = useMutation({
+		mutationFn: (keywords: any) => SeoCheckerNaverData(keywords, user?._id),
+		onSuccess: (data) => {
+			queryClient.prefetchQuery(["naver"]);
+			// console.log("reading naver", data);
+			dispatch(storeNaverId(data?.data[0].id));
+			queryClient.resetQueries(["naver"]);
+			// window.location.reload();
+			setGoogleKeyWords("");
+		},
+	});
+
+	const SearchSeznam = useMutation({
+		mutationFn: (keywords: any) => SeoCheckerSeznamData(keywords, user?._id),
+		onSuccess: (data) => {
+			queryClient.prefetchQuery(["seznam"]);
+			console.log("searched sezam", data);
+			dispatch(StoreseznamID(data?.data[0].id));
+			setGoogleKeyWords("");
+		},
+	});
+
+	const readSeznam = useQuery({
+		queryKey: ["seznam"],
+		queryFn: () => {
+			return ReadSeznamData(user?._id, readSeznamId);
+		},
+		onSuccess: (data) => {
+			console.log("done fetching", data);
+			dispatch(googelSearchData(data?.data[0]));
+		},
+	});
+
+	const readNaver = useQuery({
+		queryKey: ["naver"],
+		queryFn: () => {
+			return ReadNaverData(user?._id, readNaverId);
+		},
+		onSuccess: (data) => {
+			console.log("done fetching", data);
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
@@ -56,6 +111,7 @@ const SeoChecker = () => {
 			queryClient.prefetchQuery(["baidudata"]);
 			// console.log("reading seoBaidu", data);
 			dispatch(storeBaiduId(data?.data[0].id));
+			// setGoogleKeyWords("");
 		},
 	});
 
@@ -75,7 +131,7 @@ const SeoChecker = () => {
 		// mutationKey: ["serp"],
 		mutationFn: (keywords: any) => SeoCheckerYahoo(keywords, user?._id),
 		onSuccess: (data) => {
-			console.log("reading yahoo", data);
+			// console.log("reading yahoo", data);
 			// dispatch(googelSearchData(data?.data[0]));
 		},
 	});
@@ -122,6 +178,8 @@ const SeoChecker = () => {
 					SearchBing={SearchBing}
 					SearchYahoo={SearchYahoo}
 					SearchBaidu={SearchBaidu}
+					SearchNaver={SearchNaver}
+					SearchSeznam={SearchSeznam}
 				/>
 				<hr />
 				<LoadComp>
@@ -130,6 +188,10 @@ const SeoChecker = () => {
 					SearchYahoo?.isLoading ||
 					readBaidu?.isLoading ||
 					SearchBaidu?.isLoading ||
+					SearchSeznam?.isLoading ||
+					readSeznam?.isLoading ||
+					readNaver?.isLoading ||
+					SearchNaver?.isLoading ||
 					SearchBing?.isLoading ? (
 						<DashboardLoader />
 					) : null}
@@ -140,9 +202,15 @@ const SeoChecker = () => {
 					<>
 						{SearchGoogle?.isLoading ||
 						SearchBing?.isLoading ||
-						readBaidu?.isFetching ||
+						// readBaidu?.isFetching ||
 						SearchBaidu?.isLoading ||
-						SearchYahoo?.isLoading ? null : (
+						SearchNaver?.isLoading ||
+						SearchSeznam?.isLoading ||
+						// readSeznam?.isFetching ||
+						// readNaver?.isFetching ||
+						SearchYahoo?.isLoading ? (
+							<DashboardLoader />
+						) : (
 							<DownData>
 								{readGoogleData?.result === null ? (
 									<EmptyData avatar={pic} message='No result found' />

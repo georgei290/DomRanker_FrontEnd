@@ -9,28 +9,24 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PrivateRoute from "./utils/PrivateRoute";
 import axios from "axios";
 
-
 const myClient = new QueryClient();
 
 function App() {
+	useEffect(() => {
+		axios.get("https://dom-ranker.onrender.com/");
+	}, []);
+	return (
+		<div>
+			<QueryClientProvider client={myClient}>
+				<ScrollToTop>
+					<HomeRoutes />
 
-  useEffect(() => {
-    axios.get("https://dom-ranker.onrender.com/");
-  }, []);
-  return (
-    <div>
-      <QueryClientProvider client={myClient}>
-        <ScrollToTop>
-          <HomeRoutes />
-
-          <PrivateRoute>
-            <MainDashBoard />
-          </PrivateRoute>
-          		<ReactQueryDevtools />
-        </ScrollToTop>
-      </QueryClientProvider>
-    </div>
-  );
+					<PrivateRoute element={<MainDashBoard />} />
+					<ReactQueryDevtools />
+				</ScrollToTop>
+			</QueryClientProvider>
+		</div>
+	);
 }
 
 export default App;
