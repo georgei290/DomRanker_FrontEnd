@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
 import { useSelector, useDispatch } from "react-redux";
 import { onPageAPI } from "../../../utils/stateManagement/authState";
+import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
 
 interface userSearch {
 	word: string;
@@ -20,8 +21,7 @@ const OnPageData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false);
 	const user = useSelector((state: any) => state.currentUser);
 	const getPageData = useSelector((state: any) => state.onPageData);
-	console.log("this is user id", user?._id);
-	console.log("this is pageData id", getPageData.id);
+	
 
 	const dispatch = useDispatch();
 
@@ -41,15 +41,17 @@ const OnPageData = () => {
 		});
 	};
 
+
+
 	const { data, isLoading, isFetching } = useQuery({
-		queryKey: ["gettingOnPageData"],
+		queryKey: ["readingBusinessData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
-
-   let num = 0
+   
+	console.log("u say check data",user?._id)
 
 	
-	// console.log("onpageData", data?.data);
+	console.log("onpageData", data);
 	// console.log("onpageDatamap", data.data[0]?.result[0]?.items);
 
 	return (
@@ -94,7 +96,7 @@ const OnPageData = () => {
 					</Main>
 				</>
 
-				{!data ? (
+				{!data?.data ? (
 					<EmpytyHold>
 						<EmptyData avatar={pix}
 							message='This endpoint will provide you with search volume, monthly searches,
@@ -106,15 +108,14 @@ const OnPageData = () => {
 						<>
 							{
 								isLoading || isFetching ? (
-									<div>
-										
-									</div>) :
+										<DashboardLoader/>
+									) :
 							
 									(
 										<>
-											
 											{
 												data.data[0]?.status_code === 404 ||
+
 													data?.data[0]?.result === null ?
 													(
 													<EmptyData avatar={pix}
@@ -122,9 +123,7 @@ const OnPageData = () => {
 														/>
 													)
 														:
-													(
-													
-														
+													(		
 														
 								<TableHold>
 									<TableTitle>
@@ -149,9 +148,9 @@ const OnPageData = () => {
 																<Content>
 																	
 																	{
-																		data.data[0]?.result[0]?.items?.map((props:any) => (
-																				<TableBody to={`detail/:id`}>
-													<Body Bwd='40px'>{++num}</Body>
+																		data.data[0]?.result[0]?.items?.map((props:any, index:any) => (
+																				<TableBody to={`detail/${index}`}>
+													<Body Bwd='40px'>{index + 1}</Body>
 													<Body Bwd='300px'>
 														{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
 														<a href="#">
