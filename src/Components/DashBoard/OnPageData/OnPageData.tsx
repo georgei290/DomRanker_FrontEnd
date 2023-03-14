@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
 import { useSelector, useDispatch } from "react-redux";
 import { onPageAPI } from "../../../utils/stateManagement/authState";
+import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
 
 interface userSearch {
 	word: string;
@@ -20,8 +21,7 @@ const OnPageData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false);
 	const user = useSelector((state: any) => state.currentUser);
 	const getPageData = useSelector((state: any) => state.onPageData);
-	console.log("this is user id", user?._id);
-	console.log("this is pageData id", getPageData.id);
+	
 
 	const dispatch = useDispatch();
 
@@ -41,14 +41,24 @@ const OnPageData = () => {
 		});
 	};
 
+
+
 	const { data, isLoading, isFetching } = useQuery({
-		queryKey: ["gettingOnPageData"],
+		queryKey: ["readingBusinessData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
+
+   
+	console.log("u say check data",user?._id)
+
+	
+	console.log("onpageData", data);
+
 
 	let num = 0;
 
 	// console.log("onpageData", data?.data);
+
 	// console.log("onpageDatamap", data.data[0]?.result[0]?.items);
 
 	return (
@@ -93,7 +103,7 @@ const OnPageData = () => {
 					</Main>
 				</>
 
-				{!data ? (
+				{!data?.data ? (
 					<EmpytyHold>
 						<EmptyData
 							avatar={pix}
@@ -103,52 +113,72 @@ const OnPageData = () => {
 						/>
 					</EmpytyHold>
 				) : (
-					<>
-						{isLoading ? (
-							<div></div>
-						) : (
-							<>
-								{data.data[0]?.status_code === 404 ||
-								data?.data[0]?.result === null ? (
-									<EmptyData avatar={pix} message='No Result Found' />
-								) : (
-									<TableHold>
-										<TableTitle>
-											<span>
-												Onpage Data
-												{/* ({readGoogleData?.data?.se}) */}
-											</span>
-										</TableTitle>
-										<TableHolder>
-											<TableHead>
-												<Head Hwd='40px'>RG</Head>
-												<Head Hwd='300px'>URL</Head>
-												<Head Hwd='100px'>Image Count</Head>
-												<Head Hwd='150px'>Internal Link Count</Head>
-												<Head Hwd='70px'>No of h[tags]</Head>
-												<Head Hwd='20px'>Script Count</Head>
-												<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-													Onpage Score
-												</Head>
-											</TableHead>
 
-											<Content>
-												{data.data[0]?.result[0]?.items?.map((props: any) => (
-													<TableBody to={`detail/:id`}>
-														<Body Bwd='40px'>{++num}</Body>
-														<Body Bwd='300px'>
-															{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
-															<a href='#'>
-																<BTitle cl='#1976D2'>{props.url}</BTitle>
-															</a>
-														</Body>
-														<Body Bwd='100px'>
-															<TT>{props.meta.images_count}</TT>
-														</Body>
-														<Body Bwd='150px'>
-															<TT>{props.meta.internal_links_count}</TT>
-														</Body>
-														<Body Bwd='70px'>
+						<>
+							{
+								isLoading || isFetching ? (
+										<DashboardLoader/>
+									) :
+							
+									(
+										<>
+											{
+												data.data[0]?.status_code === 404 ||
+
+													data?.data[0]?.result === null ?
+													(
+													<EmptyData avatar={pix}
+													message='No Result Found'
+														/>
+													)
+														:
+													(		
+														
+								<TableHold>
+									<TableTitle>
+								<span>Onpage Data
+									{/* ({readGoogleData?.data?.se}) */}
+								</span>
+									</TableTitle>
+									<TableHolder>
+										<TableHead>
+											<Head Hwd='40px'>RG</Head>
+											<Head Hwd='300px'>URL</Head>
+											<Head Hwd='100px'>Image Count</Head>
+											<Head Hwd='150px'>Internal Link Count</Head>
+											<Head Hwd='70px'>No of h[tags]</Head>
+											<Head Hwd='20px'>Script Count</Head>
+											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+												Onpage Score
+											</Head>
+										</TableHead>
+
+										
+																<Content>
+																	
+																	{
+																		data.data[0]?.result[0]?.items?.map((props:any, index:any) => (
+																				<TableBody to={`detail/${index}`}>
+													<Body Bwd='40px'>{index + 1}</Body>
+													<Body Bwd='300px'>
+														{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}
+														<a href="#">
+																						<BTitle cl='#1976D2'>{ props.url}</BTitle>
+														</a>
+													</Body>
+													<Body Bwd='100px'>
+														
+																					<TT>{ props.meta.images_count}</TT>
+													
+													</Body>
+													<Body Bwd='150px'>
+														
+																					<TT>{ props.meta.internal_links_count}</TT>
+														
+													</Body>
+													<Body Bwd='70px'>
+													
+
 															<>
 																<TT>{Object.keys(props.meta.htags).length}</TT>
 															</>

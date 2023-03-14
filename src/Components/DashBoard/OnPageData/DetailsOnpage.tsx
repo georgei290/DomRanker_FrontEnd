@@ -4,8 +4,26 @@ import FirstTable from "./FirstTable";
 import SecondTable from "./SecondTable";
 import ThirdTable from "./ThirdTable";
 import TimmingCard from "./TimmingCard";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
+import { useSelector, useDispatch } from "react-redux";
+import {useParams} from "react-router-dom"
 
 const DetailsOnpage = () => {
+    const user = useSelector((state: any) => state.currentUser);
+    const getPageData = useSelector((state: any) => state.onPageData);
+     
+    const { id } = useParams()
+    let myId = Number(id);
+    console.log("this is id", id)
+    	const { data, isLoading, isFetching } = useQuery({
+		queryKey: ["gettingOnPageData"],
+		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
+        });
+    
+    
+    console.log("this is the deatails data", data.data[0]?.result[0]?.items[myId]);
+
   return (
       <Container>
           <Wrapper>
