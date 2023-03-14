@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
 import { useSelector, useDispatch } from "react-redux";
-import { onPageAPI } from "../../../utils/stateManagement/authState";
+import { onPageAPI, storeItems } from "../../../utils/stateManagement/authState";
 import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
 
 interface userSearch {
@@ -46,6 +46,7 @@ const OnPageData = () => {
 	const { data, isLoading, isFetching } = useQuery({
 		queryKey: ["readingBusinessData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
+	
 	});
 
    
@@ -55,7 +56,7 @@ const OnPageData = () => {
 	console.log("onpageData", data);
 
 
-	let num = 0;
+   
 
 	// console.log("onpageData", data?.data);
 
@@ -158,7 +159,9 @@ const OnPageData = () => {
 																	
 																	{
 																		data.data[0]?.result[0]?.items?.map((props:any, index:any) => (
-																				<TableBody to={`detail/${index}`}>
+																			<TableBody to={`detail/${index}`} onClick={() => {
+																				dispatch(storeItems(data.data[0]?.result[0]?.items))
+																				}}>
 													<Body Bwd='40px'>{index + 1}</Body>
 													<Body Bwd='300px'>
 														{/* <BTitle cl=' #136F48 '>ddata</BTitle> */}

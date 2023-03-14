@@ -11,18 +11,22 @@ import {useParams} from "react-router-dom"
 
 const DetailsOnpage = () => {
     const user = useSelector((state: any) => state.currentUser);
-    const getPageData = useSelector((state: any) => state.onPageData);
+	const getPageData = useSelector((state: any) => state.onPageData);
+	const item = useSelector((state: any) => state.items);
+
+	
      
     const { id } = useParams()
-    let myId = Number(id);
-    console.log("this is id", id)
+	let myId = Number(id);
+	console.log("fghjkljkll",item[myId].meta)
+    console.log("this is id",  id)
     	const { data, isLoading, isFetching } = useQuery({
 		queryKey: ["gettingOnPageData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
         });
     
     
-    console.log("this is the deatails data", data.data[0]?.result[0]?.items[myId]);
+    // console.log("this is the deatails data", data.data[0]?.result[0]?.items);
 
   return (
       <Container>
@@ -33,28 +37,28 @@ const DetailsOnpage = () => {
 								<First>
 									<ImageCount>
 										<span>Image count</span>
-										<div>76</div>
+								  <div>{ item[myId].meta?.images_count}</div>
 									</ImageCount>
 									<ImageSize>
 										<span>Image size</span>
-										<div>0</div>
+								  <div>{ item[myId].meta?.images_size}</div>
 									</ImageSize>
 								</First>
 								<Second>
 									<IntLinkCount>
 										<span>Internal Link Count</span>
-										<div>126</div>
+								  <div>{ item[myId].meta?.internal_links_count}</div>
 									</IntLinkCount>
 
 									<BothLink>
 										<ExLinkCount>
 											<span>External Link Count</span>
-											<div>92</div>
+									  <div>{item[myId].meta?.external_links_count}</div>
 										</ExLinkCount>
 
 										<InbLinkCount>
 											<span>Inbound Link Count</span>
-											<div>0</div>
+									  <div>{ item[myId].meta?.inbound_links_count}</div>
 										</InbLinkCount>
 									</BothLink>
 								</Second>
@@ -62,35 +66,35 @@ const DetailsOnpage = () => {
 									<BothLink1>
 										<ExLinkCount>
 											<span>Script Count</span>
-											<div>4</div>
+									  <div>{ item[myId].meta?.scripts_count}</div>
 										</ExLinkCount>
 
 										<InbLinkCount>
 											<span>Script Size</span>
-											<div>23</div>
+									  <div>{item[myId].meta?.scripts_size}</div>
 										</InbLinkCount>
 									</BothLink1>
 
 									<BothLink2>
 										<ExLinkCount>
 											<span>Stylesheet Count</span>
-											<div>74</div>
+									  <div>{ item[myId].meta?.stylesheets_count}</div>
 										</ExLinkCount>
 
 										<InbLinkCount>
 											<span>Stylesheet Size</span>
-											<div>16</div>
+									  <div>{  item[myId].meta?.stylesheets_size}</div>
 										</InbLinkCount>
 									</BothLink2>
 								</Third>
 								<Forth>
 									<ImageCount1>
 										<span>Title Lenght</span>
-										<div>43</div>
+								  <div>{ item[myId].meta?.title_length}</div>
 									</ImageCount1>
 									<ImageSize>
 										<span>Description Lenght</span>
-										<div>81</div>
+								  <div>{item[myId].meta?.description_length}</div>
 									</ImageSize>
 								</Forth>
 							</Dholder>
