@@ -12,6 +12,7 @@ const initialState = {
 	baiduID: "",
 	naverID: "",
 	seznamID: "",
+	items: {} as any
 };
 
 const authState = createSlice({
@@ -54,6 +55,10 @@ const authState = createSlice({
 			state.contentSearchData = payload;
 		},
 
+		storeItems: (state, {payload}) => {
+			state.items = payload;
+		},
+
 		clearData: (state) => {
 			state.googelData = null;
 			// state.baiduID = "";
@@ -82,6 +87,7 @@ export const {
 	clearData,
 	StoreContentSearch,
 	StoreContentSummary,
+	storeItems,
 } = authState.actions;
 
 export default authState.reducer;
