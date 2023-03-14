@@ -1,10 +1,16 @@
 import React from "react";
 import { FiSearch } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import InputComp from "../../../utils/ReusedComp/InputComp";
+import { useAppSelector } from "../../../utils/stateManagement/store";
 import KeyWordChart from "./KeyWordChart";
 
 const DataKeyWord = (props: any) => {
+	const readData = useAppSelector((state) => state.keywordData);
+	const { id }: any = useParams();
+	console.log("object,", id);
+	const viewData: any = readData?.result[id];
 	return (
 		<Container>
 			<Wrapper>
@@ -14,7 +20,6 @@ const DataKeyWord = (props: any) => {
 						Keyword Data Explorer will help you appreciate the scale of
 						information that Domranker Keyword provides.
 					</SubTitle>
-					<InputComp {...props} />
 				</TopInputData>
 				<hr />
 				<ButtomData>
@@ -23,13 +28,16 @@ const DataKeyWord = (props: any) => {
 							<BoxMain>
 								<BoxContent>
 									<BoxTitle>Search Volumn</BoxTitle>
-									<BoxDetail>12223394</BoxDetail>
+
+									<BoxDetail>{viewData?.search_volume}</BoxDetail>
 								</BoxContent>
 							</BoxMain>
 							<BoxMain>
 								<BoxContent>
-									<BoxTitle>Search Parameter</BoxTitle>
-									<BoxDetail>0</BoxDetail>
+									<BoxTitle>Keyword Annotations</BoxTitle>
+									<BoxDetail>
+										{viewData?.keyword_annotations?.concepts?.length}
+									</BoxDetail>
 								</BoxContent>
 							</BoxMain>
 						</BoxContainer>
@@ -38,22 +46,22 @@ const DataKeyWord = (props: any) => {
 								<TopContent>
 									<SplitContent>
 										<BoxTitle>Competition</BoxTitle>
-										<BoxDetail>LOW</BoxDetail>
+										<BoxDetail>{viewData?.competition}</BoxDetail>
 									</SplitContent>
 									<SplitContent>
 										<BoxTitle>Competition Index</BoxTitle>
-										<BoxDetail>0</BoxDetail>
+										<BoxDetail>{viewData?.competition_index}</BoxDetail>
 									</SplitContent>
 								</TopContent>
 								<hr />
 								<ButtomContext>
 									<SplitContent>
 										<BoxTitle>Location Code</BoxTitle>
-										<BoxDetail>2824</BoxDetail>
+										<BoxDetail>{viewData?.location_code}</BoxDetail>
 									</SplitContent>
 									<SplitContent>
 										<BoxTitle>Language Code</BoxTitle>
-										<BoxDetail>en</BoxDetail>
+										<BoxDetail>{viewData?.language_code}</BoxDetail>
 									</SplitContent>
 								</ButtomContext>
 							</MiddleBoxContent>
@@ -62,20 +70,20 @@ const DataKeyWord = (props: any) => {
 							<BoxMain>
 								<BoxContent>
 									<BoxTitle>Low top of Page bid</BoxTitle>
-									<BoxDetail>0.25</BoxDetail>
+									<BoxDetail>{viewData?.low_top_of_page_bid}</BoxDetail>
 								</BoxContent>
 							</BoxMain>
 							<BoxMain>
 								<BoxContent>
 									<BoxTitle>High top of page bid</BoxTitle>
-									<BoxDetail>1.24</BoxDetail>
+									<BoxDetail>{viewData?.high_top_of_page_bid}</BoxDetail>
 								</BoxContent>
 							</BoxMain>
 						</BoxContainer>
 					</DataBoxes>
 
 					<DataChartHold>
-						<KeyWordChart />
+						<KeyWordChart propsData={viewData?.monthly_searches} />
 					</DataChartHold>
 				</ButtomData>
 			</Wrapper>

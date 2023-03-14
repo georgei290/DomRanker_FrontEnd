@@ -7,19 +7,27 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import pic from "../images/5.svg";
 
 import _ from "lodash";
-import { useAppSelector } from "../../../utils/stateManagement/store";
+import {
+	UseAppDispach,
+	useAppSelector,
+} from "../../../utils/stateManagement/store";
 import { KeyWordSearch } from "../../../utils/APICalls";
+import { StoreKeywordData } from "../../../utils/stateManagement/authState";
+import { Link } from "react-router-dom";
 
 const KewWordTable = () => {
 	const user = useAppSelector((state) => state.currentUser);
+	const readKeyword = useAppSelector((state) => state.keywordData);
+	const dispatch = UseAppDispach();
 
 	const [readData, setReadData] = useState([] as any);
+	const [target, setTarget] = useState("");
 
 	const SearchKeyword = useMutation({
 		mutationFn: (target: any) => KeyWordSearch(target, user?._id),
 		onSuccess: (data) => {
 			console.log("keyword", data);
-			// dispatch(storeBaiduId(data?.data[0].id));
+			dispatch(StoreKeywordData(data?.data[0]));
 			// setGoogleKeyWords("");
 		},
 	});
@@ -29,105 +37,212 @@ const KewWordTable = () => {
 				<Title>Keyword Data</Title>
 				<Span>Find the most profitable keywords to rank for</Span>
 
+				<Main>
+					<InputText>Search Keyword</InputText>
+					<Input2>
+						<Input3
+							// value={googleKeywords}
+							required={true}
+							onChange={(e) => {
+								setTarget(e.target.value);
+							}}
+							placeholder='Enter search'
+							type='search'
+						/>
+						<Button
+							onClick={() => {
+								SearchKeyword.mutate({
+									target,
+								});
+							}}>
+							Search
+						</Button>
+					</Input2>
+				</Main>
 				<hr />
 
-				{/* {!readGoogleData?.data && SearchGoogle?.isLoading === false ? ( */}
-				<EmptyData avatar={pic} />
-				{/* ) : ( */}
-				<>
-					{SearchKeyword?.isLoading ? (
-						<DashboardLoader />
-					) : (
-						<DownData>
-							<TableHold>
-								<TableTitle>
-									<span>Organic Keywords ({readData?.data?.se})</span>
-								</TableTitle>
-								<TableHolder>
-									<TableHead>
-										<Head Hwd='40px'>RG</Head>
-										<Head Hwd='400px'>URL</Head>
-										<Head Hwd='100px'>Total Links</Head>
-										<Head Hwd='100px'>Rank.A</Head>
-										<Head Hwd='70px'>Sources</Head>
-										<Head Hwd='20px'>Position</Head>
-										<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-											Domain
-										</Head>
-									</TableHead>
-									<Content>
-										{readData?.map((props: any) => (
-											<TableBody>
-												<Body Bwd='40px'>{props?.rank_group}</Body>
-												<Body Bwd='400px'>
-													<BTitle cl=' #136F48 '>{props?.title}</BTitle>
-													<a href={props?.url}>
-														<BTitle cl='#1976D2'>{props?.url}</BTitle>
-													</a>
-												</Body>
-												<Body Bwd='100px'>
-													{props.links ? (
-														<TT>{props?.links?.length}</TT>
-													) : (
-														<TT>-</TT>
-													)}
-												</Body>
-												<Body Bwd='100px'>
-													{props?.rank_absolute?.source !== null ? (
-														<TT>{props?.rank_absolute}</TT>
-													) : (
-														<TT>-</TT>
-													)}
-												</Body>
-												<Body Bwd='70px'>
-													{props?.about_this_result ? (
-														<>
-															{props?.about_this_result?.source !== null ? (
-																<TT>{props?.about_this_result?.source}</TT>
-															) : (
-																<TT>-</TT>
-															)}
-														</>
-													) : (
-														<TT>-</TT>
-													)}
-												</Body>
-												<Body Bwd='20px'>
-													{props?.position ? (
-														<>
-															{props?.position !== null ? (
-																<TT>{props?.position}</TT>
-															) : (
-																<TT>-</TT>
-															)}
-														</>
-													) : (
-														<TT>-</TT>
-													)}
-												</Body>
-												<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-													{props?.domain?.source !== null ? (
-														<TT>{props?.domain}</TT>
-													) : (
-														<TT>-</TT>
-													)}
-												</Body>
-											</TableBody>
-										))}
-									</Content>
-								</TableHolder>
-							</TableHold>
+				{SearchKeyword?.isLoading ? <DashboardLoader /> : null}
 
-							{/* <PopularAds /> */}
-						</DownData>
-					)}
-				</>
+				{readKeyword?.result ? (
+					<>
+						{SearchKeyword?.isLoading ? (
+							<DashboardLoader />
+						) : (
+							<DownData>
+								<TableHold>
+									<TableTitle>
+										<span>
+											{" "}
+											Keywords Results({readKeyword?.result?.length})
+										</span>
+									</TableTitle>
+									<TableHolder>
+										<TableHead>
+											<Head Hwd='40px'>ID</Head>
+											<Head Hwd='400px'>Keywords</Head>
+											<Head Hwd='100px'>Competition</Head>
+											<Head Hwd='100px'>competition_index</Head>
+											<Head style={{ marginLeft: "50px" }} Hwd='70px'>
+												search_volume
+											</Head>
+											{/* <Head Hwd='20px'>Position</Head> */}
+											{/* <Head style={{ marginLeft: "50px" }} Hwd='150px'> */}
+											{/* Domain */}
+											{/* </Head> */}
+										</TableHead>
+										<Content>
+											{readKeyword?.result?.map((props: any, i: any) => (
+												<TableBody>
+													<Body Bwd='40px'>{i}</Body>
+													<Body Bwd='400px'>
+														<Link to={`/keywords/${i}`}>
+															<BTitle cl='#1976D2'>{props?.keyword}</BTitle>
+														</Link>
+													</Body>
+													<Body Bwd='100px'>
+														{props.competition ? (
+															<TT>{props?.competition}</TT>
+														) : (
+															<TT>-</TT>
+														)}
+													</Body>
+													<Body Bwd='100px'>
+														{props?.competition_index !== null ? (
+															<TT>{props?.competition_index}</TT>
+														) : (
+															<TT>-</TT>
+														)}
+													</Body>
+													<Body style={{ marginLeft: "100px" }} Bwd='70px'>
+														{props?.search_volume ? (
+															<>
+																{props?.search_volume !== null ? (
+																	<TT>{props?.search_volume}</TT>
+																) : (
+																	<TT>-</TT>
+																)}
+															</>
+														) : (
+															<TT>-</TT>
+														)}
+													</Body>
+												</TableBody>
+											))}
+										</Content>
+									</TableHolder>
+								</TableHold>
+								{/* <PopularAds /> */}
+							</DownData>
+						)}
+					</>
+				) : (
+					<>
+						<EmptyData avatar={pic} />
+					</>
+				)}
 			</Wrapper>
 		</Container>
 	);
 };
 
 export default KewWordTable;
+
+const Input3 = styled.input`
+	flex: 1;
+	padding-left: 10px;
+	height: 100%;
+	outline: none;
+	border: none;
+	font-family: Montserrat;
+`;
+
+const Input2 = styled.div`
+	height: 35px;
+	width: 98%;
+	background-color: white;
+	border: 1px solid #e2e2e2;
+	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	@media screen and (max-width: 768px) {
+		width: 90%;
+	}
+`;
+const Button = styled.button`
+	margin-right: 3px;
+	height: 32px;
+	width: 150px;
+	color: white;
+	border: none;
+	outline: none;
+	border-radius: 2px;
+	cursor: pointer;
+	background-color: #ae67fa;
+	font-weight: 600;
+	font-size: 12px;
+
+	:disabled {
+		background-color: silver;
+		cursor: not-allowed;
+	}
+`;
+
+const Select = styled.select`
+	width: 100%;
+	height: 35px;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2;
+	font-family: Montserrat;
+	outline: none;
+	padding-left: 10px;
+	margin-right: 10px;
+	::placeholder {
+		color: gray;
+	}
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
+
+const InputHold = styled.div`
+	margin-top: 15px;
+	width: 100%;
+	display: flex;
+
+	@media screen and (max-width: 768px) {
+		flex-wrap: wrap;
+	}
+`;
+
+const Main = styled.div`
+	width: 100%;
+	margin-top: 10px;
+	margin-right: 40px;
+`;
+const Input = styled.input`
+	/* min-width: 320px; */
+	height: 35px;
+	border-radius: 5px;
+	border: 1px solid #f1f1f1;
+	outline: none;
+	padding-left: 10px;
+	width: 100%;
+
+	::placeholder {
+		color: gray;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 96%;
+	}
+`;
+const InputText = styled.div`
+	font-size: 12px;
+	margin-bottom: 3px;
+	font-weight: 600;
+	/* font-weight: 600; */
+`;
 
 const LoadComp = styled.div`
 	@media screen and (max-width: 768px) {
@@ -149,7 +264,7 @@ const Content = styled.div`
 
 const BTitle = styled.div<{ cl: string }>`
 	width: 400px;
-	font-size: 14px;
+	font-size: 17px;
 	color: ${(props) => props.cl};
 	/* background-color: red; */
 	overflow: hidden;
