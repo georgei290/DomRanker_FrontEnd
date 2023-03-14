@@ -9,6 +9,7 @@ import {
 	SeoChecker,
 	SeoSearchEngine,
 	DetaildOnpage,
+	KewWordTable,
 } from "./Bundled";
 
 const DashBoardRoutes = () => {
@@ -56,7 +57,17 @@ const DashBoardRoutes = () => {
 		},
 		{
 			path: "/keywords",
-			element: <Keywords />,
+			children: [
+				{
+					index: true,
+					element: <KewWordTable />,
+				},
+
+				{
+					path: ":id",
+					element: <Keywords />,
+				},
+			],
 		},
 	]);
 
