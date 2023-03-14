@@ -7,6 +7,8 @@ const initialState = {
 	googelData: {} as any,
 	businessData: {} as any,
 	onPageData: {} as any,
+	ContentSummaryData: {} as any,
+	contentSearchData: {} as any,
 	baiduID: "",
 	naverID: "",
 	seznamID: "",
@@ -44,6 +46,14 @@ const authState = createSlice({
 			state.seznamID = payload;
 		},
 
+		StoreContentSummary: (state, { payload }) => {
+			state.ContentSummaryData = payload;
+		},
+
+		StoreContentSearch: (state, { payload }) => {
+			state.contentSearchData = payload;
+		},
+
 		clearData: (state) => {
 			state.googelData = null;
 			// state.baiduID = "";
@@ -70,6 +80,8 @@ export const {
 	storeNaverId,
 	StoreseznamID,
 	clearData,
+	StoreContentSearch,
+	StoreContentSummary,
 } = authState.actions;
 
 export default authState.reducer;
