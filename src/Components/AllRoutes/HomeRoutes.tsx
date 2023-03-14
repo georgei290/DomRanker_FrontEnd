@@ -14,10 +14,10 @@ import {
 
 const HomeRoutes = () => {
 	const navigate = useNavigate();
-	const user = useAppSelector((state: any) => state.currentUser);
+	const user: any = useAppSelector((state: any) => state.currentUser);
 
 	useEffect(() => {
-		if (user) {
+		if (user?.email) {
 			navigate("/seochecker", { replace: true });
 		}
 	}, [user]);

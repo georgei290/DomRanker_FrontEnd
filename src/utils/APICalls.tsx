@@ -266,3 +266,33 @@ export const readingOnPageCall = async (id: string, myID: string) => {
 		return error;
 	}
 };
+
+//content-summary
+export const ContentSummary = async (data: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/content-summary`;
+		return await axios.post(mainURL, data).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//content-search
+export const ContentSearch = async (data: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/content-search`;
+		return await axios.post(mainURL, data).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//content-summary
+export const KeyWordSearch = async (data: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/keyword`;
+		return await axios.post(mainURL, data).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
