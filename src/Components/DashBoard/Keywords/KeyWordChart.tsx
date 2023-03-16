@@ -10,22 +10,22 @@ interface Iprops {
 
 const KeyWordChart: React.FC<Iprops> = ({ propsData }) => {
 	const chartRef = useRef<am4charts.XYChart>();
+
+	// const Sorted = (data: any) => {
+	// return (a: any, b: any) => {
+	// if (a[data] < b[data]) {
+	// return -1;
+	// } else {
+	// return 1;
+	// }
+	// };
+	// };
+
+	// const sortData = propsData?.sort(Sorted("month"));
 	useEffect(() => {
 		let chart = am4core.create("chartdiv3", am4charts.XYChart);
 
-		const Sorted = (data: any) => {
-			return (a: any, b: any) => {
-				if (a[data] < b[data]) {
-					return -1;
-				} else {
-					return 0;
-				}
-			};
-		};
-
-		const sortData = propsData?.sort(Sorted("month"));
-
-		chart.data = sortData;
+		chart.data = propsData;
 
 		let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 		categoryAxis.dataFields.category = "month";

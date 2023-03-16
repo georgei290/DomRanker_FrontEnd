@@ -35,11 +35,11 @@ const SeoChecker = () => {
 	const [data, setData] = useState([]);
 	const queryClient = useQueryClient();
 
-	const user = useAppSelector((state) => state.currentUser);
-	const readGoogleData = useAppSelector((state) => state.googelData);
-	const readBaiduId = useAppSelector((state) => state.baiduID);
-	const readNaverId = useAppSelector((state) => state.naverID);
-	const readSeznamId = useAppSelector((state) => state.seznamID);
+	const user = useAppSelector((state: any) => state.currentUser);
+	const readGoogleData = useAppSelector((state: any) => state.googelData);
+	const readBaiduId = useAppSelector((state: any) => state.baiduID);
+	const readNaverId = useAppSelector((state: any) => state.naverID);
+	const readSeznamId = useAppSelector((state: any) => state.seznamID);
 	const dispatch = UseAppDispach();
 	const [googleKeywords, setGoogleKeyWords] = useState("");
 
@@ -194,135 +194,148 @@ const SeoChecker = () => {
 					SearchNaver?.isLoading ||
 					SearchBing?.isLoading ? (
 						<DashboardLoader />
-					) : null}
+					) : (
+						<>
+							{" "}
+							{!readGoogleData?.data && SearchGoogle?.isLoading === false ? (
+								<EmptyData avatar={pic} />
+							) : (
+								<>
+									{SearchGoogle?.isLoading ||
+									SearchBing?.isLoading ||
+									// readBaidu?.isFetching ||
+									SearchBaidu?.isLoading ||
+									SearchNaver?.isLoading ||
+									SearchSeznam?.isLoading ||
+									// readSeznam?.isFetching ||
+									// readNaver?.isFetching ||
+									SearchYahoo?.isLoading ? (
+										<DashboardLoader />
+									) : (
+										<DownData>
+											{readGoogleData?.result === null ? (
+												<EmptyData avatar={pic} message='No result found' />
+											) : (
+												<CardHold>
+													<Card>
+														<TitleCard>Keyword</TitleCard>
+														<Count>{readGoogleData?.result[0]?.keyword}</Count>
+													</Card>
+													<Card>
+														<TitleCard>Location Code</TitleCard>
+														<Count>
+															{readGoogleData?.result[0]?.location_code}
+														</Count>
+													</Card>
+													<Card>
+														<TitleCard>Item Count</TitleCard>
+														<Count>
+															{readGoogleData?.result[0]?.items_count}
+														</Count>
+													</Card>
+													<Card>
+														<TitleCard>Se_Result Count</TitleCard>
+														<Count>
+															{readGoogleData?.result[0]?.se_results_count}
+														</Count>
+													</Card>
+												</CardHold>
+											)}
+											<TableHold>
+												<TableTitle>
+													<span>
+														Organic Keywords ({readGoogleData?.data?.se})
+													</span>
+												</TableTitle>
+												<TableHolder>
+													<TableHead>
+														<Head Hwd='40px'>RG</Head>
+														<Head Hwd='400px'>URL</Head>
+														<Head Hwd='100px'>Total Links</Head>
+														<Head Hwd='100px'>Rank.A</Head>
+														<Head Hwd='70px'>Sources</Head>
+														<Head Hwd='20px'>Position</Head>
+														<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+															Domain
+														</Head>
+													</TableHead>
+													<Content>
+														{flatData?.map((props: any) => (
+															<TableBody>
+																<Body Bwd='40px'>{props?.rank_group}</Body>
+																<Body Bwd='400px'>
+																	<BTitle cl=' #136F48 '>{props?.title}</BTitle>
+																	<a href={props?.url}>
+																		<BTitle cl='#1976D2'>{props?.url}</BTitle>
+																	</a>
+																</Body>
+																<Body Bwd='100px'>
+																	{props.links ? (
+																		<TT>{props?.links?.length}</TT>
+																	) : (
+																		<TT>-</TT>
+																	)}
+																</Body>
+																<Body Bwd='100px'>
+																	{props?.rank_absolute?.source !== null ? (
+																		<TT>{props?.rank_absolute}</TT>
+																	) : (
+																		<TT>-</TT>
+																	)}
+																</Body>
+																<Body Bwd='70px'>
+																	{props?.about_this_result ? (
+																		<>
+																			{props?.about_this_result?.source !==
+																			null ? (
+																				<TT>
+																					{props?.about_this_result?.source}
+																				</TT>
+																			) : (
+																				<TT>-</TT>
+																			)}
+																		</>
+																	) : (
+																		<TT>-</TT>
+																	)}
+																</Body>
+																<Body Bwd='20px'>
+																	{props?.position ? (
+																		<>
+																			{props?.position !== null ? (
+																				<TT>{props?.position}</TT>
+																			) : (
+																				<TT>-</TT>
+																			)}
+																		</>
+																	) : (
+																		<TT>-</TT>
+																	)}
+																</Body>
+																<Body
+																	style={{ marginLeft: "50px" }}
+																	Bwd='150px'>
+																	{props?.domain?.source !== null ? (
+																		<TT>{props?.domain}</TT>
+																	) : (
+																		<TT>-</TT>
+																	)}
+																</Body>
+															</TableBody>
+														))}
+													</Content>
+												</TableHolder>
+											</TableHold>
+											{readGoogleData?.data?.se === "google" ? (
+												<KeyWordIdeaTable peopleSearch={peopleSearch} />
+											) : null}
+										</DownData>
+									)}
+								</>
+							)}
+						</>
+					)}
 				</LoadComp>
-				{!readGoogleData?.data && SearchGoogle?.isLoading === false ? (
-					<EmptyData avatar={pic} />
-				) : (
-					<>
-						{SearchGoogle?.isLoading ||
-						SearchBing?.isLoading ||
-						// readBaidu?.isFetching ||
-						SearchBaidu?.isLoading ||
-						SearchNaver?.isLoading ||
-						SearchSeznam?.isLoading ||
-						// readSeznam?.isFetching ||
-						// readNaver?.isFetching ||
-						SearchYahoo?.isLoading ? (
-							<DashboardLoader />
-						) : (
-							<DownData>
-								{readGoogleData?.result === null ? (
-									<EmptyData avatar={pic} message='No result found' />
-								) : (
-									<CardHold>
-										<Card>
-											<TitleCard>Keyword</TitleCard>
-											<Count>{readGoogleData?.result[0]?.keyword}</Count>
-										</Card>
-										<Card>
-											<TitleCard>Location Code</TitleCard>
-											<Count>{readGoogleData?.result[0]?.location_code}</Count>
-										</Card>
-										<Card>
-											<TitleCard>Item Count</TitleCard>
-											<Count>{readGoogleData?.result[0]?.items_count}</Count>
-										</Card>
-										<Card>
-											<TitleCard>Se_Result Count</TitleCard>
-											<Count>
-												{readGoogleData?.result[0]?.se_results_count}
-											</Count>
-										</Card>
-									</CardHold>
-								)}
-
-								<TableHold>
-									<TableTitle>
-										<span>Organic Keywords ({readGoogleData?.data?.se})</span>
-									</TableTitle>
-									<TableHolder>
-										<TableHead>
-											<Head Hwd='40px'>RG</Head>
-											<Head Hwd='400px'>URL</Head>
-											<Head Hwd='100px'>Total Links</Head>
-											<Head Hwd='100px'>Rank.A</Head>
-											<Head Hwd='70px'>Sources</Head>
-											<Head Hwd='20px'>Position</Head>
-											<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-												Domain
-											</Head>
-										</TableHead>
-										<Content>
-											{flatData?.map((props: any) => (
-												<TableBody>
-													<Body Bwd='40px'>{props?.rank_group}</Body>
-													<Body Bwd='400px'>
-														<BTitle cl=' #136F48 '>{props?.title}</BTitle>
-														<a href={props?.url}>
-															<BTitle cl='#1976D2'>{props?.url}</BTitle>
-														</a>
-													</Body>
-													<Body Bwd='100px'>
-														{props.links ? (
-															<TT>{props?.links?.length}</TT>
-														) : (
-															<TT>-</TT>
-														)}
-													</Body>
-													<Body Bwd='100px'>
-														{props?.rank_absolute?.source !== null ? (
-															<TT>{props?.rank_absolute}</TT>
-														) : (
-															<TT>-</TT>
-														)}
-													</Body>
-													<Body Bwd='70px'>
-														{props?.about_this_result ? (
-															<>
-																{props?.about_this_result?.source !== null ? (
-																	<TT>{props?.about_this_result?.source}</TT>
-																) : (
-																	<TT>-</TT>
-																)}
-															</>
-														) : (
-															<TT>-</TT>
-														)}
-													</Body>
-													<Body Bwd='20px'>
-														{props?.position ? (
-															<>
-																{props?.position !== null ? (
-																	<TT>{props?.position}</TT>
-																) : (
-																	<TT>-</TT>
-																)}
-															</>
-														) : (
-															<TT>-</TT>
-														)}
-													</Body>
-													<Body style={{ marginLeft: "50px" }} Bwd='150px'>
-														{props?.domain?.source !== null ? (
-															<TT>{props?.domain}</TT>
-														) : (
-															<TT>-</TT>
-														)}
-													</Body>
-												</TableBody>
-											))}
-										</Content>
-									</TableHolder>
-								</TableHold>
-								{readGoogleData?.data?.se === "google" ? (
-									<KeyWordIdeaTable peopleSearch={peopleSearch} />
-								) : null}
-								{/* <PopularAds /> */}
-							</DownData>
-						)}
-					</>
-				)}
 			</Wrapper>
 		</Container>
 	);

@@ -9,8 +9,10 @@ import KeyWordChart from "./KeyWordChart";
 const DataKeyWord = (props: any) => {
 	const readData = useAppSelector((state) => state.keywordData);
 	const { id }: any = useParams();
-	console.log("object,", id);
+	// console.log("object,", id);
+
 	const viewData: any = readData?.result[id];
+
 	return (
 		<Container>
 			<Wrapper>
