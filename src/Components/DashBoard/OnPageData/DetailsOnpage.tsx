@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 import FirstTable from "./FirstTable";
 import SecondTable from "./SecondTable";
 import ThirdTable from "./ThirdTable";
@@ -7,132 +7,127 @@ import TimmingCard from "./TimmingCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { onPageCall, readingOnPageCall } from "../../../utils/APICalls";
 import { useSelector, useDispatch } from "react-redux";
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom";
 
 const DetailsOnpage = () => {
-    const user = useSelector((state: any) => state.currentUser);
+	const user = useSelector((state: any) => state.currentUser);
 	const getPageData = useSelector((state: any) => state.onPageData);
 	const item = useSelector((state: any) => state.items);
 
-	
-     
-    const { id } = useParams()
+	const { id } = useParams();
 	let myId = Number(id);
-	console.log("fghjkljkll",item[myId].meta)
-    console.log("this is id",  id)
-    	const { data, isLoading, isFetching } = useQuery({
+	// console.log("fghjkljkll",item[myId].meta)
+	// console.log("this is id",  id)
+	const { data, isLoading, isFetching } = useQuery({
 		queryKey: ["gettingOnPageData"],
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
-        });
-    
-    
-    // console.log("this is the deatails data", data.data[0]?.result[0]?.items);
+	});
 
-  return (
-      <Container>
-          <Wrapper>
-              <>
-				<div>
-							<Dholder>
-								<First>
-									<ImageCount>
-										<span>Image count</span>
-								  <div>{ item[myId].meta?.images_count}</div>
-									</ImageCount>
-									<ImageSize>
-										<span>Image size</span>
-								  <div>{ item[myId].meta?.images_size}</div>
-									</ImageSize>
-								</First>
-								<Second>
-									<IntLinkCount>
-										<span>Internal Link Count</span>
-								  <div>{ item[myId].meta?.internal_links_count}</div>
-									</IntLinkCount>
+	// console.log("this is the deatails data", data.data[0]?.result[0]?.items);
 
-									<BothLink>
-										<ExLinkCount>
-											<span>External Link Count</span>
-									  <div>{item[myId].meta?.external_links_count}</div>
-										</ExLinkCount>
+	return (
+		<Container>
+			<Wrapper>
+				<>
+					<div>
+						<Dholder>
+							<First>
+								<ImageCount>
+									<span>Image count</span>
+									<div>{item[myId].meta?.images_count}</div>
+								</ImageCount>
+								<ImageSize>
+									<span>Image size</span>
+									<div>{item[myId].meta?.images_size}</div>
+								</ImageSize>
+							</First>
+							<Second>
+								<IntLinkCount>
+									<span>Internal Link Count</span>
+									<div>{item[myId].meta?.internal_links_count}</div>
+								</IntLinkCount>
 
-										<InbLinkCount>
-											<span>Inbound Link Count</span>
-									  <div>{ item[myId].meta?.inbound_links_count}</div>
-										</InbLinkCount>
-									</BothLink>
-								</Second>
-								<Third>
-									<BothLink1>
-										<ExLinkCount>
-											<span>Script Count</span>
-									  <div>{ item[myId].meta?.scripts_count}</div>
-										</ExLinkCount>
+								<BothLink>
+									<ExLinkCount>
+										<span>External Link Count</span>
+										<div>{item[myId].meta?.external_links_count}</div>
+									</ExLinkCount>
 
-										<InbLinkCount>
-											<span>Script Size</span>
-									  <div>{item[myId].meta?.scripts_size}</div>
-										</InbLinkCount>
-									</BothLink1>
+									<InbLinkCount>
+										<span>Inbound Link Count</span>
+										<div>{item[myId].meta?.inbound_links_count}</div>
+									</InbLinkCount>
+								</BothLink>
+							</Second>
+							<Third>
+								<BothLink1>
+									<ExLinkCount>
+										<span>Script Count</span>
+										<div>{item[myId].meta?.scripts_count}</div>
+									</ExLinkCount>
 
-									<BothLink2>
-										<ExLinkCount>
-											<span>Stylesheet Count</span>
-									  <div>{ item[myId].meta?.stylesheets_count}</div>
-										</ExLinkCount>
+									<InbLinkCount>
+										<span>Script Size</span>
+										<div>{item[myId].meta?.scripts_size}</div>
+									</InbLinkCount>
+								</BothLink1>
 
-										<InbLinkCount>
-											<span>Stylesheet Size</span>
-									  <div>{  item[myId].meta?.stylesheets_size}</div>
-										</InbLinkCount>
-									</BothLink2>
-								</Third>
-								<Forth>
-									<ImageCount1>
-										<span>Title Lenght</span>
-								  <div>{ item[myId].meta?.title_length}</div>
-									</ImageCount1>
-									<ImageSize>
-										<span>Description Lenght</span>
-								  <div>{item[myId].meta?.description_length}</div>
-									</ImageSize>
-								</Forth>
-							</Dholder>
-						</div>
+								<BothLink2>
+									<ExLinkCount>
+										<span>Stylesheet Count</span>
+										<div>{item[myId].meta?.stylesheets_count}</div>
+									</ExLinkCount>
 
-							<TableHolder>
-					<FirstTable />
-				</TableHolder>
+									<InbLinkCount>
+										<span>Stylesheet Size</span>
+										<div>{item[myId].meta?.stylesheets_size}</div>
+									</InbLinkCount>
+								</BothLink2>
+							</Third>
+							<Forth>
+								<ImageCount1>
+									<span>Title Lenght</span>
+									<div>{item[myId].meta?.title_length}</div>
+								</ImageCount1>
+								<ImageSize>
+									<span>Description Lenght</span>
+									<div>{item[myId].meta?.description_length}</div>
+								</ImageSize>
+							</Forth>
+						</Dholder>
+					</div>
 
-				<TableHolder>
-					<SecondTable />
-				</TableHolder>
-				<TableHolder>
-					<ThirdTable />
-				</TableHolder>
+					<TableHolder>
+						<FirstTable />
+					</TableHolder>
 
-				<PageT>
-					<span>Page Timing</span>
-				</PageT>
+					<TableHolder>
+						<SecondTable />
+					</TableHolder>
+					<TableHolder>
+						<ThirdTable />
+					</TableHolder>
 
-				<PageContent>
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-					<TimmingCard />
-				</PageContent>
-					</>
-              
-          </Wrapper>
-     </Container>
-  )
-}
+					<PageT>
+						<span>Page Timing</span>
+					</PageT>
 
-export default DetailsOnpage
+					<PageContent>
+						<TimmingCard />
+						<TimmingCard />
+						<TimmingCard />
+						<TimmingCard />
+						<TimmingCard />
+						<TimmingCard />
+						<TimmingCard />
+					</PageContent>
+				</>
+			</Wrapper>
+		</Container>
+	);
+};
 
+export default DetailsOnpage;
 
 const PageContent = styled.div`
 	height: auto;
@@ -410,7 +405,6 @@ const Dholder = styled.div`
 		width: 90%;
 	}
 `;
-
 
 const Wrapper = styled.div`
 	margin-left: 30px;

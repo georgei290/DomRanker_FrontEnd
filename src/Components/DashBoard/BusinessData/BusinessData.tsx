@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import Mysimple from "./Mysimple";
@@ -28,8 +28,9 @@ const BusinessData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false);
 	const user = useSelector((state: any) => state.currentUser);
 	const readData = useSelector((state: any) => state.businessData);
+	const [load, setLoad] = useState(false);
 
-	console.log(user?._id);
+	// console.log(user?._id);
 
 	const dispatch = useDispatch();
 
@@ -42,10 +43,12 @@ const BusinessData = () => {
 	});
 
 	const onSubmit: SubmitHandler<iSearch> = async (keywords: any) => {
-		console.log("Pressed: ", keywords);
+		setLoad(true);
+		// console.log("Pressed: ", keywords);
 		// mutation.mutate(value);
 		businessDataCall(keywords, user?._id).then((data) => {
 			dispatch(businessDataAPI(data?.data[0]));
+			setLoad(false);
 		});
 	};
 
@@ -53,14 +56,14 @@ const BusinessData = () => {
 	const { data, isLoading, isFetching } = useQuery({
 		queryKey: ["readingBusinessData"],
 		queryFn: () => readingBusinessDataCall(user?._id, readData?.id),
+		onSuccess: (data) => {
+			// console.log("bussinessdata", data);
+			// dispatch(businessDataAPI(data?.data));
+		},
 	});
 
-	console.log(
-		"Reading data: ",
-		// data?.data[0]?.result[0] === null ? "show" : "off",
-	);
 	// console.log("Reading data: ", data?.data[0]?.result[0].items?.[0]);
-	console.log("datafound", data);
+	// console.log("datafound", data);
 
 	return (
 		<Container>
@@ -83,81 +86,86 @@ const BusinessData = () => {
 						</InputHold>
 					</>
 				</HolderForm>
-				{!data ? (
-					<EmpytyHold>
-						<EmptyData
-							avatar={pix}
-							message='This endpoint will provide you with search volume, monthly searches,
-              competition, and other related data for up to 1000 keywords in a single
-              request.'
-						/>
-					</EmpytyHold>
+
+				{load ? (
+					<DashboardLoader />
 				) : (
 					<>
-						<LoadComp>
-							{" "}
-							{isLoading ? (
-								<DashboardLoader />
-							) : (
-								<>
-									{data?.response?.status === 404 ||
-									data?.data[0]?.result === null ? (
-										<div>
-											<EmptyData
-												avatar={pix}
-												message='Fetching data... please hang on'
-											/>
-										</div>
+						{!data ? (
+							<EmpytyHold>
+								<EmptyData
+									avatar={pix}
+									message='This endpoint will provide you with search volume, monthly searches,
+  competition, and other related data for up to 1000 keywords in a single
+  request.'
+								/>
+							</EmpytyHold>
+						) : (
+							<>
+								<LoadComp>
+									{" "}
+									{isLoading ? (
+										<DashboardLoader />
 									) : (
-										<div>
-											<CardHolder>
-												<Mysimple
-													title='Tite'
-													subtitle={`${data?.data[0]?.result[0]?.items?.[0]?.title}`}
-												/>
-												<Mysimple
-													title='Category'
-													subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}`}
-												/>
-												<Mysimple
-													title='Phone'
-													subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
-												/>
-											</CardHolder>
-											<TableHolder>
-												<TableTitle>People Also Search</TableTitle>
-
-												<TableData
-													iprops={
-														data?.data[0]?.result[0].items?.[0]
-															?.people_also_search
-													}
-												/>
-											</TableHolder>
-											<br />
-											<TableHolder>
-												<TableTitle>
-													Current Work Time status:{" "}
-													<span style={{ color: "red" }}>
-														{
-															data?.data[0]?.result[0].items?.[0].work_time
-																?.work_hours?.current_status
-														}{" "}
-													</span>
-												</TableTitle>
-
-												<WorkTable
-													iProps={
-														data?.data[0]?.result[0].items?.[0].work_time
-															?.work_hours?.timetable
-													}
-												/>
-											</TableHolder>
-										</div>
+										<>
+											{data?.response?.status === 404 ||
+											data?.data[0]?.result === null ? (
+												<div>
+													<EmptyData
+														avatar={pix}
+														message='Fetching data... please hang on'
+													/>
+												</div>
+											) : (
+												<div>
+													<CardHolder>
+														<Mysimple
+															title='Tite'
+															subtitle={`${data?.data[0]?.result[0]?.items?.[0]?.title}`}
+														/>
+														<Mysimple
+															title='Category'
+															subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}`}
+														/>
+														<Mysimple
+															title='Phone'
+															subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
+														/>
+													</CardHolder>
+													<TableHolder>
+														<TableTitle>People Also Search</TableTitle>
+														<TableData
+															iprops={
+																data?.data[0]?.result[0].items?.[0]
+																	?.people_also_search
+															}
+														/>
+													</TableHolder>
+													<br />
+													<TableHolder>
+														<TableTitle>
+															Current Work Time status:{" "}
+															<span style={{ color: "red" }}>
+																{
+																	data?.data[0]?.result[0].items?.[0].work_time
+																		?.work_hours?.current_status
+																}{" "}
+															</span>
+														</TableTitle>
+														<WorkTable
+															iProps={
+																data?.data[0]?.result[0].items?.[0].work_time
+																	?.work_hours?.timetable
+															}
+														/>
+													</TableHolder>
+												</div>
+											)}
+										</>
 									)}
-								</>
-							)}
-						</LoadComp>
+								</LoadComp>
+							</>
+						)}
 					</>
 				)}
 			</Wrapper>
