@@ -46,7 +46,7 @@ const KewWordTable = () => {
 							onChange={(e) => {
 								setTarget(e.target.value);
 							}}
-							placeholder='Enter search'
+							placeholder='Enter website url eg. www.google.com'
 							type='search'
 						/>
 						<Button

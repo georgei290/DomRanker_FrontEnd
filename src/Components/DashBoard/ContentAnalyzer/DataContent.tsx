@@ -2,12 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ContentSearch, ContentSummary } from "../../../utils/APICalls";
+import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import InputComp from "../../../utils/ReusedComp/InputComp";
 import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
 import {
 	StoreContentSearch,
 	StoreContentSummary,
 } from "../../../utils/stateManagement/authState";
+import pic from "../images/5.svg";
 import {
 	UseAppDispach,
 	useAppSelector,
@@ -174,7 +176,9 @@ const DataContent = (props: any) => {
 								</ContentCahrtDiv>
 							</ButtomData>
 						) : (
-							<div>No Data found</div>
+							<div>
+								<EmptyData avatar={pic} message='No data found' />
+							</div>
 						)}
 					</>
 				)}

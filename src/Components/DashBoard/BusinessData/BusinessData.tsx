@@ -96,14 +96,17 @@ const BusinessData = () => {
 					<>
 						<LoadComp>
 							{" "}
-							{isLoading || isFetching ? (
+							{isLoading ? (
 								<DashboardLoader />
 							) : (
 								<>
 									{data?.response?.status === 404 ||
 									data?.data[0]?.result === null ? (
 										<div>
-											<EmptyData avatar={pix} message='No result found' />
+											<EmptyData
+												avatar={pix}
+												message='Fetching data... please hang on'
+											/>
 										</div>
 									) : (
 										<div>
