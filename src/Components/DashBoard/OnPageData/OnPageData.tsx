@@ -38,7 +38,7 @@ const OnPageData = () => {
 	const submit: SubmitHandler<userSearch> = async (data: any) => {
 		// console.log("my input data", data)
 		onPageCall(data, user?._id).then((data) => {
-			console.log("this is the data to check on page", data);
+			// console.log("this is the data to check on page", data);
 			dispatch(onPageAPI(data?.data[0]));
 		});
 	};
@@ -48,9 +48,9 @@ const OnPageData = () => {
 		queryFn: () => readingOnPageCall(user?._id, getPageData.id),
 	});
 
-	console.log("u say check data", user?._id);
+	// console.log("u say check data", user?._id);
 
-	console.log("onpageData", data);
+	// console.log("onpageData", data);
 
 	// console.log("onpageData", data?.data);
 
@@ -161,13 +161,23 @@ const OnPageData = () => {
 															<Body Bwd='150px'>
 																<TT>{props?.meta?.internal_links_count}</TT>
 															</Body>
-															<Body Bwd='70px'>
-																<>
-																	<TT>
-																		{Object.keys(props?.meta?.htags).length}
-																	</TT>
-																</>
-															</Body>
+
+															{props?.meta?.htags ? (
+																<Body Bwd='70px'>
+																	<>
+																		<TT>
+																			{Object.keys(props.meta.htags).length}
+																		</TT>
+																	</>
+																</Body>
+															) : (
+																<Body Bwd='70px'>
+																	<>
+																		<TT>-</TT>
+																	</>
+																</Body>
+															)}
+
 															<Body Bwd='20px'>
 																<>
 																	<TT>{props?.meta?.scripts_count}</TT>

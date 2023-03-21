@@ -9,6 +9,7 @@ const initialState = {
 	onPageData: {} as any,
 	ContentSummaryData: {} as any,
 	contentSearchData: {} as any,
+	MainBusinessData: {} as any,
 	keywordData: {} as any,
 	keywordID: "",
 	baiduID: "",
@@ -64,6 +65,10 @@ const authState = createSlice({
 			state.keywordData = payload;
 		},
 
+		StorBusinessMain: (state, { payload }) => {
+			state.MainBusinessData = payload;
+		},
+
 		clearData: (state) => {
 			state.googelData = null;
 			// state.baiduID = "";
@@ -92,7 +97,7 @@ export const {
 	clearData,
 	StoreContentSearch,
 	StoreContentSummary,
-
+	StorBusinessMain,
 	storeItems,
 
 	StoreKeywordData,

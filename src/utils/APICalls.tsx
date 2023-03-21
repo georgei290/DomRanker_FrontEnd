@@ -12,7 +12,7 @@ export const registerUser = async (data: iRegister) => {
 		await axios
 			.post(mainURL, data)
 			.then((res) => {
-				console.log(res.data.message);
+				// console.log(res.data.message);
 				return res.data.message;
 			})
 			.then((res) => {
@@ -26,7 +26,7 @@ export const registerUser = async (data: iRegister) => {
 				});
 			})
 			.catch((error: any) => {
-				console.log(error);
+				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -50,7 +50,7 @@ export const signinUser = async (data: iSign) => {
 			.then((res) => res.data.data)
 
 			.catch((error: any) => {
-				console.log(error);
+				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -82,7 +82,7 @@ export const changeUsersPassword = async (data: iPassword, id: string) => {
 				});
 			})
 			.catch((error: any) => {
-				console.log(error);
+				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -123,7 +123,7 @@ export const resetUsersPassword = async (data: iEmail) => {
 				});
 			})
 			.catch((error: any) => {
-				console.log(error);
+				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",

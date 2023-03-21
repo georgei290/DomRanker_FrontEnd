@@ -87,14 +87,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Google" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Google Jobs
 							</Button>
 						) : engine === "Google" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Google News
 							</Button>
@@ -103,7 +103,7 @@ const InputComp: React.FC<Iprops> = ({
 								disabled={googleKeywords === ""}
 								onClick={() => {
 									// dispatch(clearData());
-									console.log(track, engine);
+									// console.log(track, engine);
 									SearchGoogle.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Google Organic
@@ -112,14 +112,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Bing" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Bing Jobs
 							</Button>
 						) : engine === "Bing" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Bing News
 							</Button>
@@ -139,14 +139,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Yahoo" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Yahoo Jobs
 							</Button>
 						) : engine === "Yahoo" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Yahoo News
 							</Button>
@@ -166,14 +166,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Baidu" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Baidu Jobs
 							</Button>
 						) : engine === "Baidu" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Baidu News
 							</Button>
@@ -182,7 +182,7 @@ const InputComp: React.FC<Iprops> = ({
 								disabled={googleKeywords === ""}
 								onClick={() => {
 									// dispatch(clearData());
-									console.log(track, engine);
+									// console.log(track, engine);
 									// queryClient.clear();
 									SearchBaidu.mutate({ keywords: googleKeywords });
 								}}>
@@ -192,14 +192,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Naver" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Naver Jobs
 							</Button>
 						) : engine === "Naver" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Naver News
 							</Button>
@@ -208,7 +208,7 @@ const InputComp: React.FC<Iprops> = ({
 								disabled={googleKeywords === ""}
 								onClick={() => {
 									// dispatch(clearData());
-									console.log(track, engine);
+									// console.log(track, engine);
 									SearchNaver.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Naver Organic
@@ -217,14 +217,14 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Seznam" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Saznam Jobs
 							</Button>
 						) : engine === "Seznam" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Saznam News
 							</Button>
@@ -234,7 +234,7 @@ const InputComp: React.FC<Iprops> = ({
 								onClick={() => {
 									// dispatch(clearData());
 
-									console.log(track, engine);
+									// console.log(track, engine);
 									SearchSeznam.mutate({ keywords: googleKeywords });
 								}}>
 								Analyzing with Saznam Organic
@@ -243,21 +243,21 @@ const InputComp: React.FC<Iprops> = ({
 						engine === "Youtube" && track === "Jobs" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Youtube Jobs
 							</Button>
 						) : engine === "Youtube" && track === "News" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Youtube News
 							</Button>
 						) : engine === "Youtube" && track === "Organic" ? (
 							<Button
 								onClick={() => {
-									console.log(track, engine);
+									// console.log(track, engine);
 								}}>
 								Analyzing with Youtube Organic
 							</Button>

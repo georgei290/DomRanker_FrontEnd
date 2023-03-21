@@ -30,7 +30,7 @@ const DataContent = (props: any) => {
 		mutationFn: (data: any) => ContentSummary(data, user?._id),
 		onSuccess: (data: any) => {
 			dispatch(StoreContentSummary(data?.data[0]));
-			console.log("summary", data);
+			// console.log("summary", data);
 		},
 	});
 
@@ -39,7 +39,7 @@ const DataContent = (props: any) => {
 		mutationFn: (data: any) => ContentSearch(data, user?._id),
 		onSuccess: (data: any) => {
 			dispatch(StoreContentSearch(data?.data[0]));
-			console.log("mydg", data);
+			// console.log("mydg", data);
 		},
 	});
 	return (

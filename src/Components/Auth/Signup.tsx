@@ -52,7 +52,7 @@ const Signup = () => {
 
 	const googleSignUp = async () => {
 		await axios
-			.get("https://dom-ranker.onrender.com/api/user/google/callback")
+			.get("https://dom-ranker.onrender.com/google/auth")
 			.then((res) => {
 				console.log(res);
 			});

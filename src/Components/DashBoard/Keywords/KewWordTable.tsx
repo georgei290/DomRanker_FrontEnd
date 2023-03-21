@@ -16,8 +16,8 @@ import { StoreKeywordData } from "../../../utils/stateManagement/authState";
 import { Link } from "react-router-dom";
 
 const KewWordTable = () => {
-	const user = useAppSelector((state) => state.currentUser);
-	const readKeyword = useAppSelector((state) => state.keywordData);
+	const user = useAppSelector((state: any) => state.currentUser);
+	const readKeyword = useAppSelector((state: any) => state.keywordData);
 	const dispatch = UseAppDispach();
 
 	const [readData, setReadData] = useState([] as any);
@@ -26,7 +26,7 @@ const KewWordTable = () => {
 	const SearchKeyword = useMutation({
 		mutationFn: (target: any) => KeyWordSearch(target, user?._id),
 		onSuccess: (data) => {
-			console.log("keyword", data);
+			// console.log("keyword", data);
 			dispatch(StoreKeywordData(data?.data[0]));
 			// setGoogleKeyWords("");
 		},

@@ -47,7 +47,7 @@ const SeoChecker = () => {
 		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
 		onSuccess: (data) => {
 			dispatch(googelSearchData(data?.data[0]));
-			console.log("google", data);
+			// console.log("google", data);
 			// setGoogleKeyWords("");
 		},
 	});
@@ -77,7 +77,7 @@ const SeoChecker = () => {
 		mutationFn: (keywords: any) => SeoCheckerSeznamData(keywords, user?._id),
 		onSuccess: (data) => {
 			queryClient.prefetchQuery(["seznam"]);
-			console.log("searched sezam", data);
+			// console.log("searched sezam", data);
 			dispatch(StoreseznamID(data?.data[0].id));
 			setGoogleKeyWords("");
 		},
@@ -89,7 +89,7 @@ const SeoChecker = () => {
 			return ReadSeznamData(user?._id, readSeznamId);
 		},
 		onSuccess: (data) => {
-			console.log("done fetching", data);
+			// console.log("done fetching", data);
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
@@ -100,7 +100,7 @@ const SeoChecker = () => {
 			return ReadNaverData(user?._id, readNaverId);
 		},
 		onSuccess: (data) => {
-			console.log("done fetching", data);
+			// console.log("done fetching", data);
 			dispatch(googelSearchData(data?.data[0]));
 		},
 	});
@@ -150,7 +150,7 @@ const SeoChecker = () => {
 		});
 	}
 
-	console.log("this is peopledf", peopleSearch);
+	// console.log("this is peopledf", peopleSearch);
 
 	let googleData;
 
