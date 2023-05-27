@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { iRegister, iSign, iEmail, iPassword } from "./interfaces";
 
-const url = "https://dom-ranker.onrender.com";
+// const url = "https://dom-ranker.onrender.com";
+const url = "http://localhost:2233";
 
 export const registerUser = async (data: iRegister) => {
 	try {
@@ -292,6 +292,16 @@ export const KeyWordSearch = async (data: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/keyword`;
 		return await axios.post(mainURL, data).then((res) => res.data);
+	} catch (error: any) {
+		return error;
+	}
+};
+
+//searching seznam data
+export const BacklinkSearchData = async (keywords: any, id: string) => {
+	try {
+		const mainURL = `${url}/api/usage/${id}/backlink-summary-search`;
+		return await axios.post(mainURL, keywords).then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}

@@ -31,9 +31,7 @@ const BusinessData = () => {
 	const [showData, setShowDaat] = React.useState<boolean>(false);
 	const user = useSelector((state: any) => state.currentUser);
 	const readData = useSelector((state: any) => state.businessData);
-	const readMainBusinessData = useSelector(
-		(state: any) => state.MainBusinessData,
-	);
+	const readMainBusinessData = useSelector((state: any) => state.MainBusinessData);
 	const [load, setLoad] = useState(false);
 
 	// console.log(user?._id);
@@ -59,7 +57,7 @@ const BusinessData = () => {
 	};
 
 	// Queries
-	const { data, isLoading, isFetching } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["readingBusinessData"],
 		queryFn: () => readingBusinessDataCall(user?._id, readData?.id),
 		onSuccess: (data) => {
@@ -98,13 +96,13 @@ const BusinessData = () => {
 					<DashboardLoader />
 				) : (
 					<>
-						{!data ? (
+						{!data ||
+						readMainBusinessData === undefined ||
+						!readMainBusinessData ? (
 							<EmpytyHold>
 								<EmptyData
 									avatar={pix}
-									message='This endpoint will provide you with search volume, monthly searches,
-  competition, and other related data for up to 1000 keywords in a single
-  request.'
+									message='This endpoint will provide you with search volume, monthly searches,competition, and other related data for up to 1000 keywords in a single request.'
 								/>
 							</EmpytyHold>
 						) : (
@@ -127,7 +125,8 @@ const BusinessData = () => {
 											) : (
 												<>
 													{data?.response?.status === 404 ||
-													data?.data[0]?.result === null ? (
+													data?.data[0]?.result === null ||
+													!data ? (
 														<div>
 															<EmptyData
 																avatar={pix}

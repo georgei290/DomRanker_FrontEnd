@@ -16,6 +16,7 @@ const initialState = {
 	naverID: "",
 	seznamID: "",
 	items: {} as any,
+	backlink: {} as any,
 };
 
 const authState = createSlice({
@@ -69,6 +70,10 @@ const authState = createSlice({
 			state.MainBusinessData = payload;
 		},
 
+		StoreBacklinkData: (state, { payload }: PayloadAction) => {
+			state.backlink = payload;
+		},
+
 		clearData: (state) => {
 			state.googelData = null;
 			// state.baiduID = "";
@@ -99,7 +104,7 @@ export const {
 	StoreContentSummary,
 	StorBusinessMain,
 	storeItems,
-
+	StoreBacklinkData,
 	StoreKeywordData,
 } = authState.actions;
 

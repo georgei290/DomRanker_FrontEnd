@@ -170,7 +170,6 @@ const SeoChecker = () => {
 			<Wrapper>
 				<Title>Seo Checker</Title>
 				<Span>Find the most profitable keywords to rank for</Span>
-
 				<InputComp
 					googleKeywords={googleKeywords}
 					setGoogleKeyWords={setGoogleKeyWords}
@@ -197,8 +196,9 @@ const SeoChecker = () => {
 					) : (
 						<>
 							{" "}
-							{!readGoogleData?.data && SearchGoogle?.isLoading === false ? (
-								<EmptyData avatar={pic} />
+							{(!readGoogleData?.data && SearchGoogle?.isLoading === false) ||
+							readGoogleData === undefined ? (
+								<EmptyData message='No result found' avatar={pic} />
 							) : (
 								<>
 									{SearchGoogle?.isLoading ||
@@ -213,7 +213,8 @@ const SeoChecker = () => {
 										<DashboardLoader />
 									) : (
 										<DownData>
-											{readGoogleData?.result === null ? (
+											{readGoogleData?.result === null ||
+											readGoogleData === undefined ? (
 												<EmptyData avatar={pic} message='No result found' />
 											) : (
 												<CardHold>
@@ -345,7 +346,7 @@ export default SeoChecker;
 
 const LoadComp = styled.div`
 	@media screen and (max-width: 768px) {
-		display: none;
+		/* display: none; */
 	}
 `;
 

@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-
 interface Iprops {
 	BackTitle: string;
+	count: any;
 }
 
-const SimpleCard: React.FC<Iprops> = ({ BackTitle }) => {
+const SimpleCard: React.FC<Iprops> = ({ BackTitle, count }) => {
 	return (
-    <Main>
-      <Title>{BackTitle}</Title>
-      <MainTitle>6,841</MainTitle>
-    </Main>
-  );
-
+		<Main>
+			<Title>{BackTitle}</Title>
+			<MainTitle>{count}</MainTitle>
+		</Main>
+	);
 };
 
 export default SimpleCard;
@@ -24,7 +23,7 @@ const Title = styled.div`
 
 const MainTitle = styled.div`
 	font-weight: 800;
-	font-size: 35px;
+	font-size: 25px;
 	margin-top: 8px;
 `;
 

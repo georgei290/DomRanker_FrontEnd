@@ -1,55 +1,69 @@
 import React from "react";
 import styled from "styled-components";
 
-const BAcklinkTableHolder = () => {
-  return (
-    <div>
-      <TableTitle>
-        <span>Top Backlinks</span>
-      </TableTitle>
-      <TableHolder>
-        <TableTop>
-          <TableHead mWid="400px">Backlink</TableHead>
-          <TableHead mWid="100px">DT</TableHead>
-          <TableHead mWid="100px">PT</TableHead>
-          <TableHead mWid="100px">Anchor</TableHead>
-          <TableHead mWid="100px">Target URL</TableHead>
-        </TableTop>
+interface Iprops{
+  data : any
+}
 
-        <ContentHolder>
-          <TableBottom>
-            <Body wid="400px">
-              <BTitle cl="#136F48">https://www.thenetnaija.com/</BTitle>
-            </Body>
-            <Body wid="100px">
-              <TextHolder>
-                <Bar>
-                  <ColorBar bg="ee" wid={`${(25 / 50) * 50}px`} />
-                </Bar>
-                <Text>25</Text>
-              </TextHolder>
-            </Body>
-            <Body wid="100px">
-              <TextHolder>
-                <Bar>
-                  <ColorBar bg="" wid={`${(40 / 50) * 50}px`} />
-                </Bar>
-                <Text>40</Text>
-              </TextHolder>
-            </Body>
-            <Body wid="100px">
-              <TextHolder color="gray">No Text</TextHolder>
-            </Body>
-            <Body wid="100px">
-              <TextHolder color="#AE67FA">
-                https://www.thenetnaija.net
-              </TextHolder>
-            </Body>
-          </TableBottom>
-        </ContentHolder>
-      </TableHolder>
-    </div>
-  );
+const BAcklinkTableHolder:React.FC<Iprops> = ({data}) => {
+  return (
+		<div>
+			<TableTitle>
+				<span>Top Backlinks</span>
+			</TableTitle>
+			<TableHolder>
+				<TableTop>
+					<TableHead mWid='400px'>Backlink</TableHead>
+					<TableHead mWid='100px'>DFR</TableHead>
+					<TableHead mWid='100px'>BSS</TableHead>
+					<TableHead mWid='100px'>Anchor</TableHead>
+					<TableHead mWid='100px'>Target URL</TableHead>
+				</TableTop>
+
+				<ContentHolder>
+					{data?.map((props: any) => (
+						<TableBottom>
+							<Body wid='400px'>
+								<a href={props?.url_from}>
+									{" "}
+									<BTitle cl='#136F48'>{props?.url_from}</BTitle>
+								</a>
+							</Body>
+							<Body wid='100px'>
+								<TextHolder>
+									<Bar>
+										<ColorBar bg='ee' wid={`${(25 / 50) * 50}px`} />
+									</Bar>
+									<Text>{props?.domain_from_rank}</Text>
+								</TextHolder>
+							</Body>
+							<Body wid='100px'>
+								<TextHolder>
+									<Bar>
+										<ColorBar bg='' wid={`${(40 / 50) * 50}px`} />
+									</Bar>
+									<Text>{props?.backlink_spam_score}</Text>
+								</TextHolder>
+							</Body>
+							<Body wid='100px'>
+								{props?.anchor ? (
+									<TextHolder color='gray'>{props?.anchor}</TextHolder>
+								) : (
+									<TextHolder color='gray'>No Text</TextHolder>
+								)}
+							</Body>
+							<Body wid='100px'>
+								<a href={props?.url_to}>
+									{" "}
+									<TextHolder color='#AE67FA'>{props?.url_to}</TextHolder>
+								</a>
+							</Body>
+						</TableBottom>
+					))}
+				</ContentHolder>
+			</TableHolder>
+		</div>
+	);
 };
 
 
