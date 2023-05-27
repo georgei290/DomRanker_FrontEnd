@@ -3,11 +3,9 @@ import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import Mysimple from "./Mysimple";
 import pix from "./undraw_business_decisions_re_84ag (1).svg";
-// import pix1 from "./network.svg";
 import TableData from "./TableData";
 import WorkTable from "./WorkTable";
-
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -22,19 +20,17 @@ import {
 } from "../../../utils/stateManagement/authState";
 import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
 
-const url = "https://dom-ranker.onrender.com";
 interface iSearch {
 	keywords: string;
 }
 
 const BusinessData = () => {
-	const [showData, setShowDaat] = React.useState<boolean>(false);
 	const user = useSelector((state: any) => state.currentUser);
 	const readData = useSelector((state: any) => state.businessData);
-	const readMainBusinessData = useSelector((state: any) => state.MainBusinessData);
+	const readMainBusinessData: any = useSelector(
+		(state: any) => state.MainBusinessData,
+	);
 	const [load, setLoad] = useState(false);
-
-	// console.log(user?._id);
 
 	const dispatch = useDispatch();
 
@@ -47,10 +43,7 @@ const BusinessData = () => {
 	});
 
 	const onSubmit: SubmitHandler<iSearch> = async (keywords: any) => {
-		// dispatch(StorBusinessMain(null));
 		setLoad(true);
-		// console.log("Pressed: ", keywords);
-		// mutation.mutate(value);
 		businessDataCall(keywords, user?._id).then((data) => {
 			dispatch(businessDataAPI(data?.data[0]));
 		});
@@ -62,13 +55,9 @@ const BusinessData = () => {
 		queryFn: () => readingBusinessDataCall(user?._id, readData?.id),
 		onSuccess: (data) => {
 			setLoad(false);
-			// console.log("bussinessdata", data);
 			dispatch(StorBusinessMain(data));
 		},
 	});
-
-	// console.log("Reading data: ", data?.data[0]?.result[0].items?.[0]);
-	// console.log("datafound", data);
 
 	return (
 		<Container>
@@ -138,23 +127,25 @@ const BusinessData = () => {
 															<CardHolder>
 																<Mysimple
 																	title='Tite'
-																	subtitle={`${readMainBusinessData?.data[0]?.result[0]?.items?.[0]?.title}`}
+																	subtitle={`${data?.data[0]?.result[0]?.items?.[0]?.title}`}
 																/>
 																<Mysimple
 																	title='Category'
-																	subtitle={`${readMainBusinessData?.data[0]?.result[0].items?.[0]?.category}`}
+																	subtitle={`${data?.data[0]?.result[0].items?.[0]?.category}
+`}
 																/>
 																<Mysimple
 																	title='Phone'
-																	subtitle={`${readMainBusinessData?.data[0]?.result[0].items?.[0]?.phone}`}
+																	subtitle={`${data?.data[0]?.result[0].items?.[0]?.phone}`}
 																/>
 															</CardHolder>
+
 															<TableHolder>
 																<TableTitle>People Also Search</TableTitle>
 																<TableData
 																	iprops={
-																		readMainBusinessData?.data[0]?.result[0]
-																			.items?.[0]?.people_also_search
+																		data?.data[0]?.result[0].items?.[0]
+																			?.people_also_search
 																	}
 																/>
 															</TableHolder>
@@ -164,17 +155,15 @@ const BusinessData = () => {
 																	Current Work Time status:{" "}
 																	<span style={{ color: "red" }}>
 																		{
-																			readMainBusinessData?.data[0]?.result[0]
-																				.items?.[0].work_time?.work_hours
-																				?.current_status
+																			data?.data[0]?.result[0].items?.[0]
+																				.work_time?.work_hours?.current_status
 																		}{" "}
 																	</span>
 																</TableTitle>
 																<WorkTable
 																	iProps={
-																		readMainBusinessData?.data[0]?.result[0]
-																			.items?.[0].work_time?.work_hours
-																			?.timetable
+																		data?.data[0]?.result[0].items?.[0]
+																			.work_time?.work_hours?.timetable
 																	}
 																/>
 															</TableHolder>

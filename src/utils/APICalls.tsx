@@ -2,8 +2,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { iRegister, iSign, iEmail, iPassword } from "./interfaces";
 
-// const url = "https://dom-ranker.onrender.com";
-const url = "http://localhost:2233";
+const url = "https://seodomranker.onrender.com/";
+// const url = "http://localhost:2233";
 
 export const registerUser = async (data: iRegister) => {
 	try {
@@ -12,7 +12,6 @@ export const registerUser = async (data: iRegister) => {
 		await axios
 			.post(mainURL, data)
 			.then((res) => {
-				// console.log(res.data.message);
 				return res.data.message;
 			})
 			.then((res) => {
@@ -26,7 +25,6 @@ export const registerUser = async (data: iRegister) => {
 				});
 			})
 			.catch((error: any) => {
-				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -50,7 +48,6 @@ export const signinUser = async (data: iSign) => {
 			.then((res) => res.data.data)
 
 			.catch((error: any) => {
-				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -82,7 +79,6 @@ export const changeUsersPassword = async (data: iPassword, id: string) => {
 				});
 			})
 			.catch((error: any) => {
-				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -123,7 +119,6 @@ export const resetUsersPassword = async (data: iEmail) => {
 				});
 			})
 			.catch((error: any) => {
-				// console.log(error);
 				Swal.fire({
 					position: "center",
 					icon: "error",
@@ -141,7 +136,11 @@ export const resetUsersPassword = async (data: iEmail) => {
 export const SeoCheckerGoogle = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-google-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, {
+				keywords: keywords,
+			})
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
@@ -151,7 +150,9 @@ export const SeoCheckerGoogle = async (keywords: any, id: string) => {
 export const SeoCheckerBing = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-bing-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, { keywords: keywords })
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
@@ -161,7 +162,9 @@ export const SeoCheckerBing = async (keywords: any, id: string) => {
 export const SeoCheckerYahoo = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-yahoo-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, { keywords: keywords })
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
@@ -171,7 +174,9 @@ export const SeoCheckerYahoo = async (keywords: any, id: string) => {
 export const SeoCheckerBaidu = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-baidu-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, { keywords: keywords })
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
@@ -191,7 +196,9 @@ export const ReadBaiduData = async (id: string, myID: string) => {
 export const SeoCheckerNaverData = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-naver-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, { keywords: keywords })
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}
@@ -211,7 +218,9 @@ export const ReadNaverData = async (id: string, myID: string) => {
 export const SeoCheckerSeznamData = async (keywords: any, id: string) => {
 	try {
 		const mainURL = `${url}/api/usage/${id}/get-seznam-search`;
-		return await axios.post(mainURL, keywords).then((res) => res.data);
+		return await axios
+			.post(mainURL, { keywords: keywords })
+			.then((res) => res.data);
 	} catch (error: any) {
 		return error;
 	}

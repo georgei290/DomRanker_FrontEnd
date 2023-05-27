@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
-import InputComp from "../../../utils/ReusedComp/InputComp";
 import DashboardLoader from "../../../utils/ReusedComp/Skeleton";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import pic from "../images/5.svg";
 
 import _ from "lodash";
@@ -20,7 +19,7 @@ const KewWordTable = () => {
 	const readKeyword = useAppSelector((state: any) => state.keywordData);
 	const dispatch = UseAppDispach();
 
-	const [readData, setReadData] = useState([] as any);
+
 	const [target, setTarget] = useState("");
 
 	const SearchKeyword = useMutation({

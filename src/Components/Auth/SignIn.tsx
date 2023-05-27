@@ -8,15 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { signinUser } from "../../utils/APICalls";
-import { iSign } from "../../utils/interfaces";
-import { useDispatch, useSelector } from "react-redux/es/exports";
 import { loginUser } from "../../utils/stateManagement/authState";
 import LoadingState from "../../utils/LoadingState";
-import axios from "axios";
-import Swal from "sweetalert2";
 import { UseAppDispach } from "../../utils/stateManagement/store";
 
-const url = "https://dom-ranker.onrender.com";
 interface iData {
 	email: string;
 	password: string;
@@ -34,41 +29,6 @@ const SignIn = () => {
 		email: yup.string().email().required("please enter a valid email address"),
 		password: yup.string().required("please enter a valid password"),
 	});
-
-	const signinUserData = async (data: iSign) => {
-		try {
-			const mainURL = `${url}/api/user/login-user`;
-			await axios
-				.post(mainURL, data)
-				.then((res) => {
-					dispatch(loginUser(res.data.data));
-					console.log(res.data.data);
-					//   return res.data.data;
-				})
-				.then((res) => {
-					Swal.fire({
-						position: "center",
-						icon: "success",
-						title: `Welcome Back!`,
-						// title: `Welcome Back ${res.data.data.userName}!`,
-						showConfirmButton: false,
-						timer: 3500,
-					});
-				})
-				.catch((error: any) => {
-					console.log(error);
-					Swal.fire({
-						position: "center",
-						icon: "error",
-						title: error.response.data.message,
-						showConfirmButton: false,
-						timer: 3500,
-					});
-				});
-		} catch (error: any) {
-			return error;
-		}
-	};
 
 	const {
 		handleSubmit,

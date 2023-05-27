@@ -5,7 +5,7 @@ import { iSign, User } from "../interfaces";
 const initialState = {
 	currentUser: {} as any | null,
 	googelData: {} as any,
-	businessData: {} as any,
+	businessData: {} as any | null,
 	onPageData: {} as any,
 	ContentSummaryData: {} as any,
 	contentSearchData: {} as any,

@@ -19,30 +19,33 @@ const KeyWordIdeaTable: React.FC<IData> = ({ peopleSearch }) => {
 						<Head Hwd='300px'>Description</Head>
 					</TableHead>
 					<Content>
-						{peopleSearch[0]?.items?.map((props: any) => (
-							<TableBody>
-								<Body Bwd='300px'>
-									<BTitle cl='#1976D2'>{props?.title}</BTitle>
-								</Body>
-								<Body Bwd='150px'>
-									<TT>{props?.expanded_element[0]?.title}</TT>
-								</Body>
-								<Body style={{ color: "#1976D2" }} Bwd='150px'>
-									<a href={props?.expanded_element[0]?.domain}>
-										{" "}
-										<TT>{props?.expanded_element[0]?.domain}</TT>
-									</a>
-								</Body>
-
-								<Body style={{ color: "#000" }} Bwd='300px'>
-									{props?.expanded_element[0]?.description ? (
-										<TT>{props?.expanded_element[0]?.description}</TT>
-									) : (
-										<TT>-</TT>
-									)}
-								</Body>
-							</TableBody>
-						))}
+						{peopleSearch && peopleSearch[0] ? (
+							<>
+								{peopleSearch[0]?.items?.map((props: any) => (
+									<TableBody>
+										<Body Bwd='300px'>
+											<BTitle cl='#1976D2'>{props?.title}</BTitle>
+										</Body>
+										<Body Bwd='150px'>
+											<TT>{props?.expanded_element[0]?.title}</TT>
+										</Body>
+										<Body style={{ color: "#1976D2" }} Bwd='150px'>
+											<a href={props?.expanded_element[0]?.domain}>
+												{" "}
+												<TT>{props?.expanded_element[0]?.domain}</TT>
+											</a>
+										</Body>
+										<Body style={{ color: "#000" }} Bwd='300px'>
+											{props?.expanded_element[0]?.description ? (
+												<TT>{props?.expanded_element[0]?.description}</TT>
+											) : (
+												<TT>-</TT>
+											)}
+										</Body>
+									</TableBody>
+								))}
+							</>
+						) : null}
 					</Content>
 				</TableHolder>
 			</TableHold>

@@ -1,10 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { SeoCheckerGoogle } from "../APICalls";
-import { clearData, googelSearchData } from "../stateManagement/authState";
-import { UseAppDispach, useAppSelector } from "../stateManagement/store";
 
 interface Iprops {
 	setGoogleKeyWords: any;
@@ -14,6 +9,7 @@ interface Iprops {
 	SearchYahoo: any;
 	SearchBaidu: any;
 	SearchNaver: any;
+	setLoad: any;
 	SearchSeznam: any;
 }
 
@@ -26,13 +22,10 @@ const InputComp: React.FC<Iprops> = ({
 	SearchBaidu,
 	SearchNaver,
 	SearchSeznam,
+	setLoad,
 }) => {
 	const [engine, setEngine] = useState("Google");
 	const [track, setTrack] = useState("Organic");
-	const queryClient: any = useQueryClient();
-	const dispatch = UseAppDispach();
-
-	// console.log(googleKeywords);
 
 	return (
 		<>
@@ -85,182 +78,89 @@ const InputComp: React.FC<Iprops> = ({
 					{
 						// Google
 						engine === "Google" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Google Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Google Jobs</Button>
 						) : engine === "Google" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Google News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Google News</Button>
 						) : engine === "Google" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-									// console.log(track, engine);
-									SearchGoogle.mutate({ keywords: googleKeywords });
+									SearchGoogle();
 								}}>
 								Analyzing with Google Organic
 							</Button>
 						) : // Bing
 						engine === "Bing" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Bing Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Bing Jobs</Button>
 						) : engine === "Bing" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Bing News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Bing News</Button>
 						) : engine === "Bing" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-									// console.log(track, engine);
-									SearchBing.mutate({
-										keywords: googleKeywords,
-									});
+									SearchBing();
 								}}>
 								Analyzing with Bing Organic
 							</Button>
 						) : //	Yahoo
 						engine === "Yahoo" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Yahoo Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Yahoo Jobs</Button>
 						) : engine === "Yahoo" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Yahoo News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Yahoo News</Button>
 						) : engine === "Yahoo" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-									// console.log(track, engine);
-									SearchYahoo.mutate({
-										keywords: googleKeywords,
-									});
+									SearchYahoo();
 								}}>
 								Analyzing with Yahoo Organic
 							</Button>
 						) : // Baidu
 						engine === "Baidu" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Baidu Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Baidu Jobs</Button>
 						) : engine === "Baidu" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Baidu News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Baidu News</Button>
 						) : engine === "Baidu" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-									// console.log(track, engine);
-									// queryClient.clear();
-									SearchBaidu.mutate({ keywords: googleKeywords });
+									SearchBaidu();
 								}}>
 								Analyzing with Baidu Organic
 							</Button>
 						) : // Naver
 						engine === "Naver" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Naver Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Naver Jobs</Button>
 						) : engine === "Naver" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Naver News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Naver News</Button>
 						) : engine === "Naver" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-									// console.log(track, engine);
-									SearchNaver.mutate({ keywords: googleKeywords });
+									SearchNaver();
 								}}>
 								Analyzing with Naver Organic
 							</Button>
 						) : // Saznam
 						engine === "Seznam" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Saznam Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Saznam Jobs</Button>
 						) : engine === "Seznam" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Saznam News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Saznam News</Button>
 						) : engine === "Seznam" && track === "Organic" ? (
 							<Button
 								disabled={googleKeywords === ""}
 								onClick={() => {
-									// dispatch(clearData());
-
-									// console.log(track, engine);
-									SearchSeznam.mutate({ keywords: googleKeywords });
+									SearchSeznam();
 								}}>
 								Analyzing with Saznam Organic
 							</Button>
 						) : // Youtube
 						engine === "Youtube" && track === "Jobs" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Youtube Jobs
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Youtube Jobs</Button>
 						) : engine === "Youtube" && track === "News" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Youtube News
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Youtube News</Button>
 						) : engine === "Youtube" && track === "Organic" ? (
-							<Button
-								onClick={() => {
-									// console.log(track, engine);
-								}}>
-								Analyzing with Youtube Organic
-							</Button>
+							<Button onClick={() => {}}>Analyzing with Youtube Organic</Button>
 						) : null
 					}
 				</Input2>

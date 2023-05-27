@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import EmptyData from "../../../utils/ReusedComp/EmptyData";
 import InputComp from "../../../utils/ReusedComp/InputComp";
@@ -32,115 +32,138 @@ import {
 import { wait } from "@testing-library/user-event/dist/utils";
 
 const SeoChecker = () => {
-	const [data, setData] = useState([]);
-	const queryClient = useQueryClient();
-
 	const user = useAppSelector((state: any) => state.currentUser);
 	const readGoogleData = useAppSelector((state: any) => state.googelData);
-	const readBaiduId = useAppSelector((state: any) => state.baiduID);
 	const readNaverId = useAppSelector((state: any) => state.naverID);
-	const readSeznamId = useAppSelector((state: any) => state.seznamID);
+	const readSeznam = useAppSelector((state: any) => state.seznamID);
+	const readBaidu = useAppSelector((state: any) => state.baiduID);
+	const [load, setLoad] = useState(false);
 	const dispatch = UseAppDispach();
 	const [googleKeywords, setGoogleKeyWords] = useState("");
+	const [seData, setSeData] = useState<any>();
 
-	const SearchGoogle = useMutation({
-		mutationFn: (keywords: any) => SeoCheckerGoogle(keywords, user?._id),
-		onSuccess: (data) => {
-			dispatch(googelSearchData(data?.data[0]));
-			// console.log("google", data);
-			// setGoogleKeyWords("");
-		},
-	});
+	
+	const SearchGoogle = async () => {
+		setLoad(true);
+		try {
+			const res = await SeoCheckerGoogle(googleKeywords, user?._id);
+			dispatch(googelSearchData(res?.data[0]));
+			setLoad(false);
+		} catch (err) {
+			setLoad(false);
+		} finally {
+			setLoad(false);
+		}
+	};
 
-	const SearchBing = useMutation({
-		mutationFn: (keywords: any) => SeoCheckerBing(keywords, user?._id),
-		onSuccess: (data) => {
-			// console.log("reading seoBing", data);
-			dispatch(googelSearchData(data?.data[0]));
-			setGoogleKeyWords("");
-		},
-	});
+	const SearchBing = async () => {
+		setLoad(true);
+		try {
+			const res = await SeoCheckerBing(googleKeywords, user?._id);
+			dispatch(googelSearchData(res?.data[0]));
+			setLoad(false);
+		} catch (err) {
+			setLoad(false);
+		} finally {
+			setLoad(false);
+		}
+	};
 
-	const SearchNaver = useMutation({
-		mutationFn: (keywords: any) => SeoCheckerNaverData(keywords, user?._id),
-		onSuccess: (data) => {
-			queryClient.prefetchQuery(["naver"]);
-			// console.log("reading naver", data);
-			dispatch(storeNaverId(data?.data[0].id));
-			queryClient.resetQueries(["naver"]);
-			// window.location.reload();
-			setGoogleKeyWords("");
-		},
-	});
+	const SearchYahoo = async () => {
+		setLoad(true);
+		try {
+			const res = await SeoCheckerYahoo(googleKeywords, user?._id);
+			dispatch(googelSearchData(res?.data[0]));
+			setLoad(false);
+		} catch (err) {
+			setLoad(false);
+		} finally {
+			setLoad(false);
+		}
+	};
 
-	const SearchSeznam = useMutation({
-		mutationFn: (keywords: any) => SeoCheckerSeznamData(keywords, user?._id),
-		onSuccess: (data) => {
-			queryClient.prefetchQuery(["seznam"]);
-			// console.log("searched sezam", data);
-			dispatch(StoreseznamID(data?.data[0].id));
-			setGoogleKeyWords("");
-		},
-	});
+	const SearchNaver = async () => {
+		setLoad(true);
+		dispatch(storeNaverId(""));
+		try {
+			await SeoCheckerNaverData(googleKeywords, user?._id).then(async (res) => {
+				dispatch(storeNaverId(res?.data[0].id));
+				setSeData(res?.data[0]);
+			});
+		} catch (err) {
+			setLoad(false);
+		} finally {
+		}
+	};
 
-	const readSeznam = useQuery({
-		queryKey: ["seznam"],
-		queryFn: () => {
-			return ReadSeznamData(user?._id, readSeznamId);
-		},
-		onSuccess: (data) => {
-			// console.log("done fetching", data);
-			dispatch(googelSearchData(data?.data[0]));
-		},
-	});
+	const SearchSeznam = async () => {
+		setLoad(true);
+		dispatch(StoreseznamID(""));
+		try {
+			await SeoCheckerSeznamData(googleKeywords, user?._id).then(
+				async (res) => {
+					dispatch(StoreseznamID(res?.data[0].id));
+					setSeData(res?.data[0]);
+				},
+			);
+		} catch (err) {
+			setLoad(false);
+		} finally {
+		}
+	};
 
-	const readNaver = useQuery({
-		queryKey: ["naver"],
-		queryFn: () => {
-			return ReadNaverData(user?._id, readNaverId);
-		},
-		onSuccess: (data) => {
-			// console.log("done fetching", data);
-			dispatch(googelSearchData(data?.data[0]));
-		},
-	});
+	const SearchBaidu = async () => {
+		setLoad(true);
+		dispatch(storeBaiduId(""));
+		try {
+			await SeoCheckerBaidu(googleKeywords, user?._id).then(async (res) => {
+				dispatch(storeBaiduId(res?.data[0].id));
+				setSeData(res?.data[0]);
+			});
+		} catch (err) {
+			setLoad(false);
+		} finally {
+		}
+	};
+	//
+	useEffect(() => {
+		const readingNaver = async () => {
+			wait(50000).then(async () => {
+				await ReadNaverData(user?._id, readNaverId).then((res) => {
+					dispatch(googelSearchData(res?.data[0]));
+					
+					setLoad(false);
+				});
+			});
+		};
 
-	const SearchBaidu = useMutation({
-		mutationFn: (keywords: any) => SeoCheckerBaidu(keywords, user?._id),
-		onSuccess: (data) => {
-			queryClient.prefetchQuery(["baidudata"]);
-			// console.log("reading seoBaidu", data);
-			dispatch(storeBaiduId(data?.data[0].id));
-			// setGoogleKeyWords("");
-		},
-	});
+		const readingSznam = async () => {
+			wait(50000).then(async () => {
+				await ReadSeznamData(user?._id, readSeznam).then((res) => {
+					dispatch(googelSearchData(res?.data[0]));
+					setLoad(false);
+				});
+			});
+		};
 
-	const readBaidu = useQuery({
-		queryKey: ["baidudata"],
-
-		queryFn: () => {
-			return ReadBaiduData(user?._id, readBaiduId);
-		},
-		onSuccess: (data) => {
-			// console.log("done fetching", data);
-			dispatch(googelSearchData(data?.data[0]));
-		},
-	});
-
-	const SearchYahoo = useMutation({
-		// mutationKey: ["serp"],
-		mutationFn: (keywords: any) => SeoCheckerYahoo(keywords, user?._id),
-		onSuccess: (data) => {
-			// console.log("reading yahoo", data);
-			// dispatch(googelSearchData(data?.data[0]));
-		},
-	});
-
-	// const getData = readGoogleData?.result[0]?.items?.map((el: any) => {
-	// b.map((props: any) => {
-	// return props.people_also_ask;
-	// });
-	// });
+		const readingBaidu = async () => {
+			wait(50000).then(async () => {
+				await ReadBaiduData(user?._id, readBaidu).then((res) => {
+					dispatch(googelSearchData(res?.data[0]));
+				
+					setLoad(false);
+				});
+			});
+		};
+		//
+		if (seData?.data?.se === "naver") {
+			readingNaver();
+		} else if (seData?.data?.se === "seznam") {
+			readingSznam();
+		} else if (seData?.data?.se === "baidu") {
+			readingBaidu();
+		}
+	}, [readNaverId, seData, readSeznam]);
 
 	let peopleSearch;
 
@@ -149,8 +172,6 @@ const SeoChecker = () => {
 			return x.type === "people_also_ask";
 		});
 	}
-
-	// console.log("this is peopledf", peopleSearch);
 
 	let googleData;
 
@@ -179,37 +200,21 @@ const SeoChecker = () => {
 					SearchBaidu={SearchBaidu}
 					SearchNaver={SearchNaver}
 					SearchSeznam={SearchSeznam}
+					setLoad={setLoad}
 				/>
 				<hr />
 				<LoadComp>
 					{" "}
-					{SearchGoogle?.isLoading ||
-					SearchYahoo?.isLoading ||
-					readBaidu?.isLoading ||
-					SearchBaidu?.isLoading ||
-					SearchSeznam?.isLoading ||
-					readSeznam?.isLoading ||
-					readNaver?.isLoading ||
-					SearchNaver?.isLoading ||
-					SearchBing?.isLoading ? (
+					{load ? (
 						<DashboardLoader />
 					) : (
 						<>
 							{" "}
-							{(!readGoogleData?.data && SearchGoogle?.isLoading === false) ||
-							readGoogleData === undefined ? (
+							{!readGoogleData?.data || readGoogleData === undefined ? (
 								<EmptyData message='No result found' avatar={pic} />
 							) : (
 								<>
-									{SearchGoogle?.isLoading ||
-									SearchBing?.isLoading ||
-									// readBaidu?.isFetching ||
-									SearchBaidu?.isLoading ||
-									SearchNaver?.isLoading ||
-									SearchSeznam?.isLoading ||
-									// readSeznam?.isFetching ||
-									// readNaver?.isFetching ||
-									SearchYahoo?.isLoading ? (
+									{load ? (
 										<DashboardLoader />
 									) : (
 										<DownData>
@@ -242,91 +247,98 @@ const SeoChecker = () => {
 													</Card>
 												</CardHold>
 											)}
-											<TableHold>
-												<TableTitle>
-													<span>
-														Organic Keywords ({readGoogleData?.data?.se})
-													</span>
-												</TableTitle>
-												<TableHolder>
-													<TableHead>
-														<Head Hwd='40px'>RG</Head>
-														<Head Hwd='400px'>URL</Head>
-														<Head Hwd='100px'>Total Links</Head>
-														<Head Hwd='100px'>Rank.A</Head>
-														<Head Hwd='70px'>Sources</Head>
-														<Head Hwd='20px'>Position</Head>
-														<Head style={{ marginLeft: "50px" }} Hwd='150px'>
-															Domain
-														</Head>
-													</TableHead>
-													<Content>
-														{flatData?.map((props: any) => (
-															<TableBody>
-																<Body Bwd='40px'>{props?.rank_group}</Body>
-																<Body Bwd='400px'>
-																	<BTitle cl=' #136F48 '>{props?.title}</BTitle>
-																	<a href={props?.url}>
-																		<BTitle cl='#1976D2'>{props?.url}</BTitle>
-																	</a>
-																</Body>
-																<Body Bwd='100px'>
-																	{props.links ? (
-																		<TT>{props?.links?.length}</TT>
-																	) : (
-																		<TT>-</TT>
-																	)}
-																</Body>
-																<Body Bwd='100px'>
-																	{props?.rank_absolute?.source !== null ? (
-																		<TT>{props?.rank_absolute}</TT>
-																	) : (
-																		<TT>-</TT>
-																	)}
-																</Body>
-																<Body Bwd='70px'>
-																	{props?.about_this_result ? (
-																		<>
-																			{props?.about_this_result?.source !==
-																			null ? (
-																				<TT>
-																					{props?.about_this_result?.source}
-																				</TT>
-																			) : (
-																				<TT>-</TT>
-																			)}
-																		</>
-																	) : (
-																		<TT>-</TT>
-																	)}
-																</Body>
-																<Body Bwd='20px'>
-																	{props?.position ? (
-																		<>
-																			{props?.position !== null ? (
-																				<TT>{props?.position}</TT>
-																			) : (
-																				<TT>-</TT>
-																			)}
-																		</>
-																	) : (
-																		<TT>-</TT>
-																	)}
-																</Body>
-																<Body
-																	style={{ marginLeft: "50px" }}
-																	Bwd='150px'>
-																	{props?.domain?.source !== null ? (
-																		<TT>{props?.domain}</TT>
-																	) : (
-																		<TT>-</TT>
-																	)}
-																</Body>
-															</TableBody>
-														))}
-													</Content>
-												</TableHolder>
-											</TableHold>
+
+											{readGoogleData?.result === null ||
+											readGoogleData === undefined ? null : (
+												<TableHold>
+													<TableTitle>
+														<span>
+															Organic Keywords ({readGoogleData?.data?.se})
+														</span>
+													</TableTitle>
+													<TableHolder>
+														<TableHead>
+															<Head Hwd='40px'>RG</Head>
+															<Head Hwd='400px'>URL</Head>
+															<Head Hwd='100px'>Total Links</Head>
+															<Head Hwd='100px'>Rank.A</Head>
+															<Head Hwd='70px'>Sources</Head>
+															<Head Hwd='20px'>Position</Head>
+															<Head style={{ marginLeft: "50px" }} Hwd='150px'>
+																Domain
+															</Head>
+														</TableHead>
+														<Content>
+															{flatData?.map((props: any) => (
+																<TableBody>
+																	<Body Bwd='40px'>{props?.rank_group}</Body>
+																	<Body Bwd='400px'>
+																		<BTitle cl=' #136F48 '>
+																			{props?.title}
+																		</BTitle>
+																		<a href={props?.url}>
+																			<BTitle cl='#1976D2'>{props?.url}</BTitle>
+																		</a>
+																	</Body>
+																	<Body Bwd='100px'>
+																		{props.links ? (
+																			<TT>{props?.links?.length}</TT>
+																		) : (
+																			<TT>-</TT>
+																		)}
+																	</Body>
+																	<Body Bwd='100px'>
+																		{props?.rank_absolute?.source !== null ? (
+																			<TT>{props?.rank_absolute}</TT>
+																		) : (
+																			<TT>-</TT>
+																		)}
+																	</Body>
+																	<Body Bwd='70px'>
+																		{props?.about_this_result ? (
+																			<>
+																				{props?.about_this_result?.source !==
+																				null ? (
+																					<TT>
+																						{props?.about_this_result?.source}
+																					</TT>
+																				) : (
+																					<TT>-</TT>
+																				)}
+																			</>
+																		) : (
+																			<TT>-</TT>
+																		)}
+																	</Body>
+																	<Body Bwd='20px'>
+																		{props?.position ? (
+																			<>
+																				{props?.position !== null ? (
+																					<TT>{props?.position}</TT>
+																				) : (
+																					<TT>-</TT>
+																				)}
+																			</>
+																		) : (
+																			<TT>-</TT>
+																		)}
+																	</Body>
+																	<Body
+																		style={{ marginLeft: "50px" }}
+																		Bwd='150px'>
+																		{props?.domain?.source !== null ? (
+																			<TT>{props?.domain}</TT>
+																		) : (
+																			<TT>-</TT>
+																		)}
+																	</Body>
+																</TableBody>
+															))}
+														</Content>
+													</TableHolder>
+												</TableHold>
+											)}
+
 											{readGoogleData?.data?.se === "google" ? (
 												<KeyWordIdeaTable peopleSearch={peopleSearch} />
 											) : null}
